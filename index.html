@@ -34,46 +34,21 @@
 </head>
 <body>
   <h1>California Homebrew Circuit - Dashboard</h1>
-  <table id="dashboard-table">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
 
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js"></script>
-  <script>
-    const csvUrl = "https://corsproxy.io/?https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
-
-    fetch(csvUrl)
-      .then(response => response.text())
-      .then(csv => {
-        const data = Papa.parse(csv, { header: true });
-        const headers = Object.keys(data.data[0]);
-        const thead = document.querySelector('#dashboard-table thead');
-        const tbody = document.querySelector('#dashboard-table tbody');
-
-        // Create table headers
-        const headerRow = document.createElement('tr');
-        headers.forEach(header => {
-          const th = document.createElement('th');
-          th.textContent = header;
-          headerRow.appendChild(th);
-        });
-        thead.appendChild(headerRow);
-
-        // Create table rows
-        data.data.forEach(row => {
-          if (Object.values(row).some(value => value)) {
-            const tr = document.createElement('tr');
-            headers.forEach(header => {
-              const td = document.createElement('td');
-              td.textContent = row[header] || '';
-              tr.appendChild(td);
-            });
-            tbody.appendChild(tr);
-          }
-        });
-      })
-      .catch(error => console.error("Error loading CSV:", error));
-  </script>
+  <div id="dashboard-wrapper">
+    <div class="division-table" id="north-table">
+      <h2>North</h2>
+      <table><thead></thead><tbody></tbody></table>
+    </div>
+    <div class="division-table" id="south-table">
+      <h2>South</h2>
+      <table><thead></thead><tbody></tbody></table>
+    </div>
+    <div class="division-table" id="combined-table">
+      <h2>Combined</h2>
+      <table><thead></thead><tbody></tbody></table>
+    </div>
+  </div>
 </body>
+
 </html>
