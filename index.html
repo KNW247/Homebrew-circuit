@@ -104,11 +104,11 @@
 
           const normalized = rawDiv?.trim().toLowerCase();
 
-          if (normalized === "north fetch") {
+          if (normalized === "north") {
             divisions.North.push(row);
-          } else if (normalized === "south fetch") {
+          } else if (normalized === "south") {
             divisions.South.push(row);
-          } else if (normalized === "combined fetch") {
+          } else if (normalized === "north/south") {
             divisions.Combined.push(row);
           } else if (normalized) {
             console.warn("⚠️ Unmatched division:", `"${rawDiv}"`);
