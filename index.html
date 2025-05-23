@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Homebrew Circuit Dashboard</title>
+  <title>California Homebrew Circuit - Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -12,21 +12,46 @@
     }
     h1 {
       text-align: center;
+      margin-bottom: 2rem;
     }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 2rem;
+
+    #dashboard-wrapper {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .division-table {
+      flex: 1 1 30%;
       background: white;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      overflow-x: auto;
+      min-width: 300px;
     }
+
+    .division-table h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
     th, td {
-      padding: 0.75rem;
+      padding: 0.5rem;
       border: 1px solid #ddd;
       text-align: left;
     }
+
     th {
       background-color: #eee;
     }
+
     tr:hover {
       background-color: #f1f1f1;
     }
@@ -49,6 +74,62 @@
       <table><thead></thead><tbody></tbody></table>
     </div>
   </div>
-</body>
 
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js"></script>
+  <script>
+    const csvUrl = "https://corsproxy.io/?https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const parsed = Papa.parse(csv, { header: true });
+        const allRows = parsed.data;
+        const headers = Object.keys(allRows[0]).filter(h => h);
+
+        const divisions = {
+          North: [],
+          South: [],
+          Combined: []
+        };
+
+        allRows.forEach(row => {
+          const rawDiv = row.Division || row.division || row["Division "] || ""; // handles case/space mismatch
+          const division = rawDiv.trim();
+          if (divisions[division]) {
+            divisions[division].push(row);
+          }
+        });
+
+        Object.entries(divisions).forEach(([divName, rows]) => {
+          const container = document.querySelector(`#${divName.toLowerCase()}-table`);
+          const thead = container.querySelector('thead');
+          const tbody = container.querySelector('tbody');
+
+          // Create header row
+          const headerRow = document.createElement('tr');
+          headers.forEach(h => {
+            const th = document.createElement('th');
+            th.textContent = h;
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+
+          // Add table rows
+          rows.forEach(row => {
+            const tr = document.createElement('tr');
+            headers.forEach(h => {
+              const td = document.createElement('td');
+              td.textContent = row[h] || '';
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+        });
+      })
+      .catch(error => {
+        console.error("Error loading CSV:", error);
+        document.getElementById("dashboard-wrapper").innerHTML = "<p style='color:red'>⚠️ Failed to load data. Please refresh the page.</p>";
+      });
+  </script>
+</body>
 </html>
