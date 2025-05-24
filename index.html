@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>📋 Competition List – CHBC Circuit</title>
+  <title>California Homebrew Circuit (CHBC)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,80 +17,193 @@
       margin-bottom: 1rem;
     }
 
-    .panel {
-      background-color: #fff;
-      padding: 1.5rem;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
-      max-width: 1100px;
-      margin: 0 auto;
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.2rem;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      justify-content: space-between;
       overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    .division {
+      flex: 0 0 32%;
+      min-width: 300px;
+      max-width: 33%;
+      background-color: #fff;
+      padding: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      box-sizing: border-box;
     }
 
     table {
       width: 100%;
+      table-layout: fixed;
       border-collapse: collapse;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      table-layout: auto;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
     }
 
     th, td {
       border: 1px solid #ccc;
-      padding: 0.5rem 0.75rem;
+      padding: 0.4rem;
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     th {
       background-color: #eaeaea;
     }
 
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
+    th:nth-child(1), td:nth-child(1) { width: 8%; }
+    th:nth-child(2), td:nth-child(2) { width: 28%; }
+    th:nth-child(3), td:nth-child(3) { width: 36%; }
+    th:nth-child(4), td:nth-child(4) { width: 18%; }
+
+    ul {
+      padding-left: 1.2rem;
     }
 
-    @media screen and (max-width: 768px) {
-      body {
-        padding: 1rem;
-      }
+    li {
+      margin-bottom: 0.5rem;
+    }
 
-      table, th, td {
-        font-size: 0.8rem;
-      }
+    a {
+      color: #2c4a7a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <h1>📋 CHBC Circuit – Current Competitions</h1>
+  <h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
 
-  <div class="panel">
-    <p>The following competitions are included in the 2025 California Homebrew Circuit. These are tracked live on our <a href="index.html">standings dashboard</a> using their listed abbreviations:</p>
+  <p>The CHBC is a free, community-driven initiative connecting homebrewers across California through friendly competition, shared learning, and cross-club collaboration.</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Competition</th>
-          <th>Organizer</th>
-          <th>Region</th>
-          <th>Est. Month</th>
-          <th>Abbreviation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Cal Homebrew Comp</td><td>DOZE</td><td>North</td><td>May</td><td>CHC</td></tr>
-        <tr><td>Cal State Fair</td><td>Cal Expo & State Fair</td><td>North</td><td>Oct</td><td>CSF</td></tr>
-        <tr><td>El Dorado County Fair</td><td>El Dorado County Fair Association</td><td>North</td><td>Feb</td><td>EDCF</td></tr>
-        <tr><td>World Cup of Beer</td><td>Bay Area Mashers</td><td>North</td><td>Mar</td><td>WCOB</td></tr>
-        <tr><td>Chico Homebrew Comp</td><td>Chico Homebrew Club</td><td>North</td><td>June</td><td>Chico</td></tr>
-        <tr><td>Romancing the Beer</td><td>Institution Ale Co.</td><td>South</td><td>Feb</td><td>RTB</td></tr>
-        <tr><td>Mayfaire</td><td>Maltose Falcons</td><td>South</td><td>Apr</td><td>MF</td></tr>
-        <tr><td>America’s Finest City</td><td>QUAFF</td><td>South</td><td>Mar</td><td>AFC</td></tr>
-        <tr><td>SCRHC</td><td>IEB</td><td>South</td><td>Apr</td><td>SCRHC</td></tr>
-        <tr><td>Pacific Brewers Cup</td><td>Long Beach Homebrewers</td><td>South</td><td>Sept</td><td>PBC</td></tr>
-      </tbody>
-    </table>
+  <p>Our mission is to strengthen the California homebrew scene by promoting local competitions, building friendships, and making brewing more connected and fun.</p>
+
+  <h2>📊 Live Standings Dashboard</h2>
+
+  <div class="dashboard">
+    <div id="combined" class="division"></div>
+    <div id="north" class="division"></div>
+    <div id="south" class="division"></div>
   </div>
+
+  <h2>📊 View the Full Results</h2>
+  <ul>
+    <li><a href="north.html">🏅 North Division Results</a></li>
+    <li><a href="south.html">🥇 South Division Results</a></li>
+    <li><a href="combined.html">🏆 Combined Circuit Results</a></li>
+  </ul>
+
+  <h2>📚 Learn More About CHBC</h2>
+  <ul>
+    <li><a href="methodology.html">📘 Methodology</a></li>
+<li><a href="complist.html">View Circuit Competition List</a></li>
+
+
+  </ul>
+
+  <script>
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
+
+    function parseCSV(data) {
+      const lines = data.trim().split("\n").map(line => line.split(","));
+      const headers = lines[0];
+      return lines.slice(1).map(row => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        return obj;
+      });
+    }
+
+    function renderTable(title, rows, containerId) {
+      const container = document.getElementById(containerId);
+      const sectionTitle = document.createElement("h2");
+      sectionTitle.textContent = title;
+      container.appendChild(sectionTitle);
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      const columns = ["Rank", "Brewer", "Club", "Total"];
+
+      const headerRow = document.createElement("tr");
+      columns.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      rows.forEach(row => {
+        const tr = document.createElement("tr");
+        columns.forEach(col => {
+          const td = document.createElement("td");
+          td.textContent = row[col] || "";
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const data = parseCSV(csv);
+        const divisions = {
+          "North/South": [],
+          North: [],
+          South: []
+        };
+
+        data.forEach(entry => {
+          const div = entry["Division"];
+          if (divisions[div]) {
+            divisions[div].push(entry);
+          }
+        });
+
+        const containerMap = {
+          "North/South": "combined",
+          "North": "north",
+          "South": "south"
+        };
+
+        ["North/South", "North", "South"].forEach(key => {
+          const list = divisions[key];
+          if (list && list.length) {
+            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+            renderTable(${key} Division – Top 25, list.slice(0, 25), containerMap[key]);
+          }
+        });
+      })
+      .catch(err => {
+        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
+        console.error(err);
+      });
+  </script>
 
 </body>
 </html>
