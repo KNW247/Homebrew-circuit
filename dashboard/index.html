@@ -16,12 +16,12 @@
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
 
     function parseCSV(data) {
-      const rows = data.trim().split('\n').map(row => row.split('\t'));
-      const headers = rows[0];
-      return rows.slice(1).map(row => {
+      const lines = data.trim().split("\n").map(row => row.split("\t"));
+      const headers = lines[0];
+      return lines.slice(1).map(row => {
         const obj = {};
         headers.forEach((header, i) => {
-          obj[header.trim()] = row[i] ? row[i].trim() : '';
+          obj[header.trim()] = row[i]?.trim() || "";
         });
         return obj;
       });
@@ -71,8 +71,9 @@
         };
 
         data.forEach(row => {
-          if (divisions[row.Division]) {
-            divisions[row.Division].push(row);
+          const division = row["Division"];
+          if (divisions[division]) {
+            divisions[division].push(row);
           }
         });
 
@@ -81,7 +82,7 @@
         renderTable("South – Top 25", divisions["South"].slice(0, 25), "south");
       })
       .catch(err => {
-        document.body.innerHTML += "<p style='color:red;'>Error loading data.</p>";
+        document.body.innerHTML += "<p style='color:red;'>⚠️ Error loading leaderboard data.</p>";
         console.error(err);
       });
   </script>
