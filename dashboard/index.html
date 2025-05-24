@@ -78,7 +78,8 @@
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
 
     function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split("\t"));
+      const delimiter = data.includes('\t') ? '\t' : ',';
+      const lines = data.trim().split("\n").map(line => line.split(delimiter));
       const headers = lines[0];
       return lines.slice(1).map(row => {
         const obj = {};
