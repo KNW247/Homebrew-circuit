@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>California Home Brewers Circuit</title>
+    <link href="https://knw247.github.io/Homebrew-circuit/feed.xml" rel="self" />
+    <link href="https://knw247.github.io/Homebrew-circuit" />
+    <updated>2025-05-23T20:04:34-07:00</updated>
+    <author>
+        <name>Doug Walker</name>
+    </author>
+    <id>https://knw247.github.io/Homebrew-circuit</id>
+
+    <entry>
+        <title>Home</title>
+        <author>
+            <name>Doug Walker</name>
+        </author>
+        <link href="https://knw247.github.io/Homebrew-circuit/home-2.html"/>
+        <id>https://knw247.github.io/Homebrew-circuit/home-2.html</id>
+
+        <updated>2025-05-23T19:47:40-07:00</updated>
+            <summary>
+                <![CDATA[
+                    Welcome to the California Homebrew Circuit (CHBC) The CHBC is a free, community-driven initiative connecting homebrewers across California through friendly competition, shared learning, and cross-club collaboration. Our mission is to strengthen the California homebrew scene by promoting local competitions, building friendships, and making brewing more&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h1 id="welcome-to-the-california-homebrew-circuit-chbc">Welcome to the California Homebrew Circuit (CHBC)</h1>
+<p>The CHBC is a free, community-driven initiative connecting homebrewers across California through friendly competition, shared learning, and cross-club collaboration.</p><p>Our mission is to strengthen the California homebrew scene by promoting local competitions, building friendships, and making brewing more connected and fun.</p><hr>
+<h2>📊 Live Standings Dashboard</h2>
+
+<div class="post__iframe"><iframe loading="lazy" src="https://knw247.github.io/Homebrew-circuit/dashboard/" width="100%" height="800" style="border:none;"></iframe></div>
+
+
+<h2 id="📊-view-the-full-results">📊 View the Full Results</h2>
+<ul>
+<li><a href="north.html">🏅 North Division Results</a></li>
+<li><a href="south.html">🥇 South Division Results</a></li>
+<li><a href="combined.html">🏆 Combined Circuit Results</a></li>
+</ul>
+<hr>
+<h2 id="📚-learn-more-about-chbc">📚 Learn More About CHBC</h2>
+<ul>
+<li><a href="methodology.html">Methodology</a></li>
+</ul>
+
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Methodology</title>
+        <author>
+            <name>Doug Walker</name>
+        </author>
+        <link href="https://knw247.github.io/Homebrew-circuit/methodology.html"/>
+        <id>https://knw247.github.io/Homebrew-circuit/methodology.html</id>
+
+        <updated>2025-05-23T19:41:08-07:00</updated>
+            <summary>
+                <![CDATA[
+                    Methodology The California Homebrew Circuit (CHBC) is a free, community-driven initiative connecting homebrewers across the state through friendly competition, shared learning, and cross-club collaboration. To be included in the CHBC standings, competitions must meet the following criteria: Each season, we aim to include 12–16 well-established&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h2 id="methodology">Methodology</h2>
+<p>The California Homebrew Circuit (CHBC) is a free, community-driven initiative connecting homebrewers across the state through friendly competition, shared learning, and cross-club collaboration.</p><h3 id="how-competitions-are-selected">How Competitions Are Selected</h3>
+<p>To be included in the CHBC standings, competitions must meet the following criteria:</p><ul>
+<li><strong>BJCP-Sanctioned:</strong> Only competitions sanctioned by the Beer Judge Certification Program (BJCP) are considered.</li>
+<li><strong>California-Based:</strong> The competition must be held within the state of California.</li>
+<li><strong>Open and Inclusive:</strong> Events must be accessible to the broader homebrewing community.</li>
+<li><strong>Standard Format:</strong> Specialty competitions limited to specific styles, ingredients, or themes are not eligible.</li>
+<li><strong>Results Transparency:</strong> Competitions must publicly share complete results using a standardized format (e.g., table with brewer, category, beer name, and medal).</li>
+</ul>
+<p>Each season, we aim to include 12–16 well-established and geographically diverse competitions. Selection favors events with a history of strong participation, fair judging, and reliable results reporting.</p><h3 id="scoring-system">Scoring System</h3>
+<p>We use a standardized point system based on medal placements:</p><ul>
+<li><strong>Gold – 3 points</strong></li>
+<li><strong>Silver – 2 points</strong></li>
+<li><strong>Bronze – 1 point</strong></li>
+</ul>
+<p>Points are awarded to individual brewers (or co-brewers) per placing entry. Best of Show and special awards may be highlighted but are not weighted differently in the leaderboard.</p><p>If a competition includes a <strong>“Double Gold”</strong> or similar designation, it is counted as a single Gold placement unless clarified otherwise by the organizer.</p><h3 id="data-collection">Data Collection</h3>
+<p>Results are gathered from:</p><ul>
+<li>Publicly posted competition result sheets (PDF, Google Sheets, HTML, etc.)</li>
+<li>Direct communication with competition coordinators</li>
+<li>Club announcements and newsletters</li>
+</ul>
+<p>Efforts are made to verify accuracy and to attribute points to the correct individuals and clubs. If you spot an error or omission, please <a href="#">contact us</a> and we’ll correct it promptly.</p><h3 id="result-standardization">Result Standardization</h3>
+<p>To ensure fairness and consistency across the circuit, all competitions must publish results that:</p><ul>
+<li>Clearly identify brewers, beer names, BJCP categories/subcategories, and award placements</li>
+<li>Be available via public link, official website, or verifiable documentation</li>
+<li>Be posted in a timely manner following the event</li>
+</ul>
+<p>CHBC reserves the right to delay or exclude competitions from the current season if results are incomplete, unverifiable, or posted in nonstandard formats.</p><h3 id="timeline">Timeline</h3>
+<p>The current season runs from <strong>January 1 to December 31, 2025</strong>. Results are updated monthly (or as competitions report).</p>
+            ]]>
+        </content>
+    </entry>
+</feed>

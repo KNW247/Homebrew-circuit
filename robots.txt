@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://knw247.github.io/Homebrew-circuit/sitemap.xml
