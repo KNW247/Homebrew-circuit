@@ -23,21 +23,23 @@
       padding-bottom: 0.2rem;
     }
 
-    .dashboard {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: space-between;
-    }
+ .dashboard {
+  display: flex;
+  flex-wrap: nowrap; /* Force all divisions in one row */
+  gap: 1rem;
+  justify-content: space-between;
+  overflow-x: auto;   /* Enables scroll if they overflow */
+}
 
-    .division {
-      flex: 1 1 48%;
-      background-color: #fff;
-      padding: 1rem;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      border-radius: 5px;
-      min-width: 320px;
-    }
+.division {
+  flex: 0 0 32%;       /* ~1/3 width */
+  min-width: 300px;    /* Prevents from being too narrow */
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
 
     table {
       width: 100%;
