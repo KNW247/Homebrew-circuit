@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Homebrew Circuit Leaderboard</title>
 </head>
 <body>
-  <h1>Homebrew Circuit – Leaderboard</h1>
-  <div id="tables"></div>
+
+  <h1>🏆 Homebrew Circuit – Top 25 Leaderboard</h1>
+
+  <div id="northsouth"></div>
+  <div id="north"></div>
+  <div id="south"></div>
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
 
-    function parse(data) {
-      const lines = data.trim().split("\n").map(row => row.split("\t"));
-      const headers = lines[0];
-      const rows = lines.slice(1).map(row => {
+    function parseCSV(data) {
+      const rows = data.trim().split('\n').map(row => row.split('\t'));
+      const headers = rows[0];
+      return rows.slice(1).map(row => {
         const obj = {};
-        headers.forEach((h, i) => obj[h] = row[i]);
+        headers.forEach((header, i) => {
+          obj[header.trim()] = row[i] ? row[i].trim() : '';
+        });
         return obj;
       });
-      return rows;
     }
 
-    function createTable(title, rows) {
-      const div = document.createElement("div");
-      const h2 = document.createElement("h2");
-      h2.textContent = title;
-      div.appendChild(h2);
-
+    function renderTable(title, entries, containerId) {
+      const container = document.getElementById(containerId);
       const table = document.createElement("table");
-      table.border = "1";
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
 
       const headerRow = document.createElement("tr");
       ["Rank", "Brewer", "Club", "Total"].forEach(col => {
@@ -37,41 +39,52 @@
         th.textContent = col;
         headerRow.appendChild(th);
       });
-      table.appendChild(headerRow);
+      thead.appendChild(headerRow);
 
-      rows.forEach(row => {
+      entries.forEach(entry => {
         const tr = document.createElement("tr");
         ["Rank", "Brewer", "Club", "Total"].forEach(col => {
           const td = document.createElement("td");
-          td.textContent = row[col] || "";
+          td.textContent = entry[col] || "";
           tr.appendChild(td);
         });
-        table.appendChild(tr);
+        tbody.appendChild(tr);
       });
 
-      div.appendChild(table);
-      return div;
+      const titleElement = document.createElement("h2");
+      titleElement.textContent = title;
+      container.appendChild(titleElement);
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
     }
 
     fetch(csvUrl)
-      .then(r => r.text())
-      .then(text => {
-        const rows = parse(text);
-        const groups = { "North/South": [], "North": [], "South": [] };
+      .then(response => response.text())
+      .then(csv => {
+        const data = parseCSV(csv);
+        const divisions = {
+          "North/South": [],
+          "North": [],
+          "South": []
+        };
 
-        rows.forEach(r => {
-          if (groups[r.Division]) groups[r.Division].push(r);
+        data.forEach(row => {
+          if (divisions[row.Division]) {
+            divisions[row.Division].push(row);
+          }
         });
 
-        const container = document.getElementById("tables");
-        container.appendChild(createTable("Combined (North/South) – Top 25", groups["North/South"].slice(0, 25)));
-        container.appendChild(createTable("North – Top 25", groups["North"].slice(0, 25)));
-        container.appendChild(createTable("South – Top 25", groups["South"].slice(0, 25)));
+        renderTable("Combined (North/South) – Top 25", divisions["North/South"].slice(0, 25), "northsouth");
+        renderTable("North – Top 25", divisions["North"].slice(0, 25), "north");
+        renderTable("South – Top 25", divisions["South"].slice(0, 25), "south");
       })
       .catch(err => {
-        document.body.innerHTML += "<p style='color: red;'>Error loading data.</p>";
+        document.body.innerHTML += "<p style='color:red;'>Error loading data.</p>";
         console.error(err);
       });
   </script>
+
 </body>
 </html>
