@@ -8,43 +8,71 @@
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
       padding: 2rem;
+      margin: 0;
     }
+
     h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+
+    .division {
+      flex: 1 1 32%;
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+    }
+
     h2 {
-      margin-top: 2.5rem;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
       color: #333;
       border-bottom: 2px solid #bbb;
       padding-bottom: 0.2rem;
     }
+
     table {
-      border-collapse: collapse;
       width: 100%;
-      background-color: #fff;
-      margin-top: 1rem;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-collapse: collapse;
+      margin-top: 0.5rem;
     }
+
     th, td {
       border: 1px solid #ccc;
-      padding: 0.6rem;
+      padding: 0.4rem;
       text-align: left;
+      font-size: 0.9rem;
     }
+
     th {
       background-color: #eaeaea;
+    }
+
+    @media (max-width: 900px) {
+      .division {
+        flex: 1 1 100%;
+      }
     }
   </style>
 </head>
 <body>
 
   <h1>🏆 Homebrew Circuit – Top 25 Leaderboard</h1>
-  <p>This dashboard shows the top 25 brewers in each division, based on published circuit results.</p>
+  <p>This dashboard shows the top 25 brewers in each division based on circuit points.</p>
 
-  <div id="north"></div>
-  <div id="south"></div>
-  <div id="combined"></div>
+  <div class="dashboard">
+    <div id="combined" class="division"></div>
+    <div id="north" class="division"></div>
+    <div id="south" class="division"></div>
+  </div>
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
@@ -99,9 +127,9 @@
       .then(csv => {
         const data = parseCSV(csv);
         const divisions = {
+          "North/South": [],
           North: [],
-          South: [],
-          "North/South": []
+          South: []
         };
 
         data.forEach(entry => {
@@ -111,9 +139,12 @@
           }
         });
 
-        Object.entries(divisions).forEach(([key, list]) => {
-          list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-          renderTable(`${key} Division – Top 25`, list.slice(0, 25), key.toLowerCase().replace("/", ""));
+        ["North/South", "North", "South"].forEach(key => {
+          const list = divisions[key];
+          if (list && list.length) {
+            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+            renderTable(`${key} Division – Top 25`, list.slice(0, 25), key.toLowerCase().replace("/", ""));
+          }
         });
       })
       .catch(err => {
