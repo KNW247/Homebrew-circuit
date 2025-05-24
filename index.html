@@ -196,7 +196,8 @@
           const list = divisions[key];
           if (list && list.length) {
             list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-            renderTable(${key} Division – Top 25, list.slice(0, 25), containerMap[key]);
+           renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
+
           }
         });
       })
