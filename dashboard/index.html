@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Homebrew Circuit Leaderboard</title>
 </head>
 <body>
-
   <h1>🏆 Homebrew Circuit – Top 25 Leaderboard</h1>
 
-  <div id="northsouth"></div>
+  <div id="combined"></div>
   <div id="north"></div>
   <div id="south"></div>
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
 
-    function parseCSV(data) {
-      const lines = data.trim().split("\n").map(row => row.split("\t"));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
+    function parseTSV(data) {
+      const rows = data.trim().split("\n").map(row => row.split("\t"));
+      const headers = rows[0].map(h => h.trim());
+      return rows.slice(1).map(row => {
         const obj = {};
         headers.forEach((header, i) => {
-          obj[header.trim()] = row[i]?.trim() || "";
+          obj[header] = row[i]?.trim() || "";
         });
         return obj;
       });
@@ -29,9 +28,12 @@
 
     function renderTable(title, entries, containerId) {
       const container = document.getElementById(containerId);
+      const titleEl = document.createElement("h2");
+      titleEl.textContent = title;
+      container.appendChild(titleEl);
+
       const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tbody = document.createElement("tbody");
+      table.border = "1";
 
       const headerRow = document.createElement("tr");
       ["Rank", "Brewer", "Club", "Total"].forEach(col => {
@@ -39,7 +41,7 @@
         th.textContent = col;
         headerRow.appendChild(th);
       });
-      thead.appendChild(headerRow);
+      table.appendChild(headerRow);
 
       entries.forEach(entry => {
         const tr = document.createElement("tr");
@@ -48,44 +50,31 @@
           td.textContent = entry[col] || "";
           tr.appendChild(td);
         });
-        tbody.appendChild(tr);
+        table.appendChild(tr);
       });
 
-      const titleElement = document.createElement("h2");
-      titleElement.textContent = title;
-      container.appendChild(titleElement);
-
-      table.appendChild(thead);
-      table.appendChild(tbody);
       container.appendChild(table);
     }
 
     fetch(csvUrl)
-      .then(response => response.text())
-      .then(csv => {
-        const data = parseCSV(csv);
-        const divisions = {
-          "North/South": [],
-          "North": [],
-          "South": []
-        };
+      .then(res => res.text())
+      .then(data => {
+        const parsed = parseTSV(data);
+        const grouped = { "North/South": [], North: [], South: [] };
 
-        data.forEach(row => {
-          const division = row["Division"];
-          if (divisions[division]) {
-            divisions[division].push(row);
-          }
+        parsed.forEach(row => {
+          const div = row["Division"];
+          if (grouped[div]) grouped[div].push(row);
         });
 
-        renderTable("Combined (North/South) – Top 25", divisions["North/South"].slice(0, 25), "northsouth");
-        renderTable("North – Top 25", divisions["North"].slice(0, 25), "north");
-        renderTable("South – Top 25", divisions["South"].slice(0, 25), "south");
+        renderTable("Combined (North/South) – Top 25", grouped["North/South"].slice(0, 25), "combined");
+        renderTable("North – Top 25", grouped["North"].slice(0, 25), "north");
+        renderTable("South – Top 25", grouped["South"].slice(0, 25), "south");
       })
       .catch(err => {
-        document.body.innerHTML += "<p style='color:red;'>⚠️ Error loading leaderboard data.</p>";
+        document.body.innerHTML += `<p style="color:red;">⚠️ Error loading data. Open console for details.</p>`;
         console.error(err);
       });
   </script>
-
 </body>
 </html>
