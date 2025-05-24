@@ -1,132 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Homebrew Circuit Leaderboard</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 2rem;
-    }
-    h1 {
-      margin-bottom: 1rem;
-    }
-    .dashboard {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .division {
-      flex: 1 1 32%;
-      background: #fff;
-      padding: 1rem;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      border-radius: 6px;
-    }
-    h2 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.25rem;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.4rem;
-      font-size: 0.9rem;
-    }
-    th {
-      background: #eee;
-    }
-    @media (max-width: 900px) {
-      .division {
-        flex: 1 1 100%;
-      }
-    }
-  </style>
 </head>
 <body>
-
-  <h1>🏆 Homebrew Circuit – Top 25 Leaderboard</h1>
-  <div class="dashboard">
-    <div id="combined" class="division"></div>
-    <div id="north" class="division"></div>
-    <div id="south" class="division"></div>
-  </div>
+  <h1>Homebrew Circuit – Leaderboard</h1>
+  <div id="tables"></div>
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
 
-    function parseTSV(data) {
-      const lines = data.trim().split('\n').map(line => line.split('\t'));
+    function parse(data) {
+      const lines = data.trim().split("\n").map(row => row.split("\t"));
       const headers = lines[0];
-      return lines.slice(1).map(row => {
+      const rows = lines.slice(1).map(row => {
         const obj = {};
-        headers.forEach((header, i) => obj[header.trim()] = row[i]?.trim() || "");
+        headers.forEach((h, i) => obj[h] = row[i]);
         return obj;
       });
+      return rows;
     }
 
-    function renderTable(title, rows, containerId) {
-      const container = document.getElementById(containerId);
+    function createTable(title, rows) {
+      const div = document.createElement("div");
       const h2 = document.createElement("h2");
       h2.textContent = title;
-      container.appendChild(h2);
+      div.appendChild(h2);
 
       const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tbody = document.createElement("tbody");
+      table.border = "1";
 
-      const headers = ["Rank", "Brewer", "Club", "Total"];
-      const trHead = document.createElement("tr");
-      headers.forEach(h => {
+      const headerRow = document.createElement("tr");
+      ["Rank", "Brewer", "Club", "Total"].forEach(col => {
         const th = document.createElement("th");
-        th.textContent = h;
-        trHead.appendChild(th);
+        th.textContent = col;
+        headerRow.appendChild(th);
       });
-      thead.appendChild(trHead);
+      table.appendChild(headerRow);
 
       rows.forEach(row => {
         const tr = document.createElement("tr");
-        headers.forEach(h => {
+        ["Rank", "Brewer", "Club", "Total"].forEach(col => {
           const td = document.createElement("td");
-          td.textContent = row[h] || "";
+          td.textContent = row[col] || "";
           tr.appendChild(td);
         });
-        tbody.appendChild(tr);
+        table.appendChild(tr);
       });
 
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      container.appendChild(table);
+      div.appendChild(table);
+      return div;
     }
 
     fetch(csvUrl)
-      .then(res => res.text())
-      .then(data => {
-        const rows = parseTSV(data);
-        const divisions = { "North/South": [], North: [], South: [] };
+      .then(r => r.text())
+      .then(text => {
+        const rows = parse(text);
+        const groups = { "North/South": [], "North": [], "South": [] };
 
-        rows.forEach(row => {
-          const div = row["Division"];
-          if (divisions[div]) divisions[div].push(row);
+        rows.forEach(r => {
+          if (groups[r.Division]) groups[r.Division].push(r);
         });
 
-        ["North/South", "North", "South"].forEach(key => {
-          const sorted = divisions[key].sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-          renderTable(`${key} Division – Top 25`, sorted.slice(0, 25), key.toLowerCase().replace("/", ""));
-        });
+        const container = document.getElementById("tables");
+        container.appendChild(createTable("Combined (North/South) – Top 25", groups["North/South"].slice(0, 25)));
+        container.appendChild(createTable("North – Top 25", groups["North"].slice(0, 25)));
+        container.appendChild(createTable("South – Top 25", groups["South"].slice(0, 25)));
       })
       .catch(err => {
-        document.body.innerHTML += `<p style="color: red;">⚠️ Error loading leaderboard data. Open console for details.</p>`;
+        document.body.innerHTML += "<p style='color: red;'>Error loading data.</p>";
         console.error(err);
       });
   </script>
-
 </body>
 </html>
