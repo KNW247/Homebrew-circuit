@@ -38,7 +38,7 @@
     th, td {
       border: 1px solid #ccc;
       padding: 0.5rem 0.75rem;
-      text-align: center;
+      text-align: left;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -46,14 +46,6 @@
 
     th {
       background-color: #eaeaea;
-    }
-
-    tbody tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-
-    tbody tr:hover {
-      background-color: #e3efff;
     }
 
     a.back-link {
@@ -102,9 +94,9 @@
       const tbody = document.createElement("tbody");
 
       const columns = [
-        "Rank", "Brewer", "Total",
-        "MF25", "SCRHC25", "PBC25", "AFC25", "RTB25",
-        "CSF25", "WCOB25", "CHICO25", "CHC25"
+  "Rank", "Brewer", "Total",
+  "MF25", "SCRHC25", "PBC25", "AFC25", "RTB25",
+  "CSF25", "WCOB25", "CHICO25", "CHC25"
       ];
 
       const headerRow = document.createElement("tr");
