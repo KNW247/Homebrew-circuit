@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Competition List – CHBC Circuit</title>
+  <meta charset="UTF-8">
+  <title>📋 Competition List – CHBC Circuit</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,15 +15,82 @@
     h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
-      text-align: center;
     }
 
-    .container {
+    .panel {
       background-color: #fff;
       padding: 1.5rem;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
       max-width: 1100px;
       margin: 0 auto;
       overflow-x: auto;
     }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      table-layout: auto;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eaeaea;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      table, th, td {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📋 CHBC Circuit – Current Competitions</h1>
+
+  <div class="panel">
+    <p>The following competitions are included in the 2025 California Homebrew Circuit. These are tracked live on our <a href="index.html">standings dashboard</a> using their listed abbreviations:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Competition</th>
+          <th>Organizer</th>
+          <th>Region</th>
+          <th>Est. Month</th>
+          <th>Abbreviation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cal Homebrew Comp</td><td>DOZE</td><td>North</td><td>May</td><td>CHC</td></tr>
+        <tr><td>Cal State Fair</td><td>Cal Expo & State Fair</td><td>North</td><td>Oct</td><td>CSF</td></tr>
+        <tr><td>El Dorado County Fair</td><td>El Dorado County Fair Association</td><td>North</td><td>Feb</td><td>EDCF</td></tr>
+        <tr><td>World Cup of Beer</td><td>Bay Area Mashers</td><td>North</td><td>Mar</td><td>WCOB</td></tr>
+        <tr><td>Chico Homebrew Comp</td><td>Chico Homebrew Club</td><td>North</td><td>June</td><td>Chico</td></tr>
+        <tr><td>Romancing the Beer</td><td>Institution Ale Co.</td><td>South</td><td>Feb</td><td>RTB</td></tr>
+        <tr><td>Mayfaire</td><td>Maltose Falcons</td><td>South</td><td>Apr</td><td>MF</td></tr>
+        <tr><td>America’s Finest City</td><td>QUAFF</td><td>South</td><td>Mar</td><td>AFC</td></tr>
+        <tr><td>SCRHC</td><td>IEB</td><td>South</td><td>Apr</td><td>SCRHC</td></tr>
+        <tr><td>Pacific Brewers Cup</td><td>Long Beach Homebrewers</td><td>South</td><td>Sept</td><td>PBC</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
