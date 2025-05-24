@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Combined Circuit Results – CHBC</title>
-
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -66,10 +64,9 @@
 </head>
 <body>
 
-<h1>🏆 Combined Circuit – Full Results</h1>
+  <h1>🏆 Combined Circuit – Full Results</h1>
 
-
-  <div class="division" id="south-results">
+  <div class="division" id="combined-results">
     <p>Loading results...</p>
   </div>
 
@@ -77,7 +74,6 @@
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1868529251&single=true&output=csv";
-
 
     function parseCSV(data) {
       const lines = data.trim().split("\n").map(line => line.split(","));
@@ -129,10 +125,10 @@
       .then(csv => {
         const data = parseCSV(csv);
         data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-        renderTable(data, "south-results");
+        renderTable(data, "combined-results");
       })
       .catch(err => {
-        const container = document.getElementById("south-results");
+        const container = document.getElementById("combined-results");
         container.innerHTML = "<p>Error loading data.</p>";
         console.error(err);
       });
