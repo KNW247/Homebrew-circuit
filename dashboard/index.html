@@ -1,91 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Homebrew Circuit Leaderboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f8f9fa;
+    }
+    h2 {
+      margin-top: 3rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3rem;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
 </head>
 <body>
-  <h1>🏆 Homebrew Circuit – Top 25 Leaderboard</h1>
 
-  <div id="combined"></div>
+  <h1>🏆 Homebrew Circuit Leaderboard</h1>
+  <p>Showing Top 25 Brewers per Division from the Dashboard Fetch Sheet.</p>
+
   <div id="north"></div>
   <div id="south"></div>
+  <div id="combined"></div>
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
 
-    function parseTSV(data) {
-      const lines = data
-        .replace(/\r\n/g, "\n")
-        .split("\n")
-        .filter(line => line.trim() !== "")
-        .map(row => row.split("\t"));
-      const headers = lines[0].map(h => h.trim());
-      return lines.slice(1).map(row => {
-        const obj = {};
-        headers.forEach((header, i) => {
-          obj[header] = (row[i] || "").trim();
-        });
-        return obj;
-      });
+    function parseCSV(data) {
+      const lines = data.trim().split("\n").map(row => row.split(","));
+      const headers = lines[0];
+      const rows = lines.slice(1);
+      return rows.map(row => Object.fromEntries(row.map((cell, i) => [headers[i], cell])));
     }
 
-    function renderTable(title, entries, containerId) {
+    function renderTable(title, rows, containerId) {
       const container = document.getElementById(containerId);
-      container.innerHTML = `<h2>${title}</h2>`;
       const table = document.createElement("table");
-      table.border = "1";
-      table.style.marginBottom = "2rem";
-
       const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      const columns = ["Rank", "Brewer", "Club", "Points"];
+
       const headerRow = document.createElement("tr");
-      ["Rank", "Brewer", "Club", "Total"].forEach(col => {
+      columns.forEach(col => {
         const th = document.createElement("th");
         th.textContent = col;
         headerRow.appendChild(th);
       });
       thead.appendChild(headerRow);
-      table.appendChild(thead);
 
-      const tbody = document.createElement("tbody");
-      entries.forEach(entry => {
+      rows.forEach(row => {
         const tr = document.createElement("tr");
-        ["Rank", "Brewer", "Club", "Total"].forEach(col => {
+        columns.forEach(col => {
           const td = document.createElement("td");
-          td.textContent = entry[col] || "";
+          td.textContent = row[col] || "";
           tr.appendChild(td);
         });
         tbody.appendChild(tr);
       });
 
+      const sectionTitle = document.createElement("h2");
+      sectionTitle.textContent = title;
+
+      table.appendChild(thead);
       table.appendChild(tbody);
+      container.appendChild(sectionTitle);
       container.appendChild(table);
     }
 
     fetch(csvUrl)
       .then(res => res.text())
-      .then(data => {
-        const parsed = parseTSV(data);
-        const grouped = {
-          "North/South": [],
-          "North": [],
-          "South": []
+      .then(text => {
+        const data = parseCSV(text);
+        const byDivision = {
+          North: [],
+          South: [],
+          "North/South": []
         };
 
-        parsed.forEach(row => {
-          const div = (row["Division"] || "").trim();
-          if (grouped[div]) {
-            grouped[div].push(row);
+        data.forEach(row => {
+          if (byDivision[row.Division]) {
+            byDivision[row.Division].push(row);
           }
         });
 
-        renderTable("Combined (North/South) – Top 25", grouped["North/South"].slice(0, 25), "combined");
-        renderTable("North – Top 25", grouped["North"].slice(0, 25), "north");
-        renderTable("South – Top 25", grouped["South"].slice(0, 25), "south");
-      })
-      .catch(err => {
-        document.body.innerHTML += `<p style="color:red;">⚠️ Error loading leaderboard data. Check the browser console.</p>`;
-        console.error("CSV Fetch Error:", err);
+        // Sort and limit to top 25
+        Object.keys(byDivision).forEach(division => {
+          byDivision[division].sort((a, b) => Number(a.Rank) - Number(b.Rank));
+          byDivision[division] = byDivision[division].slice(0, 25);
+        });
+
+        renderTable("North Division – Top 25", byDivision["North"], "north");
+        renderTable("South Division – Top 25", byDivision["South"], "south");
+        renderTable("Combined Division – Top 25", byDivision["North/South"], "combined");
       });
   </script>
 </body>
