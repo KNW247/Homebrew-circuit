@@ -74,6 +74,7 @@
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1983049685&single=true&output=csv";
+
     function parseCSV(data) {
       const lines = data.trim().split("\n").map(line => line.split(","));
       const headers = lines[0];
@@ -86,7 +87,7 @@
 
     function renderTable(rows, containerId) {
       const container = document.getElementById(containerId);
-      container.innerHTML = ""; // Clear loading message
+      container.innerHTML = "";
 
       const table = document.createElement("table");
       const thead = document.createElement("thead");
