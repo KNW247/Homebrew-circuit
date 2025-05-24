@@ -6,33 +6,41 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       padding: 2rem;
-      background-color: #f8f9fa;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
     h2 {
-      margin-top: 3rem;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.3rem;
+      margin-top: 2.5rem;
+      font-size: 1.5rem;
+      color: #333;
+      border-bottom: 2px solid #bbb;
+      padding-bottom: 0.2rem;
     }
     table {
       border-collapse: collapse;
       width: 100%;
+      background-color: #fff;
       margin-top: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
     th, td {
-      border: 1px solid #999;
-      padding: 8px;
+      border: 1px solid #ccc;
+      padding: 0.6rem;
       text-align: left;
     }
     th {
-      background-color: #eee;
+      background-color: #eaeaea;
     }
   </style>
 </head>
 <body>
 
-  <h1>🏆 Homebrew Circuit Leaderboard</h1>
-  <p>Showing Top 25 Brewers per Division from the Dashboard Fetch Sheet.</p>
+  <h1>🏆 Homebrew Circuit – Top 25 Leaderboard</h1>
+  <p>This dashboard shows the top 25 brewers in each division, based on published circuit results.</p>
 
   <div id="north"></div>
   <div id="south"></div>
@@ -42,14 +50,21 @@
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
 
     function parseCSV(data) {
-      const lines = data.trim().split("\n").map(row => row.split(","));
+      const lines = data.trim().split("\n").map(line => line.split(","));
       const headers = lines[0];
-      const rows = lines.slice(1);
-      return rows.map(row => Object.fromEntries(row.map((cell, i) => [headers[i], cell])));
+      return lines.slice(1).map(row => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        return obj;
+      });
     }
 
     function renderTable(title, rows, containerId) {
       const container = document.getElementById(containerId);
+      const sectionTitle = document.createElement("h2");
+      sectionTitle.textContent = title;
+      container.appendChild(sectionTitle);
+
       const table = document.createElement("table");
       const thead = document.createElement("thead");
       const tbody = document.createElement("tbody");
@@ -74,41 +89,38 @@
         tbody.appendChild(tr);
       });
 
-      const sectionTitle = document.createElement("h2");
-      sectionTitle.textContent = title;
-
       table.appendChild(thead);
       table.appendChild(tbody);
-      container.appendChild(sectionTitle);
       container.appendChild(table);
     }
 
     fetch(csvUrl)
-      .then(res => res.text())
-      .then(text => {
-        const data = parseCSV(text);
-        const byDivision = {
+      .then(response => response.text())
+      .then(csv => {
+        const data = parseCSV(csv);
+        const divisions = {
           North: [],
           South: [],
           "North/South": []
         };
 
-        data.forEach(row => {
-          if (byDivision[row.Division]) {
-            byDivision[row.Division].push(row);
+        data.forEach(entry => {
+          const div = entry["Division"];
+          if (divisions[div]) {
+            divisions[div].push(entry);
           }
         });
 
-        // Sort and limit to top 25
-        Object.keys(byDivision).forEach(division => {
-          byDivision[division].sort((a, b) => Number(a.Rank) - Number(b.Rank));
-          byDivision[division] = byDivision[division].slice(0, 25);
+        Object.entries(divisions).forEach(([key, list]) => {
+          list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+          renderTable(`${key} Division – Top 25`, list.slice(0, 25), key.toLowerCase().replace("/", ""));
         });
-
-        renderTable("North Division – Top 25", byDivision["North"], "north");
-        renderTable("South Division – Top 25", byDivision["South"], "south");
-        renderTable("Combined Division – Top 25", byDivision["North/South"], "combined");
+      })
+      .catch(err => {
+        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
+        console.error(err);
       });
   </script>
+
 </body>
 </html>
