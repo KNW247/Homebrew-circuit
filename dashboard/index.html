@@ -4,38 +4,73 @@
   <meta charset="UTF-8">
   <title>Homebrew Circuit Leaderboard</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 2rem;
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 2rem;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.2rem;
+  }
+
+  .dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .division {
+    flex: 1 1 48%;
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+  }
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 0.4rem;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  th {
+    background-color: #eaeaea;
+  }
+
+  th:nth-child(1), td:nth-child(1) { width: 12%; } /* Rank */
+  th:nth-child(2), td:nth-child(2) { width: 28%; } /* Brewer */
+  th:nth-child(3), td:nth-child(3) { width: 40%; } /* Club */
+  th:nth-child(4), td:nth-child(4) { width: 20%; } /* Total */
+
+  @media (max-width: 900px) {
+    .division {
+      flex: 1 1 100%;
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    h2 {
-      margin-top: 2.5rem;
-      font-size: 1.5rem;
-      color: #333;
-      border-bottom: 2px solid #bbb;
-      padding-bottom: 0.2rem;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      background-color: #fff;
-      margin-top: 1rem;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.6rem;
-      text-align: left;
-    }
-    th {
-      background-color: #eaeaea;
-    }
-  </style>
+  }
+</style>
+
 </head>
 <body>
 
