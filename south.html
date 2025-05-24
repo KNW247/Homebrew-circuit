@@ -64,9 +64,9 @@
 </head>
 <body>
 
-  <h1>🏅 South Division – Full Results</h1>
+  <h1>🥇 South Division – Full Results</h1>
 
-  <div class="division" id="north-results">
+  <div class="division" id="south-results">
     <p>Loading results...</p>
   </div>
 
@@ -74,6 +74,7 @@
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=978452653&single=true&output=csv";
+
     function parseCSV(data) {
       const lines = data.trim().split("\n").map(line => line.split(","));
       const headers = lines[0];
@@ -124,10 +125,10 @@
       .then(csv => {
         const data = parseCSV(csv);
         data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-        renderTable(data, "north-results");
+        renderTable(data, "south-results");
       })
       .catch(err => {
-        const container = document.getElementById("north-results");
+        const container = document.getElementById("south-results");
         container.innerHTML = "<p>Error loading data.</p>";
         console.error(err);
       });
