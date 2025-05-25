@@ -18,6 +18,12 @@
       text-align: center;
     }
 
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.4rem;
+      color: #333;
+    }
+
     .panel {
       background-color: #fff;
       padding: 1.5rem;
@@ -33,7 +39,6 @@
       border-collapse: collapse;
       margin-top: 1rem;
       font-size: 0.9rem;
-      table-layout: auto;
     }
 
     th, td {
@@ -50,6 +55,15 @@
       background-color: #f9f9f9;
     }
 
+    a {
+      color: #2c4a7a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     a.back-link {
       display: block;
       text-align: center;
@@ -57,10 +71,6 @@
       color: #2c4a7a;
       text-decoration: none;
       font-weight: bold;
-    }
-
-    a.back-link:hover {
-      text-decoration: underline;
     }
 
     .footer-note {
@@ -88,36 +98,51 @@
   <div class="panel">
     <p>The following competitions are included in the 2025 California Homebrew Circuit. These are tracked live on our standings dashboard using their listed abbreviations. Events were selected with an eye toward balancing participation opportunities across Northern and Southern California to ensure fair representation for clubs statewide.</p>
 
+    <h2>🌲 North Division</h2>
     <table>
       <thead>
         <tr>
           <th>Competition</th>
           <th>Organizer</th>
-          <th>Region</th>
-          <th>Est. Month</th>
+          <th>Month</th>
           <th>Abbreviation</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Cal Homebrew Comp</td><td>DOZE</td><td>North</td><td>May</td><td>CHC</td></tr>
-        <tr><td>Cal State Fair</td><td>Cal Expo & State Fair</td><td>North</td><td>Oct</td><td>CSF</td></tr>
-        <tr><td>El Dorado County Fair</td><td>El Dorado County Fair Association</td><td>North</td><td>Feb</td><td>EDCF</td></tr>
-        <tr><td>World Cup of Beer</td><td>Bay Area Mashers</td><td>North</td><td>Mar</td><td>WCOB</td></tr>
-        <tr><td>Chico Homebrew Comp</td><td>Chico Homebrew Club</td><td>North</td><td>June</td><td>Chico</td></tr>
-        <tr><td>Romancing the Beer</td><td>Institution Ale Co.</td><td>South</td><td>Feb</td><td>RTB</td></tr>
-        <tr><td>Mayfaire</td><td>Maltose Falcons</td><td>South</td><td>Apr</td><td>MF</td></tr>
-        <tr><td>America’s Finest City</td><td>QUAFF</td><td>South</td><td>Mar</td><td>AFC</td></tr>
-        <tr><td>SCRHC</td><td>Inland Empire Brewers</td><td>South</td><td>Apr</td><td>SCRHC</td></tr>
-        <tr><td>Pacific Brewers Cup</td><td>Long Beach Homebrewers</td><td>South</td><td>Sept</td><td>PBC</td></tr>
+        <tr><td>El Dorado County Fair</td><td><a href="https://eldoradocountyfair.org" target="_blank">El Dorado County Fair Association</a></td><td>Feb</td><td>EDCF</td></tr>
+        <tr><td>World Cup of Beer</td><td><a href="https://bamhomebrew.org" target="_blank">Bay Area Mashers</a></td><td>Mar</td><td>WCOB</td></tr>
+        <tr><td>Cal Homebrew Comp</td><td><a href="http://dozeclub.org" target="_blank">DOZE</a></td><td>May</td><td>CHC</td></tr>
+        <tr><td>Alameda County Fair Homebrew Competition</td><td><a href="https://www.madzymurgists.com/" target="_blank">Mad Zymurgists</a></td><td>May</td><td>ALCF</td></tr>
+        <tr><td>Amador County Fair Homebrew Competition</td><td><a href="https://brewangels.com/" target="_blank">Brew Angels</a></td><td>June</td><td>AMCF</td></tr>
+        <tr><td>Cal State Fair</td><td><a href="https://calexpostatefair.com" target="_blank">Cal Expo & State Fair</a></td><td>Oct</td><td>CSF</td></tr>
+      </tbody>
+    </table>
+
+    <h2>🌴 South Division</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Competition</th>
+          <th>Organizer</th>
+          <th>Month</th>
+          <th>Abbreviation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Romancing the Beer</td><td><a href="https://www.institutionales.com/" target="_blank">Institution Ale Co.</a></td><td>Feb</td><td>RTB</td></tr>
+        <tr><td>America’s Finest City</td><td><a href="https://quaff.org" target="_blank">QUAFF</a></td><td>Mar</td><td>AFC</td></tr>
+        <tr><td>Mayfaire</td><td><a href="https://www.maltosefalcons.com/" target="_blank">Maltose Falcons</a></td><td>Apr</td><td>MF</td></tr>
+        <tr><td>SCRHC</td><td><a href="https://inlandempirebrewers.com/" target="_blank">Inland Empire Brewers</a></td><td>Apr</td><td>SCRHC</td></tr>
+        <tr><td>Pacific Brewers Cup</td><td><a href="https://longbeachhomebrewers.com/" target="_blank">Long Beach Homebrewers</a></td><td>Sept</td><td>PBC</td></tr>
       </tbody>
     </table>
   </div>
 
   <a class="back-link" href="index.html">← Back to Dashboard</a>
-<p class="footer-note">
-  💡 Have questions, spot an error, or want to suggest a comp?<br>
-  Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
-</p>
+  <p class="footer-note">
+    💡 Have questions, spot an error, or want to suggest a comp?<br>
+    Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
+  </p>
 
 </body>
 </html>
