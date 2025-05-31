@@ -96,132 +96,124 @@
 <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
 
 <h2>🍻 How it works</h2>
-<p>Compete in any competition listed in the Circuit. Your wins earn points on our leaderboard, helping highlight standout brewers from across California. To see the list of included competitions, <a href="complist.html">click here</a>. 
-</p>
+<p>Compete in any competition listed in the Circuit. Your wins earn points on our leaderboard, helping highlight standout brewers from across California. To see the list of included competitions, <a href="complist2.html">click here</a>.</p>
+
 <h2>🎯 What CHBC Celebrates</h2>
 <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
 
 <p>Whether you’re chasing hardware, eyeing bragging rights, or just curious how you stack up against fellow brewers, CHBC is here to celebrate your competitive success.</p>
 
+<h2>📊 Live Standings Dashboard</h2>
+<div class="dashboard">
+  <div id="combined" class="division"></div>
+  <div id="north" class="division"></div>
+  <div id="south" class="division"></div>
+</div>
 
-  <h2>📊 Live Standings Dashboard</h2>
+<h2>📊 View the Full Results</h2>
+<ul>
+  <li><a href="north.html">🏅 North Division Results</a></li>
+  <li><a href="south.html">🥇 South Division Results</a></li>
+  <li><a href="combined.html">🏆 Combined Circuit Results</a></li>
+</ul>
 
-  <div class="dashboard">
-    <div id="combined" class="division"></div>
-    <div id="north" class="division"></div>
-    <div id="south" class="division"></div>
-  </div>
-
-  <h2>📊 View the Full Results</h2>
-  <ul>
-    <li><a href="north.html">🏅 North Division Results</a></li>
-    <li><a href="south.html">🥇 South Division Results</a></li>
-    <li><a href="combined.html">🏆 Combined Circuit Results</a></li>
-  </ul>
-
- <h2>📚 Learn More About CHBC</h2>
+<h2>📚 Learn More About CHBC</h2>
 <ul>
   <li><a href="methodology.html">📘 Methodology</a></li>
   <li><a href="complist.html">📋 View Circuit Competition List</a></li>
   <li><a href="about.html">📖 Circuit Transparency & Structure</a></li>
   <li><a href="https://discord.gg/GuXdp8XK" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
-  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing"target="_blank"rel="noopener noreferrer">
-    ✉️ Send Feedback
-  </a>
-</li>
-
+  <li>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">
+      ✉️ Send Feedback
+    </a>
+  </li>
 </ul>
 
+<script>
+  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
 
+  function parseCSV(data) {
+    const lines = data.trim().split("\n").map(line => line.split(","));
+    const headers = lines[0];
+    return lines.slice(1).map(row => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+      return obj;
+    });
+  }
 
+  function renderTable(title, rows, containerId) {
+    const container = document.getElementById(containerId);
+    const sectionTitle = document.createElement("h2");
+    sectionTitle.textContent = title;
+    container.appendChild(sectionTitle);
 
-  </ul>
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
 
-  <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
+    const columns = ["Rank", "Brewer", "Club", "Total"];
 
-    function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split(","));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
-        const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
-        return obj;
-      });
-    }
+    const headerRow = document.createElement("tr");
+    columns.forEach(col => {
+      const th = document.createElement("th");
+      th.textContent = col;
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
 
-    function renderTable(title, rows, containerId) {
-      const container = document.getElementById(containerId);
-      const sectionTitle = document.createElement("h2");
-      sectionTitle.textContent = title;
-      container.appendChild(sectionTitle);
-
-      const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tbody = document.createElement("tbody");
-
-      const columns = ["Rank", "Brewer", "Club", "Total"];
-
-      const headerRow = document.createElement("tr");
+    rows.forEach(row => {
+      const tr = document.createElement("tr");
       columns.forEach(col => {
-        const th = document.createElement("th");
-        th.textContent = col;
-        headerRow.appendChild(th);
+        const td = document.createElement("td");
+        td.textContent = row[col] || "";
+        tr.appendChild(td);
       });
-      thead.appendChild(headerRow);
+      tbody.appendChild(tr);
+    });
 
-      rows.forEach(row => {
-        const tr = document.createElement("tr");
-        columns.forEach(col => {
-          const td = document.createElement("td");
-          td.textContent = row[col] || "";
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+  }
+
+  fetch(csvUrl)
+    .then(response => response.text())
+    .then(csv => {
+      const data = parseCSV(csv);
+      const divisions = {
+        "North/South": [],
+        North: [],
+        South: []
+      };
+
+      data.forEach(entry => {
+        const div = entry["Division"];
+        if (divisions[div]) {
+          divisions[div].push(entry);
+        }
       });
 
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      container.appendChild(table);
-    }
+      const containerMap = {
+        "North/South": "combined",
+        "North": "north",
+        "South": "south"
+      };
 
-    fetch(csvUrl)
-      .then(response => response.text())
-      .then(csv => {
-        const data = parseCSV(csv);
-        const divisions = {
-          "North/South": [],
-          North: [],
-          South: []
-        };
-
-        data.forEach(entry => {
-          const div = entry["Division"];
-          if (divisions[div]) {
-            divisions[div].push(entry);
-          }
-        });
-
-        const containerMap = {
-          "North/South": "combined",
-          "North": "north",
-          "South": "south"
-        };
-
-        ["North/South", "North", "South"].forEach(key => {
-          const list = divisions[key];
-          if (list && list.length) {
-            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-           renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
-
-          }
-        });
-      })
-      .catch(err => {
-        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
-        console.error(err);
+      ["North/South", "North", "South"].forEach(key => {
+        const list = divisions[key];
+        if (list && list.length) {
+          list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+          renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
+        }
       });
-  </script>
+    })
+    .catch(err => {
+      document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
+      console.error(err);
+    });
+</script>
 
 </body>
 </html>
