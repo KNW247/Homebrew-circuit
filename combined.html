@@ -20,24 +20,23 @@
 
     .division {
       background-color: #fff;
-      padding: 1.5rem;
+      padding: 1rem;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
-      max-width: 1100px;
-      margin: 0 auto 2rem;
+      max-width: 100%;
       overflow-x: auto;
     }
 
     table {
-      width: 100%;
+      width: max-content;
       border-collapse: collapse;
       margin-top: 1rem;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     th, td {
       border: 1px solid #ccc;
-      padding: 0.4rem 0.5rem;
+      padding: 0.25rem 0.4rem;
       text-align: left;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -64,7 +63,7 @@
     .footer-note {
       text-align: center;
       margin-top: 1rem;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #444;
     }
   </style>
@@ -106,16 +105,16 @@
 
       const columns = [
         "Rank", "Brewer", "Club", "Total",
-        "W-MF25", "W-MF25-BOS",
-        "W-IEB25", "W-IEB25-BOS",
-        "W-PBC25", "W-PBC25-BOS",
-        "W-AFC25", "W-AFC25-BOS",
-        "W-RTB25", "W-RTB25-BOS",
-        "W-CSF25", "W-CSF25-BOS",
-        "W-WCOB25", "W-WCOB25-BOS",
-        "W-ALCF25", "W-ALCF25-BOS",
-        "W-CHC25", "W-CHC25-BOS",
-        "W-AMCF25", "W-AMCF25-BOS"
+        "MF25", "MF25-BOS",
+        "IEB25", "IEB25-BOS",
+        "PBC25", "PBC25-BOS",
+        "AFC25", "AFC25-BOS",
+        "RTB25", "RTB25-BOS",
+        "CSF25", "CSF25-BOS",
+        "WCOB25", "WCOB25-BOS",
+        "ALCF25", "ALCF25-BOS",
+        "CHC25", "CHC25-BOS",
+        "AMCF25", "AMCF25-BOS"
       ];
 
       const headerRow = document.createElement("tr");
@@ -131,7 +130,7 @@
           const tr = document.createElement("tr");
           columns.forEach(col => {
             const td = document.createElement("td");
-            td.textContent = row[col] || "";
+            td.textContent = row["W-" + col] || row[col] || "";
             tr.appendChild(td);
           });
           tbody.appendChild(tr);
