@@ -1,141 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🏆 CHBC Club Leaderboard</title>
+  <meta charset="UTF-8" />
+  <title>🏆 Club Dashboard – CHBC</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
-      padding: 2rem;
       margin: 0;
-      line-height: 1.6;
+      padding: 2rem;
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
       text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
     }
 
     .dashboard {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      justify-content: space-between;
+      overflow-x: auto;
+    }
+
+    .panel {
       background-color: #fff;
       padding: 1rem;
+      border-radius: 8px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      border-radius: 5px;
-      max-width: 1100px;
-      margin: 0 auto;
+      width: 33%;
+      min-width: 300px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 0;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.2rem;
     }
 
     table {
       width: 100%;
-      table-layout: fixed;
       border-collapse: collapse;
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
     }
 
     th, td {
       border: 1px solid #ccc;
-      padding: 0.4rem;
+      padding: 0.3rem;
       text-align: left;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      vertical-align: top;
     }
 
-    th:nth-child(1), td:nth-child(1) { width: 10%; }
-    th:nth-child(2), td:nth-child(2) { width: 65%; }
-    th:nth-child(3), td:nth-child(3) { width: 25%; }
-
-    th {
-      background-color: #eaeaea;
+    th:nth-child(2), td:nth-child(2) {
+      width: 45%;
     }
 
-    a {
-      color: #2c4a7a;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
+    th:nth-child(3), td:nth-child(3) {
+      width: 20%;
+      text-align: right;
     }
   </style>
 </head>
 <body>
+  <h1>🥇 Club Leaderboard – California Homebrew Circuit</h1>
 
-<h1>🏆 CHBC Club Leaderboard</h1>
-<div class="dashboard" id="combined"></div>
+  <div class="dashboard">
+    <div class="panel">
+      <h2>North/South Division – Top 25</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>Club</th><th>Total</th></tr>
+        </thead>
+        <tbody id="combined-table"></tbody>
+      </table>
+    </div>
 
-<script>
-  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=595839019&single=true&output=csv";
+    <div class="panel">
+      <h2>South Division – Top 25</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>Club</th><th>Total</th></tr>
+        </thead>
+        <tbody id="south-table"></tbody>
+      </table>
+    </div>
 
-  function parseCSV(data) {
-    const lines = data.trim().split("\n").map(line => line.split(","));
-    const headers = lines[0];
-    return lines.slice(1).map(row => {
-      const obj = {};
-      headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
-      return obj;
-    });
-  }
+    <div class="panel">
+      <h2>North Division – Top 25</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>Club</th><th>Total</th></tr>
+        </thead>
+        <tbody id="north-table"></tbody>
+      </table>
+    </div>
+  </div>
 
-  function renderClubTable(title, rows, containerId) {
-    const container = document.getElementById(containerId);
-    const heading = document.createElement("h2");
-    heading.textContent = title;
-    container.appendChild(heading);
+  <script>
+    async function loadTableData(url, tableId, filterDivision) {
+      const res = await fetch(url);
+      const text = await res.text();
+      const rows = text.trim().split('\n').slice(1);
+      const tbody = document.getElementById(tableId);
+      tbody.innerHTML = '';
 
-    const table = document.createElement("table");
-    const thead = document.createElement("thead");
-    const tbody = document.createElement("tbody");
+      rows.forEach(row => {
+        const cols = row.split(',');
+        if (cols.length >= 4) {
+          const division = cols[0].trim();
+          if (division !== filterDivision) return;
+          const rank = cols[1].trim();
+          const club = cols[2].trim();
+          const total = parseFloat(cols[3]).toFixed(3);
 
-    const headerRow = document.createElement("tr");
-    ["Rank", "Club", "Total"].forEach(col => {
-      const th = document.createElement("th");
-      th.textContent = col;
-      headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
-
-    rows.forEach(row => {
-      const tr = document.createElement("tr");
-      ["Rank", "Brewer", "Total"].forEach(key => {
-        const td = document.createElement("td");
-        td.textContent = row[key] || "";
-        tr.appendChild(td);
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${rank}</td><td>${club}</td><td>${total}</td>`;
+          tbody.appendChild(tr);
+        }
       });
-      tbody.appendChild(tr);
-    });
+    }
 
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    container.appendChild(table);
-  }
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=595839019&single=true&output=csv";
 
-  fetch(csvUrl)
-    .then(response => response.text())
-    .then(csv => {
-      const data = parseCSV(csv);
-      const clubs = data.filter(entry => entry.Division === "North/South");
-
-      // Sort by Total descending and map to top 25 with fixed decimals
-      const top25 = clubs
-        .sort((a, b) => parseFloat(b.Total) - parseFloat(a.Total))
-        .slice(0, 25)
-        .map((row, index) => ({
-          Rank: index + 1,
-          Brewer: row.Brewer,
-          Total: parseFloat(row.Total).toFixed(3)
-        }));
-
-      renderClubTable("North/South Division – Top 25 Clubs", top25, "combined");
-    })
-    .catch(error => {
-      console.error("Failed to load club data:", error);
-      document.getElementById("combined").innerHTML = "<p>Error loading club leaderboard.</p>";
-    });
-</script>
-
+    loadTableData(csvUrl, "combined-table", "North/South");
+    loadTableData(csvUrl, "north-table", "North");
+    loadTableData(csvUrl, "south-table", "South");
+  </script>
 </body>
 </html>
