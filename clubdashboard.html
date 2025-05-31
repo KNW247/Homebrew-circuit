@@ -153,40 +153,30 @@
     }
 
     fetch(csvUrl)
-      .then(response => response.text())
-      .then(csv => {
-        const data = parseCSV(csv);
-        const divisions = {
-          "North/South": [],
-          "North": [],
-          "South": []
-        };
+  .then(response => response.text())
+  .then(csv => {
+    const data = parseCSV(csv);
+    const clubRows = data.filter(entry => entry.Division === "North/South");
 
-        data.forEach(entry => {
-          const div = entry["Division"];
-          if (divisions[div]) {
-            divisions[div].push(entry);
-          }
-        });
+    clubRows.sort((a, b) => Number(b.Total) - Number(a.Total));
 
-        const containerMap = {
-          "North/South": "combined",
-          "North": "north",
-          "South": "south"
-        };
+    const top25 = clubRows.slice(0, 25).map((row, index) => ({
+      Rank: index + 1,
+      Club: row.Brewer,
+      Total: Number(row.Total).toFixed(3)
+    }));
 
-        ["North/South", "North", "South"].forEach(key => {
-          const list = divisions[key];
-          if (list && list.length) {
-            list.sort((a, b) => parseFloat(a.Total) - parseFloat(b.Total)).reverse();
-            renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
-          }
-        });
-      })
-      .catch(err => {
-        document.body.innerHTML += "<p>Error loading club leaderboard.</p>";
-        console.error(err);
-      });
+    renderClubTable("Top 25 Clubs – Combined Division", top25, "combined");
+
+    // Optionally clear the other sections
+    document.getElementById("north").innerHTML = "";
+    document.getElementById("south").innerHTML = "";
+  })
+  .catch(err => {
+    document.body.innerHTML += "<p>Error loading club leaderboard.</p>";
+    console.error(err);
+  });
+
   </script>
 
 </body>
