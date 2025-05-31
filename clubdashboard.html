@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CHBC Club-Affiliated Leaderboard</title>
+  <title>🏆 CHBC Club Leaderboard</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,32 +18,13 @@
       text-align: center;
     }
 
-    h2 {
-      font-size: 1.25rem;
-      margin-top: 2rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.2rem;
-    }
-
     .dashboard {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 1rem;
-      justify-content: space-between;
-      overflow-x: auto;
-      margin-top: 1rem;
-    }
-
-    .division {
-      flex: 0 0 32%;
-      min-width: 300px;
-      max-width: 33%;
       background-color: #fff;
       padding: 1rem;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
       border-radius: 5px;
-      box-sizing: border-box;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     table {
@@ -63,20 +44,12 @@
       white-space: nowrap;
     }
 
+    th:nth-child(1), td:nth-child(1) { width: 10%; }
+    th:nth-child(2), td:nth-child(2) { width: 65%; }
+    th:nth-child(3), td:nth-child(3) { width: 25%; }
+
     th {
       background-color: #eaeaea;
-    }
-
-    th:nth-child(1), td:nth-child(1) { width: 8%; }
-    th:nth-child(2), td:nth-child(2) { width: 28%; }
-    th:nth-child(3), td:nth-child(3) { width: 36%; }
-    th:nth-child(4), td:nth-child(4) { width: 18%; }
-
-    .footer-note {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #444;
     }
 
     a {
@@ -91,93 +64,78 @@
 </head>
 <body>
 
-  <h1>🏘️ Club-Affiliated Brewer Leaderboard</h1>
+<h1>🏆 CHBC Club Leaderboard</h1>
+<div class="dashboard" id="combined"></div>
 
-  <div class="dashboard">
-    <div id="combined" class="division"></div>
-    <div id="north" class="division"></div>
-    <div id="south" class="division"></div>
-  </div>
+<script>
+  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=595839019&single=true&output=csv";
 
-  <p class="footer-note">
-    💡 Have questions, spot an error, or want to suggest a comp?<br>
-    Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
-  </p>
+  function parseCSV(data) {
+    const lines = data.trim().split("\n").map(line => line.split(","));
+    const headers = lines[0];
+    return lines.slice(1).map(row => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+      return obj;
+    });
+  }
 
-  <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=595839019&single=true&output=csv";
+  function renderClubTable(title, rows, containerId) {
+    const container = document.getElementById(containerId);
+    const heading = document.createElement("h2");
+    heading.textContent = title;
+    container.appendChild(heading);
 
-    function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split(","));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
-        const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
-        return obj;
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+
+    const headerRow = document.createElement("tr");
+    ["Rank", "Club", "Total"].forEach(col => {
+      const th = document.createElement("th");
+      th.textContent = col;
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+
+    rows.forEach(row => {
+      const tr = document.createElement("tr");
+      ["Rank", "Brewer", "Total"].forEach(key => {
+        const td = document.createElement("td");
+        td.textContent = row[key] || "";
+        tr.appendChild(td);
       });
-    }
+      tbody.appendChild(tr);
+    });
 
-    function renderTable(title, rows, containerId) {
-      const container = document.getElementById(containerId);
-      const sectionTitle = document.createElement("h2");
-      sectionTitle.textContent = title;
-      container.appendChild(sectionTitle);
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+  }
 
-      const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tbody = document.createElement("tbody");
+  fetch(csvUrl)
+    .then(response => response.text())
+    .then(csv => {
+      const data = parseCSV(csv);
+      const clubs = data.filter(entry => entry.Division === "North/South");
 
-      const columns = ["Rank", "Brewer", "Club", "Total"];
+      // Sort by Total descending and map to top 25 with fixed decimals
+      const top25 = clubs
+        .sort((a, b) => parseFloat(b.Total) - parseFloat(a.Total))
+        .slice(0, 25)
+        .map((row, index) => ({
+          Rank: index + 1,
+          Brewer: row.Brewer,
+          Total: parseFloat(row.Total).toFixed(3)
+        }));
 
-      const headerRow = document.createElement("tr");
-      columns.forEach(col => {
-        const th = document.createElement("th");
-        th.textContent = col;
-        headerRow.appendChild(th);
-      });
-      thead.appendChild(headerRow);
-
-      rows.forEach(row => {
-        const tr = document.createElement("tr");
-        columns.forEach(col => {
-          const td = document.createElement("td");
-          td.textContent = row[col] || "";
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
-
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      container.appendChild(table);
-    }
-
-    fetch(csvUrl)
-  .then(response => response.text())
-  .then(csv => {
-    const data = parseCSV(csv);
-    const clubRows = data.filter(entry => entry.Division === "North/South");
-
-    clubRows.sort((a, b) => Number(b.Total) - Number(a.Total));
-
-    const top25 = clubRows.slice(0, 25).map((row, index) => ({
-      Rank: index + 1,
-      Club: row.Brewer,
-      Total: Number(row.Total).toFixed(3)
-    }));
-
-    renderClubTable("Top 25 Clubs – Combined Division", top25, "combined");
-
-    // Optionally clear the other sections
-    document.getElementById("north").innerHTML = "";
-    document.getElementById("south").innerHTML = "";
-  })
-  .catch(err => {
-    document.body.innerHTML += "<p>Error loading club leaderboard.</p>";
-    console.error(err);
-  });
-
-  </script>
+      renderClubTable("North/South Division – Top 25 Clubs", top25, "combined");
+    })
+    .catch(error => {
+      console.error("Failed to load club data:", error);
+      document.getElementById("combined").innerHTML = "<p>Error loading club leaderboard.</p>";
+    });
+</script>
 
 </body>
 </html>
