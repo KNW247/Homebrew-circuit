@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CHBC Club Leaderboard</title>
+  <title>CHBC Club-Affiliated Leaderboard</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,22 +18,32 @@
       text-align: center;
     }
 
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.2rem;
+    }
+
     .dashboard {
       display: flex;
-      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      justify-content: space-between;
       overflow-x: auto;
       margin-top: 1rem;
     }
 
     .division {
+      flex: 0 0 32%;
+      min-width: 300px;
+      max-width: 33%;
       background-color: #fff;
       padding: 1rem;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
       border-radius: 5px;
       box-sizing: border-box;
-      min-width: 300px;
-      max-width: 800px;
-      width: 100%;
     }
 
     table {
@@ -57,9 +67,17 @@
       background-color: #eaeaea;
     }
 
-    th:nth-child(1), td:nth-child(1) { width: 12%; }
-    th:nth-child(2), td:nth-child(2) { width: 48%; }
-    th:nth-child(3), td:nth-child(3) { width: 20%; }
+    th:nth-child(1), td:nth-child(1) { width: 8%; }
+    th:nth-child(2), td:nth-child(2) { width: 28%; }
+    th:nth-child(3), td:nth-child(3) { width: 36%; }
+    th:nth-child(4), td:nth-child(4) { width: 18%; }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #444;
+    }
 
     a {
       color: #2c4a7a;
@@ -69,23 +87,16 @@
     a:hover {
       text-decoration: underline;
     }
-
-    .footer-note {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #444;
-    }
   </style>
 </head>
 <body>
 
-  <h1>🏘️ CHBC Club Leaderboard</h1>
+  <h1>🏘️ Club-Affiliated Brewer Leaderboard</h1>
 
   <div class="dashboard">
-    <div class="division" id="club-results">
-      <p>Loading club data...</p>
-    </div>
+    <div id="combined" class="division"></div>
+    <div id="north" class="division"></div>
+    <div id="south" class="division"></div>
   </div>
 
   <p class="footer-note">
@@ -106,15 +117,17 @@
       });
     }
 
-    function renderClubTable(rows, containerId) {
+    function renderTable(title, rows, containerId) {
       const container = document.getElementById(containerId);
-      container.innerHTML = "";
+      const sectionTitle = document.createElement("h2");
+      sectionTitle.textContent = title;
+      container.appendChild(sectionTitle);
 
       const table = document.createElement("table");
       const thead = document.createElement("thead");
       const tbody = document.createElement("tbody");
 
-      const columns = ["Rank", "Club", "Total"];
+      const columns = ["Rank", "Brewer", "Club", "Total"];
 
       const headerRow = document.createElement("tr");
       columns.forEach(col => {
@@ -143,12 +156,35 @@
       .then(response => response.text())
       .then(csv => {
         const data = parseCSV(csv);
-        data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-        renderClubTable(data, "club-results");
+        const divisions = {
+          "North/South": [],
+          "North": [],
+          "South": []
+        };
+
+        data.forEach(entry => {
+          const div = entry["Division"];
+          if (divisions[div]) {
+            divisions[div].push(entry);
+          }
+        });
+
+        const containerMap = {
+          "North/South": "combined",
+          "North": "north",
+          "South": "south"
+        };
+
+        ["North/South", "North", "South"].forEach(key => {
+          const list = divisions[key];
+          if (list && list.length) {
+            list.sort((a, b) => parseFloat(a.Total) - parseFloat(b.Total)).reverse();
+            renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
+          }
+        });
       })
       .catch(err => {
-        const container = document.getElementById("club-results");
-        container.innerHTML = "<p>Error loading club data.</p>";
+        document.body.innerHTML += "<p>Error loading club leaderboard.</p>";
         console.error(err);
       });
   </script>
