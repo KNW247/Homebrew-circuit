@@ -32,12 +32,12 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 1rem;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
     }
 
     th, td {
       border: 1px solid #ccc;
-      padding: 0.5rem 0.75rem;
+      padding: 0.3rem 0.5rem;
       text-align: left;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -56,15 +56,16 @@
       text-decoration: none;
       font-weight: bold;
     }
-.footer-note {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  color: #444;
-}
 
     a.back-link:hover {
       text-decoration: underline;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #444;
     }
   </style>
 </head>
@@ -77,14 +78,33 @@
   </div>
 
   <a class="back-link" href="index.html">← Back to Dashboard</a>
-  <p class="footer-note">
-  💡 Have questions, spot an error, or want to suggest a comp?<br>
-  Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
-</p>
 
+  <p class="footer-note">
+    💡 Have questions, spot an error, or want to suggest a comp?<br>
+    Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
+  </p>
 
   <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=978452653&single=true&output=csv";
+  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=978452653&single=true&output=csv";
+
+
+    const displayColumns = [
+      "Rank", "Brewer", "Total",
+      "MF25", "MF25-BOS",
+      "IEB25", "IEB25-BOS",
+      "PBC25", "PBC25-BOS",
+      "AFC25", "AFC25-BOS",
+      "RTB25", "RTB25-BOS"
+    ];
+
+    const rawColumns = [
+      "Rank", "Brewer", "Total",
+      "W-MF25", "W-MF25-BOS",
+      "W-IEB25", "W-IEB25-BOS",
+      "W-PBC25", "W-PBC25-BOS",
+      "W-AFC25", "W-AFC25-BOS",
+      "W-RTB25", "W-RTB25-BOS"
+    ];
 
     function parseCSV(data) {
       const lines = data.trim().split("\n").map(line => line.split(","));
@@ -98,16 +118,14 @@
 
     function renderTable(rows, containerId) {
       const container = document.getElementById(containerId);
-      container.innerHTML = ""; // Clear loading message
+      container.innerHTML = "";
 
       const table = document.createElement("table");
       const thead = document.createElement("thead");
       const tbody = document.createElement("tbody");
 
-      const columns = ["Rank", "Brewer", "Total", "MF25", "SCRHC25", "PBC25", "RTB25", "AFC25"];
-
       const headerRow = document.createElement("tr");
-      columns.forEach(col => {
+      displayColumns.forEach(col => {
         const th = document.createElement("th");
         th.textContent = col;
         headerRow.appendChild(th);
@@ -117,7 +135,7 @@
       rows.forEach(row => {
         if (parseInt(row["Total"]) > 0) {
           const tr = document.createElement("tr");
-          columns.forEach(col => {
+          rawColumns.forEach(col => {
             const td = document.createElement("td");
             td.textContent = row[col] || "";
             tr.appendChild(td);
