@@ -45,6 +45,14 @@
 
     th {
       background-color: #eaeaea;
+      white-space: normal; /* allow header wrapping */
+    }
+
+    td.club {
+      max-width: 8ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     a.back-link {
@@ -131,6 +139,7 @@
           columns.forEach(col => {
             const td = document.createElement("td");
             td.textContent = row["W-" + col] || row[col] || "";
+            if (col === "Club") td.className = "club";
             tr.appendChild(td);
           });
           tbody.appendChild(tr);
