@@ -105,7 +105,14 @@
       const thead = document.createElement("thead");
       const tbody = document.createElement("tbody");
 
-      const columns = ["Rank", "Brewer", "Total", "MF25", "SCRHC25", "PBC25", "RTB25", "AFC25"];
+      const columns = [
+        "Rank", "Brewer", "Total",
+        "W-MF25", "W-MF25-BOS",
+        "W-IEB25", "W-IEB25-BOS",
+        "W-PBC25", "W-PBC25-BOS",
+        "W-AFC25", "W-AFC25-BOS",
+        "W-RTB25", "W-RTB25-BOS"
+      ];
 
       const headerRow = document.createElement("tr");
       columns.forEach(col => {
