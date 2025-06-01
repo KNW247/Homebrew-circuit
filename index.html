@@ -169,7 +169,12 @@
       const tr = document.createElement("tr");
       columns.forEach(col => {
         const td = document.createElement("td");
-        td.textContent = row[col] || "";
+        let cellValue = row[col] || "";
+      if (!isNaN(cellValue) && cellValue.trim() !== "") {
+     cellValue = parseFloat(cellValue).toFixed(2);
+     }
+td.textContent = cellValue;
+
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
