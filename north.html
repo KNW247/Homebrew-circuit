@@ -132,7 +132,7 @@
       thead.appendChild(headerRow);
 
       rows.forEach(row => {
-        if (parseInt(row["Total"]) > 0) {
+       if (parseFloat(row["Total"]) > 0) {
           const tr = document.createElement("tr");
           rawColumns.forEach(col => {
             const td = document.createElement("td");
