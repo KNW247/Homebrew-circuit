@@ -138,7 +138,14 @@
           const tr = document.createElement("tr");
           columns.forEach(col => {
             const td = document.createElement("td");
-            td.textContent = row["W-" + col] || row[col] || "";
+           let rawValue = row["W-" + col] || row[col] || "";
+if (!isNaN(rawValue) && rawValue.trim() !== "") {
+  const rounded = parseFloat(rawValue).toFixed(2);
+  td.textContent = (rounded === "0.00") ? "" : rounded;
+} else {
+  td.textContent = rawValue;
+}
+
             if (col === "Club") td.className = "club";
             tr.appendChild(td);
           });
