@@ -137,11 +137,13 @@
           const tr = document.createElement("tr");
           rawColumns.forEach(col => {
             const td = document.createElement("td");
-            let cellValue = row[col] || "";
-      if (!isNaN(cellValue) && cellValue.trim() !== "") {
-          cellValue = parseFloat(cellValue).toFixed(2);
-      }
+let cellValue = row[col] || "";
+if (!isNaN(cellValue) && cellValue.trim() !== "") {
+  const rounded = parseFloat(cellValue).toFixed(2);
+  cellValue = (rounded === "0.00") ? "" : rounded;
+}
 td.textContent = cellValue;
+
 
             tr.appendChild(td);
           });
