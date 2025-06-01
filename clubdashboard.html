@@ -54,48 +54,43 @@
       vertical-align: top;
     }
 
+    th:nth-child(1), td:nth-child(1) {
+      width: 10%;
+      text-align: center;
+    }
+
     th:nth-child(2), td:nth-child(2) {
-      width: 45%;
+      width: 65%;
     }
 
     th:nth-child(3), td:nth-child(3) {
-      width: 20%;
+      width: 25%;
       text-align: right;
     }
+
     a.back-link {
-  display: block;
-  text-align: center;
-  margin-top: 2rem;
-  color: #2c4a7a;
-  text-decoration: none;
-  font-weight: bold;
-}
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #2c4a7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-a.back-link:hover {
-  text-decoration: underline;
-}
+    a.back-link:hover {
+      text-decoration: underline;
+    }
 
-.footer-note {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  color: #444;
-}
-th:nth-child(1), td:nth-child(1) {
-  width: 10%;
-  text-align: center;
-}
-
-th:nth-child(2), td:nth-child(2) {
-  width: 65%;
-}
-
-th:nth-child(3), td:nth-child(3) {
-  width: 25%;
-  text-align: right;
-}
-
+    .footer-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
   </style>
+
+  <!-- ✅ Add PapaParse from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
   <h1>🥇 Club Leaderboard – California Homebrew Circuit</h1>
@@ -131,29 +126,31 @@ th:nth-child(3), td:nth-child(3) {
       </table>
     </div>
   </div>
-<a class="back-link" href="index.html">← Back to Dashboard</a>
 
-<p class="footer-note">
-  💡 Have questions, spot an error, or want to suggest a comp?<br>
-  Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
-</p>
+  <a class="back-link" href="index.html">← Back to Dashboard</a>
+
+  <p class="footer-note">
+    💡 Have questions, spot an error, or want to suggest a comp?<br>
+    Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
+  </p>
 
   <script>
     async function loadTableData(url, tableId, filterDivision) {
       const res = await fetch(url);
       const text = await res.text();
-      const rows = text.trim().split('\n').slice(1);
+      const results = Papa.parse(text, { header: false });
+      const rows = results.data.slice(1); // skip header
       const tbody = document.getElementById(tableId);
       tbody.innerHTML = '';
 
-      rows.forEach(row => {
-        const cols = row.split(',');
+      rows.forEach(cols => {
         if (cols.length >= 4) {
           const division = cols[0].trim();
           if (division !== filterDivision) return;
           const rank = cols[1].trim();
           const club = cols[2].trim();
-          const total = parseFloat(cols[3]).toFixed(3);
+          const rawTotal = cols[3].trim();
+          const total = isNaN(parseFloat(rawTotal)) ? '' : parseFloat(rawTotal).toFixed(3);
 
           const tr = document.createElement('tr');
           tr.innerHTML = `<td>${rank}</td><td>${club}</td><td>${total}</td>`;
