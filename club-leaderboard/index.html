@@ -1,1 +1,173 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🏆 Club Dashboard – CHBC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      justify-content: space-between;
+      overflow-x: auto;
+    }
+
+    .panel {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      width: 33%;
+      min-width: 300px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 0;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.3rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th:nth-child(1), td:nth-child(1) {
+      width: 10%;
+      text-align: center;
+    }
+
+    th:nth-child(2), td:nth-child(2) {
+      width: 65%;
+    }
+
+    th:nth-child(3), td:nth-child(3) {
+      width: 25%;
+      text-align: right;
+    }
+
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #2c4a7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+  </style>
+
+  <!-- ✅ Add PapaParse from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <h1>🥇 Club Leaderboard – California Homebrew Circuit</h1>
+
+  <div class="dashboard">
+    <div class="panel">
+      <h2>North/South Division – Top 25</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>Club</th><th>Total</th></tr>
+        </thead>
+        <tbody id="combined-table"></tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>South Division – Top 25</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>Club</th><th>Total</th></tr>
+        </thead>
+        <tbody id="south-table"></tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>North Division – Top 25</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>Club</th><th>Total</th></tr>
+        </thead>
+        <tbody id="north-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <a class="back-link" href="index.html">← Back to Dashboard</a>
+
+  <p class="footer-note">
+    💡 Have questions, spot an error, or want to suggest a comp?<br>
+    Join our community on <a href="https://discord.gg/GuXdp8XK" target="_blank">the CHBC Discord</a> and let us know!
+  </p>
+
+  <script>
+    async function loadTableData(url, tableId, filterDivision) {
+      const res = await fetch(url);
+      const text = await res.text();
+      const results = Papa.parse(text, { header: false });
+      const rows = results.data.slice(1); // skip header
+      const tbody = document.getElementById(tableId);
+      tbody.innerHTML = '';
+
+      rows.forEach(cols => {
+        if (cols.length >= 4) {
+          const division = cols[0].trim();
+          if (division !== filterDivision) return;
+          const rank = cols[1].trim();
+          const club = cols[2].trim();
+          const rawTotal = cols[3].trim();
+          const total = isNaN(parseFloat(rawTotal)) ? '' : parseFloat(rawTotal).toFixed(3);
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${rank}</td><td>${club}</td><td>${total}</td>`;
+          tbody.appendChild(tr);
+        }
+      });
+    }
+
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=595839019&single=true&output=csv";
+
+    loadTableData(csvUrl, "combined-table", "North/South");
+    loadTableData(csvUrl, "north-table", "North");
+    loadTableData(csvUrl, "south-table", "South");
+  </script>
+<script data-goatcounter="https://chbcircuit.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
