@@ -1,8 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>California Homebrew Circuit (CHBC)</title>
+  <meta charset="UTF-8" />
+  <title>California Homebrew Circuit – Homebrew Competition Leaderboard & Results</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="The California Homebrew Circuit connects homebrewers across California through local competitions. Track standings, earn bragging rights, and celebrate brewing wins.">
+  <meta name="keywords" content="California Homebrew Circuit, CHBC, homebrew competition, beer judging, homebrew leaderboard, homebrewing California, brewing results">
+  <meta name="author" content="California Homebrew Circuit">
+  <link rel="canonical" href="https://chbcircuit.com/">
+
+  <!-- Social Sharing Meta Tags -->
+  <meta property="og:title" content="California Homebrew Circuit (CHBC)">
+  <meta property="og:description" content="Track standings and celebrate wins in California’s grassroots homebrewing competition network.">
+  <meta property="og:url" content="https://chbcircuit.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://chbcircuit.com/og-image.jpg">
+  <link rel="icon" href="/favicon.ico" />
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -91,45 +106,43 @@
 </head>
 <body>
 
- <h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
+<h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
 
 <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
 
-<h2>🍻 How it works</h2>
-<p>Compete in any competition listed in the Circuit. Your wins earn points on our leaderboard, helping highlight standout brewers from across California. To see the list of included competitions, <a href="complist.html">click here</a>.</p>
+<h2>🍻 How it Works</h2>
+<p>Compete in any <a href="/competition-list/">competition listed in the Circuit</a>. Your wins earn points on our <a href="/combined-results/">leaderboard</a>, helping highlight standout brewers from across California.</p>
 
 <h2>🎯 What CHBC Celebrates</h2>
 <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
 
-<p>Whether you’re chasing hardware, eyeing bragging rights, or just curious how you stack up against fellow brewers, CHBC is here to celebrate your competitive success.</p>
-
 <h2>📊 Live Standings Dashboard</h2>
-<div class="dashboard">
-  <div id="combined" class="division"></div>
-  <div id="north" class="division"></div>
-  <div id="south" class="division"></div>
-</div>
+<h3>Combined Results</h3>
+<div id="combined" class="division"></div>
+<h3>North Division</h3>
+<div id="north" class="division"></div>
+<h3>South Division</h3>
+<div id="south" class="division"></div>
+
+<noscript>
+  <p>JavaScript is required to view live standings. See the <a href="/combined-results/">results page</a> instead.</p>
+</noscript>
 
 <h2>📊 View the Full Results</h2>
 <ul>
-  <li><a href="north-results/index.html">🏅 North Division Results</a></li>
-  <li><a href="south-results/index.html">🥇 South Division Results</a></li>
-  <li><a href="combined-results/index.html">🏆 Combined Circuit Results</a></li>
-  <li><a href="club-leaderboard/index.html">🏘️ Club Leaderboard</a></li>
-
+  <li><a href="/north-results/">🏅 North Division Results</a></li>
+  <li><a href="/south-results/">🥇 South Division Results</a></li>
+  <li><a href="/combined-results/">🏆 Combined Circuit Results</a></li>
+  <li><a href="/club-leaderboard/">🏘️ Club Leaderboard</a></li>
 </ul>
 
 <h2>📚 Learn More About CHBC</h2>
 <ul>
-  <li><a href="methodology/index.html">📘 Methodology</a></li>
-  <li><a href="competition-list/index.html">📋 View Circuit Competition List</a></li>
-  <li><a href="circuit-structure/index.html">📖 Circuit Transparency & Structure</a></li>
+  <li><a href="/methodology/">📘 Methodology</a></li>
+  <li><a href="/competition-list/">📋 View Circuit Competition List</a></li>
+  <li><a href="/circuit-structure/">📖 Circuit Transparency & Structure</a></li>
   <li><a href="https://discord.gg/GuXdp8XK" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
-  <li>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">
-      ✉️ Send Feedback
-    </a>
-  </li>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">✉️ Send Feedback</a></li>
 </ul>
 
 <script>
@@ -170,11 +183,10 @@
       columns.forEach(col => {
         const td = document.createElement("td");
         let cellValue = row[col] || "";
-      if (!isNaN(cellValue) && cellValue.trim() !== "") {
-     cellValue = parseFloat(cellValue).toFixed(2);
-     }
-td.textContent = cellValue;
-
+        if (!isNaN(cellValue) && cellValue.trim() !== "") {
+          cellValue = parseFloat(cellValue).toFixed(2);
+        }
+        td.textContent = cellValue;
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
@@ -221,8 +233,8 @@ td.textContent = cellValue;
       console.error(err);
     });
 </script>
-<script data-goatcounter="https://chbcircuit.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+
+<script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
