@@ -40,14 +40,13 @@
       padding-bottom: 0.2rem;
     }
 
-    .dashboard {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 1rem;
-      justify-content: space-between;
-      overflow-x: auto;
-      margin-top: 1rem;
-    }
+  .dashboard {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
 
     .division {
       flex: 0 0 32%;
@@ -118,15 +117,18 @@
 
 <h2>📊 Live Standings Dashboard</h2>
 
+<div class="dashboard">
   <div id="combined" class="division">
-  <h3>Combined Results</h3>
+    <h3>Combined Results</h3>
+  </div>
+  <div id="north" class="division">
+    <h3>North Division</h3>
+  </div>
+  <div id="south" class="division">
+    <h3>South Division</h3>
+  </div>
 </div>
-<div id="north" class="division">
-  <h3>North Division</h3>
-</div>
-<div id="south" class="division">
-  <h3>South Division</h3>
-</div>
+
 
 <noscript>
   <p>JavaScript is required to view live standings. See the <a href="/combined-results/">results page</a> instead.</p>
