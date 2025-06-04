@@ -96,7 +96,7 @@
 <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
 
 <h2>🍻 How it works</h2>
-<p>Compete in any competition listed in the Circuit. Your wins earn points on our leaderboard, helping highlight standout brewers from across California. To see the list of included competitions, <a href="complist2.html">click here</a>.</p>
+<p>Compete in any competition listed in the Circuit. Your wins earn points on our leaderboard, helping highlight standout brewers from across California. To see the list of included competitions, <a href="complist.html">click here</a>.</p>
 
 <h2>🎯 What CHBC Celebrates</h2>
 <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
@@ -112,16 +112,18 @@
 
 <h2>📊 View the Full Results</h2>
 <ul>
-  <li><a href="north2.html">🏅 North Division Results</a></li>
-  <li><a href="south2.html">🥇 South Division Results</a></li>
-  <li><a href="combined2.html">🏆 Combined Circuit Results</a></li>
+  <li><a href="north-results/index.html">🏅 North Division Results</a></li>
+  <li><a href="south-results/index.html">🥇 South Division Results</a></li>
+  <li><a href="combined-results/index.html">🏆 Combined Circuit Results</a></li>
+  <li><a href="club-leaderboard/index.html">🏘️ Club Leaderboard</a></li>
+
 </ul>
 
 <h2>📚 Learn More About CHBC</h2>
 <ul>
-  <li><a href="methodology2.html">📘 Methodology</a></li>
-  <li><a href="complist2.html">📋 View Circuit Competition List</a></li>
-  <li><a href="about2.html">📖 Circuit Transparency & Structure</a></li>
+  <li><a href="methodology/index.html">📘 Methodology</a></li>
+  <li><a href="competition-list/index.html">📋 View Circuit Competition List</a></li>
+  <li><a href="circuit-structure/index.html">📖 Circuit Transparency & Structure</a></li>
   <li><a href="https://discord.gg/GuXdp8XK" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
   <li>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">
@@ -167,7 +169,12 @@
       const tr = document.createElement("tr");
       columns.forEach(col => {
         const td = document.createElement("td");
-        td.textContent = row[col] || "";
+        let cellValue = row[col] || "";
+      if (!isNaN(cellValue) && cellValue.trim() !== "") {
+     cellValue = parseFloat(cellValue).toFixed(2);
+     }
+td.textContent = cellValue;
+
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
@@ -214,6 +221,8 @@
       console.error(err);
     });
 </script>
+<script data-goatcounter="https://chbcircuit.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
