@@ -101,6 +101,25 @@
     a:hover {
       text-decoration: underline;
     }
+
+    @media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .division {
+    max-width: 100%;
+    flex: 1 0 100%;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 1rem;
+  }
+
+  .division:last-child {
+    border-bottom: none;
+  }
+}
+
   </style>
 </head>
 <body>
