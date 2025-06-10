@@ -29,6 +29,16 @@
       line-height: 1.6;
     }
 
+    .logo-container {
+      text-align: right;
+      padding: 1rem 1rem 0 1rem;
+    }
+
+    .logo-container img {
+      max-width: 100px;
+      height: auto;
+    }
+
     h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
@@ -42,13 +52,12 @@
       padding-bottom: 0.2rem;
     }
 
-  .dashboard {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
-  overflow-x: auto;
-}
-
+    .dashboard {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      overflow-x: auto;
+    }
 
     .division {
       flex: 0 0 32%;
@@ -105,175 +114,175 @@
     }
 
     @media (max-width: 768px) {
-  .dashboard {
-    flex-direction: column;
-  }
+      .dashboard {
+        flex-direction: column;
+      }
 
-  .division {
-    max-width: 100%;
-    flex: 1 0 100%;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 1rem;
-  }
+      .division {
+        max-width: 100%;
+        flex: 1 0 100%;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 1rem;
+      }
 
-  .division:last-child {
-    border-bottom: none;
-  }
-}
-.logo-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 80px;
-  height: auto;
-  z-index: 10;
-}
+      .division:last-child {
+        border-bottom: none;
+      }
 
+      .logo-container {
+        text-align: center;
+        padding: 1rem 0;
+      }
+
+      .logo-container img {
+        max-width: 80px;
+      }
+    }
   </style>
 </head>
 <body>
-<img src="assets/images/CHBC Logo.png" alt="CHBC Logo" class="logo-badge" />
 
-<h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
-
-<p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
-
-<p><strong>🚧 Beta Year Notice:</strong> This is our beta launch year—an experimental first run. We're refining the system as we go, and your feedback is welcome. Competitions for the next season will be finalized and locked in by September.</p>
-
-<h2>🍻 How it Works</h2>
-<p>Compete in any <a href="/competition-list/">competition listed in the Circuit</a>. Your wins earn points on our <a href="/combined-results/">leaderboard</a>, helping highlight standout brewers from across California.</p>
-
-<h2>🎯 What CHBC Celebrates</h2>
-<p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
-
-<h2>📊 Live Standings Dashboard</h2>
-
-
-<div class="dashboard">
-  <div id="combined" class="division">
-    <h3>Combined Results</h3>
+  <div class="logo-container">
+    <img src="assets/images/CHBC Logo.png" alt="CHBC Logo" />
   </div>
-  <div id="north" class="division">
-    <h3>North Division</h3>
+
+  <h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
+
+  <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
+
+  <p><strong>🚧 Beta Year Notice:</strong> This is our beta launch year—an experimental first run. We're refining the system as we go, and your feedback is welcome. Competitions for the next season will be finalized and locked in by September.</p>
+
+  <h2>🍻 How it Works</h2>
+  <p>Compete in any <a href="/competition-list/">competition listed in the Circuit</a>. Your wins earn points on our <a href="/combined-results/">leaderboard</a>, helping highlight standout brewers from across California.</p>
+
+  <h2>🎯 What CHBC Celebrates</h2>
+  <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
+
+  <h2>📊 Live Standings Dashboard</h2>
+
+  <div class="dashboard">
+    <div id="combined" class="division">
+      <h3>Combined Results</h3>
+    </div>
+    <div id="north" class="division">
+      <h3>North Division</h3>
+    </div>
+    <div id="south" class="division">
+      <h3>South Division</h3>
+    </div>
   </div>
-  <div id="south" class="division">
-    <h3>South Division</h3>
-  </div>
-</div>
 
+  <noscript>
+    <p>JavaScript is required to view live standings. See the <a href="/combined-results/">results page</a> instead.</p>
+  </noscript>
 
-<noscript>
-  <p>JavaScript is required to view live standings. See the <a href="/combined-results/">results page</a> instead.</p>
-</noscript>
+  <h2>📊 View the Full Results</h2>
+  <ul>
+    <li><a href="/north-results/">🏅 North Division Results</a></li>
+    <li><a href="/south-results/">🥇 South Division Results</a></li>
+    <li><a href="/combined-results/">🏆 Combined Circuit Results</a></li>
+    <li><a href="/club-leaderboard/">🏘️ Club Leaderboard</a></li>
+  </ul>
 
-<h2>📊 View the Full Results</h2>
-<ul>
-  <li><a href="/north-results/">🏅 North Division Results</a></li>
-  <li><a href="/south-results/">🥇 South Division Results</a></li>
-  <li><a href="/combined-results/">🏆 Combined Circuit Results</a></li>
-  <li><a href="/club-leaderboard/">🏘️ Club Leaderboard</a></li>
-</ul>
+  <h2>📚 Learn More About CHBC</h2>
+  <ul>
+    <li><a href="/methodology/">📘 Methodology</a></li>
+    <li><a href="/competition-list/">📋 View Circuit Competition List</a></li>
+    <li><a href="/circuit-structure/">📖 Circuit Transparency & Structure</a></li>
+    <li><a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">✉️ Send Feedback</a></li>
+  </ul>
 
-<h2>📚 Learn More About CHBC</h2>
-<ul>
-  <li><a href="/methodology/">📘 Methodology</a></li>
-  <li><a href="/competition-list/">📋 View Circuit Competition List</a></li>
-  <li><a href="/circuit-structure/">📖 Circuit Transparency & Structure</a></li>
-  <li><a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
-  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">✉️ Send Feedback</a></li>
-</ul>
+  <script>
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
 
-<script>
-  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
+    function parseCSV(data) {
+      const lines = data.trim().split("\n").map(line => line.split(","));
+      const headers = lines[0];
+      return lines.slice(1).map(row => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        return obj;
+      });
+    }
 
-  function parseCSV(data) {
-    const lines = data.trim().split("\n").map(line => line.split(","));
-    const headers = lines[0];
-    return lines.slice(1).map(row => {
-      const obj = {};
-      headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
-      return obj;
-    });
-  }
+    function renderTable(title, rows, containerId) {
+      const container = document.getElementById(containerId);
+      const sectionTitle = document.createElement("h2");
+      sectionTitle.textContent = title;
+      container.appendChild(sectionTitle);
 
-  function renderTable(title, rows, containerId) {
-    const container = document.getElementById(containerId);
-    const sectionTitle = document.createElement("h2");
-    sectionTitle.textContent = title;
-    container.appendChild(sectionTitle);
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
 
-    const table = document.createElement("table");
-    const thead = document.createElement("thead");
-    const tbody = document.createElement("tbody");
+      const columns = ["Rank", "Brewer", "Club", "Total"];
 
-    const columns = ["Rank", "Brewer", "Club", "Total"];
-
-    const headerRow = document.createElement("tr");
-    columns.forEach(col => {
-      const th = document.createElement("th");
-      th.textContent = col;
-      headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
-
-    rows.forEach(row => {
-      const tr = document.createElement("tr");
+      const headerRow = document.createElement("tr");
       columns.forEach(col => {
-        const td = document.createElement("td");
-        let cellValue = row[col] || "";
-        if (!isNaN(cellValue) && cellValue.trim() !== "") {
-          cellValue = parseFloat(cellValue).toFixed(2);
-        }
-        td.textContent = cellValue;
-        tr.appendChild(td);
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
       });
-      tbody.appendChild(tr);
-    });
+      thead.appendChild(headerRow);
 
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    container.appendChild(table);
-  }
-
-  fetch(csvUrl)
-    .then(response => response.text())
-    .then(csv => {
-      const data = parseCSV(csv);
-      const divisions = {
-        "North/South": [],
-        North: [],
-        South: []
-      };
-
-      data.forEach(entry => {
-        const div = entry["Division"];
-        if (divisions[div]) {
-          divisions[div].push(entry);
-        }
+      rows.forEach(row => {
+        const tr = document.createElement("tr");
+        columns.forEach(col => {
+          const td = document.createElement("td");
+          let cellValue = row[col] || "";
+          if (!isNaN(cellValue) && cellValue.trim() !== "") {
+            cellValue = parseFloat(cellValue).toFixed(2);
+          }
+          td.textContent = cellValue;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
       });
 
-      const containerMap = {
-        "North/South": "combined",
-        "North": "north",
-        "South": "south"
-      };
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
 
-      ["North/South", "North", "South"].forEach(key => {
-        const list = divisions[key];
-        if (list && list.length) {
-          list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-          renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
-        }
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const data = parseCSV(csv);
+        const divisions = {
+          "North/South": [],
+          North: [],
+          South: []
+        };
+
+        data.forEach(entry => {
+          const div = entry["Division"];
+          if (divisions[div]) {
+            divisions[div].push(entry);
+          }
+        });
+
+        const containerMap = {
+          "North/South": "combined",
+          "North": "north",
+          "South": "south"
+        };
+
+        ["North/South", "North", "South"].forEach(key => {
+          const list = divisions[key];
+          if (list && list.length) {
+            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+            renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
+          }
+        });
+      })
+      .catch(err => {
+        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
+        console.error(err);
       });
-    })
-    .catch(err => {
-      document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
-      console.error(err);
-    });
-</script>
+  </script>
 
-<script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
