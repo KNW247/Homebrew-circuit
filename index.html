@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>California Homebrew Circuit – Homebrew Competition Leaderboard & Results</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- SEO Meta Tags -->
@@ -82,19 +81,18 @@
       border: 1px solid #ccc;
       padding: 0.4rem;
       text-align: left;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      word-break: break-word;
+      white-space: normal;
     }
 
     th {
       background-color: #eaeaea;
     }
 
-    th:nth-child(1), td:nth-child(1) { width: 8%; }
-    th:nth-child(2), td:nth-child(2) { width: 28%; }
-    th:nth-child(3), td:nth-child(3) { width: 36%; }
-    th:nth-child(4), td:nth-child(4) { width: 18%; }
+    th:nth-child(1), td:nth-child(1) { width: 10%; text-align: right; }
+    th:nth-child(2), td:nth-child(2) { width: 26%; }
+    /* th:nth-child(3), td:nth-child(3) { width: 36%; } ← Removed to allow flexible wrapping */
+    th:nth-child(4), td:nth-child(4) { width: 20%; text-align: right; }
 
     ul {
       padding-left: 1.2rem;
@@ -228,21 +226,20 @@
       thead.appendChild(headerRow);
 
       rows.forEach(row => {
-  const tr = document.createElement("tr");
-  columns.forEach(col => {
-    const td = document.createElement("td");
-    let cellValue = row[col] || "";
+        const tr = document.createElement("tr");
+        columns.forEach(col => {
+          const td = document.createElement("td");
+          let cellValue = row[col] || "";
 
-    if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
-      cellValue = parseFloat(cellValue).toFixed(2);
-    }
+          if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
+            cellValue = parseFloat(cellValue).toFixed(2);
+          }
 
-    td.textContent = cellValue;
-    tr.appendChild(td);
-  });
-  tbody.appendChild(tr);
-});
-
+          td.textContent = cellValue;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
 
       table.appendChild(thead);
       table.appendChild(tbody);
