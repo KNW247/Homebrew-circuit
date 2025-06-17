@@ -228,20 +228,21 @@
       thead.appendChild(headerRow);
 
       rows.forEach(row => {
-        const tr = document.createElement("tr");
-        columns.forEach(col => {
-          const td = document.createElement("td");
-          let cellValue = row[col] || "";
-          if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
-  cellValue = parseFloat(cellValue).toFixed(2);
-}
+  const tr = document.createElement("tr");
+  columns.forEach(col => {
+    const td = document.createElement("td");
+    let cellValue = row[col] || "";
 
-          }
-          td.textContent = cellValue;
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
+    if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
+      cellValue = parseFloat(cellValue).toFixed(2);
+    }
+
+    td.textContent = cellValue;
+    tr.appendChild(td);
+  });
+  tbody.appendChild(tr);
+});
+
 
       table.appendChild(thead);
       table.appendChild(tbody);
