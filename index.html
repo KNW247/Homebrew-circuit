@@ -232,8 +232,10 @@
         columns.forEach(col => {
           const td = document.createElement("td");
           let cellValue = row[col] || "";
-          if (!isNaN(cellValue) && cellValue.trim() !== "") {
-            cellValue = parseFloat(cellValue).toFixed(2);
+          if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
+  cellValue = parseFloat(cellValue).toFixed(2);
+}
+
           }
           td.textContent = cellValue;
           tr.appendChild(td);
