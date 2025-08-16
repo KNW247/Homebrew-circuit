@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>South Division Results – CHBC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .division {
+      background-color: #fff;
+      padding: 1.5rem;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.3rem 0.5rem;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: #eaeaea;
+    }
+
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: #2c4a7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🥇 South Division – Full Results</h1>
+
+  <div class="division" id="south-results">
+    <p>Loading results...</p>
+  </div>
+
+<a class="back-link" href="/">← Back to Dashboard</a>
+
+
+  <p class="footer-note">
+    💡 Have questions, spot an error, or want to suggest a comp?<br>
+    Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
+  </p>
+
+  <script>
+  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=978452653&single=true&output=csv";
+
+
+    const displayColumns = [
+      "Rank", "Brewer", "Total",
+      "MF25", "MF25-BOS",
+      "IEB25", "IEB25-BOS",
+      "PBC25", "PBC25-BOS",
+      "AFC25", "AFC25-BOS",
+      "RTB25", "RTB25-BOS"
+    ];
+
+    const rawColumns = [
+      "Rank", "Brewer", "Total",
+      "W-MF25", "W-MF25-BOS",
+      "W-IEB25", "W-IEB25-BOS",
+      "W-PBC25", "W-PBC25-BOS",
+      "W-AFC25", "W-AFC25-BOS",
+      "W-RTB25", "W-RTB25-BOS"
+    ];
+
+    function parseCSV(data) {
+      const lines = data.trim().split("\n").map(line => line.split(","));
+      const headers = lines[0];
+      return lines.slice(1).map(row => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        return obj;
+      });
+    }
+
+    function renderTable(rows, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      const headerRow = document.createElement("tr");
+      displayColumns.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      rows.forEach(row => {
+      if (parseFloat(row["Total"]) > 0) {
+          const tr = document.createElement("tr");
+          rawColumns.forEach(col => {
+            const td = document.createElement("td");
+let cellValue = row[col] || "";
+if (!isNaN(cellValue) && cellValue.trim() !== "") {
+  const rounded = parseFloat(cellValue).toFixed(2);
+  cellValue = (rounded === "0.00") ? "" : rounded;
+}
+td.textContent = cellValue;
+
+
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        }
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const data = parseCSV(csv);
+        data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+        renderTable(data, "south-results");
+      })
+      .catch(err => {
+        const container = document.getElementById("south-results");
+        container.innerHTML = "<p>Error loading data.</p>";
+        console.error(err);
+      });
+  </script>
+<script data-goatcounter="https://chbcircuit.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
