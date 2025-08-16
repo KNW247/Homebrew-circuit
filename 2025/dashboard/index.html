@@ -76,6 +76,35 @@
       .division  { max-width:100%; flex:1 0 100%; margin-bottom:1.5rem; border-bottom:2px solid #ccc; padding-bottom:1rem; }
       .division:last-child { border-bottom:none; }
     }
+    /* --- FIX: stop header from forcing page width --- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; }  /* belt-and-suspenders safety */
+
+.sitebar {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: clip;       /* prevent tiny sub-pixel overflow from shadows/borders */
+}
+
+.sitebar > * { min-width: 0; }      /* allow flex children to actually shrink */
+
+.sitebar .brand { flex: 0 1 auto; }
+.sitebar .brand img {
+  height: 56px;           /* was 70px; smaller helps on narrow screens */
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
+.actions {
+  flex: 1 1 auto;         /* allow the actions block to shrink */
+  min-width: 0;           /* critical: prevents overflow from long content */
+  flex-wrap: wrap;        /* you already had this, keeping it */
+  justify-content: flex-end;
+}
+
+.btn { max-width: 100%; } /* buttons won’t exceed the viewport */
+
   </style>
 </head>
 <body>
