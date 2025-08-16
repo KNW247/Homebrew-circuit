@@ -31,9 +31,29 @@
     .footer-note { text-align:center; margin-top:3rem; font-size:.9rem; color:#333; }
 
     /* Header: logo left, actions right */
-    .sitebar{
-      max-width:1100px; margin:0 auto .75rem; padding:0 .25rem;
-      display:flex; align-items:center; justify-content:space-between;
+   .sitebar {
+  width: 100%;
+  max-width: none;        /* removes centering limit */
+  margin: 0;
+  padding: 0.5rem 1rem;   /* space around logo/buttons */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;       /* optional: give header a white strip */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.sitebar .brand {
+  display: flex;
+  align-items: center;
+}
+
+.sitebar .brand img {
+  height: 70px;           /* bigger logo */
+  width: auto;
+  display: block;
+}
+
     }
     .sitebar .brand img{ height:48px; width:auto; display:block; }
     .actions{ display:flex; gap:.5rem; }
