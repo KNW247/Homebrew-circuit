@@ -176,13 +176,16 @@
           const tr = document.createElement("tr");
           columns.forEach(col => {
             const td = document.createElement("td");
-           let rawValue = row["W-" + col] || row[col] || "";
+           
+            
+ let rawValue = row["W-" + col] || row[col] || "";
 if (!isNaN(rawValue) && rawValue.trim() !== "") {
-  const rounded = parseFloat(rawValue).toFixed(2);
-  td.textContent = (rounded === "0.00") ? "" : rounded;
+  const num = parseFloat(rawValue);
+  td.textContent = (num === 0) ? "" : num.toString(); // 1.00→1, 55.00→55
 } else {
   td.textContent = rawValue;
 }
+
 
             if (col === "Club") td.className = "club";
             tr.appendChild(td);
