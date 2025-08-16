@@ -91,12 +91,7 @@
     .searchbar button:hover { opacity: 0.9; }
     #searchResult { color:#555; }
 
-    #returnCurrent {
-      border: 1px solid #bbb;
-      background: #e0e0e0;
-      color: #333;
-    }
-    #returnCurrent:hover { background: #d5d5d5; }
+
 
     /* Consistent header: logo left, actions right */
     .sitebar {
@@ -132,13 +127,13 @@
   <h1 class="page-title">🏆 Combined Circuit Results (2025)</h1>
 
   <!-- Minimal search UI -->
-  <div class="searchbar">
-    <input id="nameSearch" type="text" placeholder="Find by first or last name…"
-           inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
-    <button id="returnCurrent" type="button">← Current Season</button>
-    <button id="searchBtn" type="button">Find</button>
-    <small id="searchResult"></small>
-  </div>
+ <div class="searchbar">
+  <input id="nameSearch" type="text" placeholder="Find by first or last name…"
+         inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
+  <button id="searchBtn" type="button">Find</button>
+  <small id="searchResult"></small>
+</div>
+
 
   <div class="division" id="combined-results">
     <p>Loading results...</p>
@@ -269,7 +264,6 @@
         console.error(err);
       });
 
-    document.getElementById('returnCurrent').onclick = () => { window.location.href = '/'; };
   </script>
 
   <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
