@@ -7,7 +7,6 @@
 
   <style>
     body { font-family: Arial, sans-serif; background:#f4f4f4; padding:2rem; margin:0; line-height:1.6; }
-
     h1 { font-size:2rem; margin-bottom:1rem; }
     h2 { font-size:1.25rem; margin:2rem 0 .5rem; border-bottom:2px solid #ccc; padding-bottom:.2rem; }
     h3 { margin:.25rem 0 .5rem; }
@@ -31,7 +30,7 @@
     .links { margin-top:1rem; }
     .footer-note { text-align:center; margin-top:3rem; font-size:.9rem; color:#333; }
 
-    /* Header: logo left, actions right (consistent with results pages) */
+    /* Header: logo left, actions right */
     .sitebar{
       max-width:1100px; margin:0 auto .75rem; padding:0 .25rem;
       display:flex; align-items:center; justify-content:space-between;
@@ -57,10 +56,10 @@
 <body>
 
   <!-- Consistent site header -->
+  <!-- from /2025/dashboard/ → /assets/... is ../../ -->
   <header class="sitebar">
-    <!-- from /2025/dashboard/ → /assets/... is ../../ -->
     <a class="brand" href="/">
-      <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo">
+      <img src="../../assets/images/CHBC%20Logo.png" alt="CHBC Logo">
     </a>
     <nav class="actions">
       <a class="btn" href="../">← 2025 Home</a>
@@ -73,7 +72,6 @@
 
   <div class="links">
     <strong>Full 2025 Results:</strong>
-    <!-- From /2025/dashboard/ to sibling dirs = ../ -->
     <ul>
       <li><a href="../combined-results/">🏆 Combined Circuit Results (2025)</a></li>
       <li><a href="../north-results/">🏅 North Division Results (2025)</a></li>
@@ -96,4 +94,115 @@
 
   <div class="footer-note">
     <p><strong>Notice something off?</strong> We welcome friendly corrections — whether it’s a misspelled name, club error, or placement issue.</p>
-    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" tar
+    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our feedback form.</p>
+  </div>
+
+  <script>
+    // Same data source as your working examples
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
+
+    // Robust CSV parse for simple published CSV (handles quoted commas)
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], cell = '', inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i], next = text[i+1];
+
+        if (char === '"' && inQuotes && next === '"') { cell += '"'; i++; continue; }
+        if (char === '"') { inQuotes = !inQuotes; continue; }
+        if (char === ',' && !inQuotes) { row.push(cell); cell = ''; continue; }
+        if ((char === '\n' || char === '\r') && !inQuotes) {
+          if (cell !== '' || row.length) { row.push(cell); rows.push(row); row = []; cell = ''; }
+          continue;
+        }
+        cell += char;
+      }
+      if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+
+      const headers = rows[0] || [];
+      return rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = (r[i] || '').trim());
+        return obj;
+      });
+    }
+
+    function renderTable(title, rows, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      const columns = ["Rank", "Brewer", "Club", "Total"];
+
+      const headerRow = document.createElement("tr");
+      columns.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      rows.forEach(row => {
+        const tr = document.createElement("tr");
+        columns.forEach(col => {
+          const td = document.createElement("td");
+          let v = row[col] || "";
+          if (col === "Total" && v !== "" && !isNaN(v)) v = parseFloat(v).toFixed(2);
+          td.textContent = v;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      // Add a section title (keeps your card titles slim)
+      const h = document.createElement("h3");
+      h.textContent = title;
+      container.innerHTML = "";
+      container.appendChild(h);
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
+
+    fetch(csvUrl)
+      .then(r => {
+        if (!r.ok) throw new Error("CSV fetch failed: " + r.status);
+        return r.text();
+      })
+      .then(csv => {
+        const data = parseCSV(csv);
+        const divisions = { "North/South": [], "North": [], "South": [] };
+
+        data.forEach(entry => {
+          const div = entry["Division"];
+          if (divisions[div]) divisions[div].push(entry);
+        });
+
+        const order = ["North/South", "North", "South"];
+        const idMap = { "North/South": "combined", "North": "north", "South": "south" };
+
+        order.forEach(key => {
+          const list = divisions[key];
+          if (list && list.length) {
+            list.sort((a, b) => (parseInt(a.Rank,10) || 9999) - (parseInt(b.Rank,10) || 9999));
+            renderTable(`${key} Division – Top 25`, list.slice(0, 25), idMap[key]);
+          } else {
+            // Optional: show "No data" state
+            const c = document.getElementById(idMap[key]);
+            if (c) c.innerHTML += "<p>No data available.</p>";
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.body.insertAdjacentHTML("beforeend", "<p>Error loading leaderboard data.</p>");
+      });
+  </script>
+
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
