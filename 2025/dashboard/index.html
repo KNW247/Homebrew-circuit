@@ -42,8 +42,31 @@
       line-height: 1;
       white-space: nowrap;
     }
-    .btn:hover { opacity: .92; }
-    .btn.btn-outline { background:#fff; color:#2c4a7a; }
+.actions { display: flex; gap: .5rem; }
+
+.btn {
+  display: inline-block;
+  padding: .45rem .75rem;
+  border-radius: 6px;
+  border: 1px solid #2c4a7a;
+  background: #2c4a7a;   /* solid blue background */
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .9rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  opacity: .92;
+}
+
+.btn.btn-outline {
+  background: #fff;       /* white background */
+  color: #2c4a7a;         /* blue text */
+}
+
 
     /* Page content wrapper so header can be flush to top-left */
     .page { padding: 2rem; }
