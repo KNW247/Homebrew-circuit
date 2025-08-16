@@ -2,92 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Homebrew Circuit Leaderboard</title>
+  <title>Homebrew Circuit Leaderboard (2025)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 2rem;
-      margin: 0;
-    }
+    body { font-family: Arial, sans-serif; background:#f4f4f4; padding:2rem; margin:0; line-height:1.6; }
+    .logo-container { text-align:right; padding:1rem 1rem 0; }
+    .logo-container img { max-width:100px; height:auto; }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
+    h1 { font-size:2rem; margin-bottom:1rem; }
+    h2 { font-size:1.25rem; margin:2rem 0 .5rem; border-bottom:2px solid #ccc; padding-bottom:.2rem; }
+    h3 { margin:.25rem 0 .5rem; }
 
-    h2 {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.2rem;
-    }
+    a { color:#2c4a7a; text-decoration:none; }
+    a:hover { text-decoration:underline; }
 
-.dashboard {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  gap: 1rem;
-  overflow-x: auto; /* Allows scrolling if window is narrow */
-}
+    .dashboard { display:flex; flex-wrap:nowrap; gap:1rem; overflow-x:auto; }
+    .division { flex:0 0 32%; min-width:300px; max-width:33%; background:#fff; padding:1rem; box-shadow:0 0 5px rgba(0,0,0,.1); border-radius:5px; box-sizing:border-box; }
 
-.division {
-  flex: 0 0 32%;
-  min-width: 300px;
-  max-width: 33%;
-  background-color: #fff;
-  padding: 1rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  box-sizing: border-box;
+    table { width:100%; table-layout:fixed; border-collapse:collapse; margin-top:.5rem; font-size:.85rem; }
+    th, td { border:1px solid #ccc; padding:.4rem; text-align:left; word-break:break-word; white-space:normal; }
+    th { background:#eaeaea; }
+    th:nth-child(1), td:nth-child(1) { width:10%; text-align:right; }
+    th:nth-child(2), td:nth-child(2) { width:26%; }
+    th:nth-child(4), td:nth-child(4) { width:20%; text-align:right; }
 
+    ul { padding-left:1.2rem; }
+    li { margin-bottom:.5rem; }
 
-    table {
-      width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
-    }
+    .links { margin-top:1rem; }
+    .back-home { margin-top:1rem; font-size:.95rem; }
+    .footer-note { text-align:center; margin-top:3rem; font-size:.9rem; color:#333; }
 
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.4rem;
-      text-align: left;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    th {
-      background-color: #eaeaea;
-    }
-
-    th:nth-child(1), td:nth-child(1) { width: 10%; }  /* Rank */
-    th:nth-child(2), td:nth-child(2) { width: 30%; }  /* Brewer */
-    th:nth-child(3), td:nth-child(3) { width: 40%; }  /* Club */
-    th:nth-child(4), td:nth-child(4) { width: 20%; }  /* Total */
-
-    @media (max-width: 900px) {
-      .division {
-        flex: 1 1 100%;
-      }
+    @media (max-width:768px){
+      .dashboard { flex-direction:column; }
+      .division { max-width:100%; flex:1 0 100%; margin-bottom:1.5rem; border-bottom:2px solid #ccc; padding-bottom:1rem; }
+      .division:last-child { border-bottom:none; }
+      .logo-container { text-align:center; padding:1rem 0; }
+      .logo-container img { max-width:80px; }
     }
   </style>
 </head>
 <body>
 
-  <h1>🏆 Homebrew Circuit – Top 25 Leaderboard</h1>
-  <p>This dashboard shows the top 25 brewers in each division, based on published circuit results.</p>
+  <!-- NOTE: from /2025/dashboard/ to /assets/... is ../../ -->
+  <div class="logo-container">
+    <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo" />
+  </div>
 
+  <h1>🏆 California Homebrew Circuit — 2025 Dashboard</h1>
+  <p>This page serves as the hub for the 2025 archive. Browse live Top-25 snapshots below, or jump to the full result pages.</p>
+
+  <div class="links">
+    <strong>Full 2025 Results:</strong>
+    <!-- From /2025/dashboard/ to sibling dirs = ../ -->
+    <ul>
+      <li><a href="../combined-results/">🏆 Combined Circuit Results (2025)</a></li>
+      <li><a href="../north-results/">🏅 North Division Results (2025)</a></li>
+      <li><a href="../south-results/">🥇 South Division Results (2025)</a></li>
+      <li><a href="../club-leaderboard/">🏘️ Club Leaderboard (2025)</a></li>
+      <li><a href="../competition-list/">📋 2025 Competition List</a></li>
+    </ul>
+  </div>
+
+  <h2>📊 Top 25 Snapshot</h2>
   <div class="dashboard">
-    <div id="combined" class="division"></div>
-    <div id="north" class="division"></div>
-    <div id="south" class="division"></div>
+    <div id="combined" class="division"><h3>Combined</h3></div>
+    <div id="north" class="division"><h3>North</h3></div>
+    <div id="south" class="division"><h3>South</h3></div>
+  </div>
+
+  <p class="back-home">
+    <a href="../">← Back to 2025 Home</a>
+  </p>
+
+  <noscript>
+    <p>JavaScript is required to view the Top-25 tables. See the full pages above instead.</p>
+  </noscript>
+
+  <div class="footer-note">
+    <p><strong>Notice something off?</strong> We welcome friendly corrections — whether it’s a misspelled name, club error, or placement issue.</p>
+    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our feedback form.</p>
   </div>
 
   <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRnmUI7H349bNblbSqP-EW6X7ZKeDUwprhSdhsgP_9dXJEPrhy8I9gzDgXOX8sOEQZ2uUULtPtKluB-/pub?gid=1753849627&single=true&output=csv";
+    // 2025 leaderboard feed — same structure as your current homepage mini-dashboard.
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
 
     function parseCSV(data) {
       const lines = data.trim().split("\n").map(line => line.split(","));
@@ -101,10 +101,6 @@
 
     function renderTable(title, rows, containerId) {
       const container = document.getElementById(containerId);
-      const sectionTitle = document.createElement("h2");
-      sectionTitle.textContent = title;
-      container.appendChild(sectionTitle);
-
       const table = document.createElement("table");
       const thead = document.createElement("thead");
       const tbody = document.createElement("tbody");
@@ -123,7 +119,11 @@
         const tr = document.createElement("tr");
         columns.forEach(col => {
           const td = document.createElement("td");
-          td.textContent = row[col] || "";
+          let cellValue = row[col] || "";
+          if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
+            cellValue = parseFloat(cellValue).toFixed(2);
+          }
+          td.textContent = cellValue;
           tr.appendChild(td);
         });
         tbody.appendChild(tr);
@@ -131,45 +131,41 @@
 
       table.appendChild(thead);
       table.appendChild(tbody);
+
+      // Insert a section title above the table
+      const h2 = document.createElement("h2");
+      h2.textContent = title;
+      container.appendChild(h2);
       container.appendChild(table);
     }
 
     fetch(csvUrl)
-      .then(response => response.text())
+      .then(r => r.text())
       .then(csv => {
         const data = parseCSV(csv);
-        const divisions = {
-          "North/South": [],
-          North: [],
-          South: []
-        };
+        const divisions = { "North/South": [], North: [], South: [] };
 
         data.forEach(entry => {
           const div = entry["Division"];
-          if (divisions[div]) {
-            divisions[div].push(entry);
-          }
+          if (divisions[div]) divisions[div].push(entry);
         });
+
+        const containerMap = { "North/South": "combined", "North": "north", "South": "south" };
 
         ["North/South", "North", "South"].forEach(key => {
           const list = divisions[key];
           if (list && list.length) {
             list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-            const containerMap = {
-  "North/South": "combined",
-  "North": "north",
-  "South": "south"
-};
-renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
-
+            renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
           }
         });
       })
       .catch(err => {
-        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
+        document.body.insertAdjacentHTML("beforeend", "<p>Error loading leaderboard data.</p>");
         console.error(err);
       });
   </script>
 
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
