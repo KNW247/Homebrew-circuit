@@ -39,8 +39,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;       /* optional: give header a white strip */
+
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.sitebar {
+  width: 100%;
+  max-width: none;        /* removes 1100px centering */
+  margin: 0;
+  padding: 0.5rem 1rem;   /* space around logo/buttons */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f4f4f4;    /* match page background for consistency */
 }
 
 .sitebar .brand {
@@ -49,19 +59,11 @@
 }
 
 .sitebar .brand img {
-  height: 70px;           /* bigger logo */
+  height: 70px;           /* larger logo */
   width: auto;
   display: block;
 }
 
-    }
-    .sitebar .brand img{ height:48px; width:auto; display:block; }
-    .actions{ display:flex; gap:.5rem; }
-    .btn{
-      display:inline-block; padding:.45rem .75rem; border-radius:6px;
-      border:1px solid #2c4a7a; background:#2c4a7a; color:#fff; text-decoration:none;
-      font-weight:600; font-size:.9rem;
-    }
     .btn:hover{ opacity:.92; }
     .btn-outline{ background:#fff; color:#2c4a7a; }
     .page-title { margin-top:.5rem; }
