@@ -6,16 +6,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body { font-family: Arial, sans-serif; background:#f4f4f4; padding:2rem; margin:0; line-height:1.6; }
+    /* Base */
+    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0; line-height:1.6; }
     h1 { font-size:2rem; margin-bottom:1rem; }
     h2 { font-size:1.25rem; margin:2rem 0 .5rem; border-bottom:2px solid #ccc; padding-bottom:.2rem; }
     h3 { margin:.25rem 0 .5rem; }
-
-    a { color:#2c4a7a; text-decoration:none; }
+    a  { color:#2c4a7a; text-decoration:none; }
     a:hover { text-decoration:underline; }
 
+    /* Header: logo left, actions right */
+    .sitebar {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f4f4f4; /* match page background for consistency */
+    }
+    .sitebar .brand { display: flex; align-items: center; }
+    .sitebar .brand img { height: 70px; width: auto; display: block; }
+
+    .actions { display: flex; gap: .5rem; }
+    .btn {
+      display: inline-block;
+      padding: .45rem .75rem;
+      border-radius: 6px;
+      border: 1px solid #2c4a7a;
+      background: #2c4a7a;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: .92; }
+    .btn.btn-outline { background:#fff; color:#2c4a7a; }
+
+    /* Page content wrapper so header can be flush to top-left */
+    .page { padding: 2rem; }
+
+    /* Cards / tables */
     .dashboard { display:flex; flex-wrap:nowrap; gap:1rem; overflow-x:auto; }
-    .division { flex:0 0 32%; min-width:300px; max-width:33%; background:#fff; padding:1rem; box-shadow:0 0 5px rgba(0,0,0,.1); border-radius:5px; box-sizing:border-box; }
+    .division  { flex:0 0 32%; min-width:300px; max-width:33%; background:#fff; padding:1rem; box-shadow:0 0 5px rgba(0,0,0,.1); border-radius:5px; box-sizing:border-box; }
 
     table { width:100%; table-layout:fixed; border-collapse:collapse; margin-top:.5rem; font-size:.85rem; }
     th, td { border:1px solid #ccc; padding:.4rem; text-align:left; word-break:break-word; white-space:normal; }
@@ -29,55 +64,18 @@
 
     .links { margin-top:1rem; }
     .footer-note { text-align:center; margin-top:3rem; font-size:.9rem; color:#333; }
-
-    /* Header: logo left, actions right */
-   .sitebar {
-  width: 100%;
-  max-width: none;        /* removes centering limit */
-  margin: 0;
-  padding: 0.5rem 1rem;   /* space around logo/buttons */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-.sitebar {
-  width: 100%;
-  max-width: none;        /* removes 1100px centering */
-  margin: 0;
-  padding: 0.5rem 1rem;   /* space around logo/buttons */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f4f4f4;    /* match page background for consistency */
-}
-
-.sitebar .brand {
-  display: flex;
-  align-items: center;
-}
-
-.sitebar .brand img {
-  height: 70px;           /* larger logo */
-  width: auto;
-  display: block;
-}
-
-    .btn:hover{ opacity:.92; }
-    .btn-outline{ background:#fff; color:#2c4a7a; }
     .page-title { margin-top:.5rem; }
 
     @media (max-width:768px){
       .dashboard { flex-direction:column; }
-      .division { max-width:100%; flex:1 0 100%; margin-bottom:1.5rem; border-bottom:2px solid #ccc; padding-bottom:1rem; }
+      .division  { max-width:100%; flex:1 0 100%; margin-bottom:1.5rem; border-bottom:2px solid #ccc; padding-bottom:1rem; }
       .division:last-child { border-bottom:none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Consistent site header -->
+  <!-- Header -->
   <!-- from /2025/dashboard/ → /assets/... is ../../ -->
   <header class="sitebar">
     <a class="brand" href="/">
@@ -89,35 +87,38 @@
     </nav>
   </header>
 
-  <h1 class="page-title">🏆 California Homebrew Circuit — 2025 Dashboard</h1>
-  <p>This page serves as the hub for the 2025 archive. Browse live Top-25 snapshots below, or jump to the full result pages.</p>
+  <!-- Main content -->
+  <main class="page">
+    <h1 class="page-title">🏆 California Homebrew Circuit — 2025 Dashboard</h1>
+    <p>This page serves as the hub for the 2025 archive. Browse live Top-25 snapshots below, or jump to the full result pages.</p>
 
-  <div class="links">
-    <strong>Full 2025 Results:</strong>
-    <ul>
-      <li><a href="../combined-results/">🏆 Combined Circuit Results (2025)</a></li>
-      <li><a href="../north-results/">🏅 North Division Results (2025)</a></li>
-      <li><a href="../south-results/">🥇 South Division Results (2025)</a></li>
-      <li><a href="../club-leaderboard/">🏘️ Club Leaderboard (2025)</a></li>
-      <li><a href="../competition-list/">📋 2025 Competition List</a></li>
-    </ul>
-  </div>
+    <div class="links">
+      <strong>Full 2025 Results:</strong>
+      <ul>
+        <li><a href="../combined-results/">🏆 Combined Circuit Results (2025)</a></li>
+        <li><a href="../north-results/">🏅 North Division Results (2025)</a></li>
+        <li><a href="../south-results/">🥇 South Division Results (2025)</a></li>
+        <li><a href="../club-leaderboard/">🏘️ Club Leaderboard (2025)</a></li>
+        <li><a href="../competition-list/">📋 2025 Competition List</a></li>
+      </ul>
+    </div>
 
-  <h2>📊 Top 25 Snapshot</h2>
-  <div class="dashboard">
-    <div id="combined" class="division"><h3>Combined</h3></div>
-    <div id="north" class="division"><h3>North</h3></div>
-    <div id="south" class="division"><h3>South</h3></div>
-  </div>
+    <h2>📊 Top 25 Snapshot</h2>
+    <div class="dashboard">
+      <div id="combined" class="division"><h3>Combined</h3></div>
+      <div id="north" class="division"><h3>North</h3></div>
+      <div id="south" class="division"><h3>South</h3></div>
+    </div>
 
-  <noscript>
-    <p>JavaScript is required to view the Top-25 tables. See the full pages above instead.</p>
-  </noscript>
+    <noscript>
+      <p>JavaScript is required to view the Top-25 tables. See the full pages above instead.</p>
+    </noscript>
 
-  <div class="footer-note">
-    <p><strong>Notice something off?</strong> We welcome friendly corrections — whether it’s a misspelled name, club error, or placement issue.</p>
-    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our feedback form.</p>
-  </div>
+    <div class="footer-note">
+      <p><strong>Notice something off?</strong> We welcome friendly corrections — whether it’s a misspelled name, club error, or placement issue.</p>
+      <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our feedback form.</p>
+    </div>
+  </main>
 
   <script>
     // Same data source as your working examples
@@ -180,7 +181,6 @@
         tbody.appendChild(tr);
       });
 
-      // Add a section title (keeps your card titles slim)
       const h = document.createElement("h3");
       h.textContent = title;
       container.innerHTML = "";
@@ -213,7 +213,6 @@
             list.sort((a, b) => (parseInt(a.Rank,10) || 9999) - (parseInt(b.Rank,10) || 9999));
             renderTable(`${key} Division – Top 25`, list.slice(0, 25), idMap[key]);
           } else {
-            // Optional: show "No data" state
             const c = document.getElementById(idMap[key]);
             if (c) c.innerHTML += "<p>No data available.</p>";
           }
