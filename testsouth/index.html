@@ -67,14 +67,47 @@
       font-size: 0.95rem;
       color: #444;
     }
+
+  .searchbar {
+  max-width: 1100px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-start; /* left align */
+}
+
+.searchbar input[type="text"] {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.searchbar button {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid #2c4a7a;
+  background: #2c4a7a;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.searchbar button:hover { opacity: 0.9; }
+
+.searchbar small {
+  font-size: 0.9rem;
+  color: #333;
+}
   </style>
 </head>
 <body>
 
   <h1>🥇 South Division – Full Results (Test)</h1>
 
-  <!-- Minimal search UI -->
-  <div>
+    <!-- Minimal search UI (styled, top-left) -->
+  <div class="searchbar">
     <input id="nameSearch" type="text" placeholder="Search name…">
     <button id="searchBtn" type="button">Find</button>
     <small id="searchResult"></small>
