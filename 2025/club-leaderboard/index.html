@@ -2,13 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Club Leaderboard (2025) – CHBC</title>
+  <title>🏆 Club Leaderboard – CHBC (2025)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    :root {
+      --brand:#2c4a7a;
+      --panel-bg:#fff;
+      --page-bg:#f4f4f4;
+      --border:#ccc;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: var(--page-bg);
       margin: 0;
       padding: 2rem;
       line-height: 1.6;
@@ -16,18 +23,22 @@
 
     /* Header: logo left, actions right */
     .sitebar {
-      max-width: 1100px; margin: 0 auto .75rem; padding: 0 .25rem;
       display: flex; align-items: center; justify-content: space-between;
+      gap: .75rem;
+      margin: 0 auto 0.75rem;
+      padding: 0 .25rem;
+      max-width: 1100px;
     }
     .sitebar .brand img { height: 48px; width: auto; display: block; }
-    .actions { display: flex; gap: .5rem; }
+    .actions { display: flex; gap: .5rem; flex-wrap: wrap; }
     .btn {
       display: inline-block; padding: .45rem .75rem; border-radius: 6px;
-      border: 1px solid #2c4a7a; background: #2c4a7a; color: #fff; text-decoration: none;
-      font-weight: 600; font-size: .9rem;
+      border: 1px solid var(--brand); background: var(--brand); color: #fff; text-decoration: none;
+      font-weight: 600; font-size: .9rem; line-height: 1;
+      white-space: nowrap;
     }
     .btn:hover { opacity: .92; }
-    .btn-outline { background: #fff; color: #2c4a7a; }
+    .btn-outline { background: #fff; color: var(--brand); }
 
     h1 {
       text-align: center;
@@ -35,18 +46,17 @@
       margin: .5rem 0 2rem;
     }
 
+    /* Keep original panel flow (no extra max-width squeeze on the dashboard) */
     .dashboard {
       display: flex;
       flex-wrap: nowrap;
       gap: 1rem;
       justify-content: space-between;
       overflow-x: auto;
-      max-width: 1100px;
-      margin: 0 auto;
     }
 
     .panel {
-      background-color: #fff;
+      background-color: var(--panel-bg);
       padding: 1rem;
       border-radius: 8px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -62,16 +72,17 @@
       padding-bottom: 0.2rem;
     }
 
-    /* ✅ Correct table layout (10% / 65% / 25%) */
+    /* Lock the table to the specified column widths */
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.75rem;
       margin-top: 0.5rem;
+      table-layout: fixed; /* prevents content from changing column widths */
     }
 
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid var(--border);
       padding: 0.3rem;
       text-align: left;
       vertical-align: top;
@@ -80,19 +91,18 @@
       white-space: nowrap;
     }
 
-    th:nth-child(1), td:nth-child(1) {
-      width: 10%;
+    th:nth-child(1), td:nth-child(1) { text-align: center; }
+    th:nth-child(3), td:nth-child(3) { text-align: right; }
+
+    a.back-link {
+      display: block;
       text-align: center;
+      margin-top: 2rem;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: bold;
     }
-
-    th:nth-child(2), td:nth-child(2) {
-      width: 65%;
-    }
-
-    th:nth-child(3), td:nth-child(3) {
-      width: 25%;
-      text-align: right;
-    }
+    a.back-link:hover { text-decoration: underline; }
 
     .footer-note {
       text-align: center;
@@ -118,11 +128,10 @@
 </head>
 <body>
 
-  <!-- Consistent site header -->
-  <!-- from /2025/club-leaderboard/ → /assets/... is ../../ -->
+  <!-- Site header with buttons (won’t affect table widths) -->
   <header class="sitebar">
     <a class="brand" href="/">
-      <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo">
+      <img src="../../assets/images/CHBC%20Logo.png" alt="CHBC Logo">
     </a>
     <nav class="actions">
       <a class="btn" href="../dashboard/">← 2025 Dashboard</a>
@@ -136,6 +145,11 @@
     <div class="panel">
       <h2>North/South Division – Top 25</h2>
       <table>
+        <colgroup>
+          <col style="width:10%">
+          <col style="width:65%">
+          <col style="width:25%">
+        </colgroup>
         <thead><tr><th>Rank</th><th>Club</th><th>Total</th></tr></thead>
         <tbody id="combined-table"></tbody>
       </table>
@@ -144,6 +158,11 @@
     <div class="panel">
       <h2>South Division – Top 25</h2>
       <table>
+        <colgroup>
+          <col style="width:10%">
+          <col style="width:65%">
+          <col style="width:25%">
+        </colgroup>
         <thead><tr><th>Rank</th><th>Club</th><th>Total</th></tr></thead>
         <tbody id="south-table"></tbody>
       </table>
@@ -152,11 +171,18 @@
     <div class="panel">
       <h2>North Division – Top 25</h2>
       <table>
+        <colgroup>
+          <col style="width:10%">
+          <col style="width:65%">
+          <col style="width:25%">
+        </colgroup>
         <thead><tr><th>Rank</th><th>Club</th><th>Total</th></tr></thead>
         <tbody id="north-table"></tbody>
       </table>
     </div>
   </div>
+
+  <a class="back-link" href="/">← Back to Dashboard</a>
 
   <p class="footer-note">
     💡 Have questions, spot an error, or want to suggest a comp?<br>
@@ -174,12 +200,13 @@
 
       rows.forEach(cols => {
         if (cols.length >= 4) {
-          const division = cols[0].trim();
+          const division = String(cols[0] || '').trim();
           if (division !== filterDivision) return;
-          const rank = cols[1].trim();
-          const club = cols[2].trim();
-          const rawTotal = cols[3].trim();
-          const total = isNaN(parseFloat(rawTotal)) ? '' : parseFloat(rawTotal).toFixed(3);
+          const rank = String(cols[1] || '').trim();
+          const club = String(cols[2] || '').trim();
+          const rawTotal = String(cols[3] || '').trim();
+          const num = parseFloat(rawTotal);
+          const total = isNaN(num) ? '' : num.toFixed(3);
 
           const tr = document.createElement('tr');
           tr.innerHTML = `<td>${rank}</td><td>${club}</td><td>${total}</td>`;
