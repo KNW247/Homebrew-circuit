@@ -14,25 +14,10 @@
       line-height: 1.6;
     }
 
-    /* Header: logo left, actions right (consistent across 2025 pages) */
-    .sitebar{
-      max-width:1100px; margin:0 auto .75rem; padding:0 .25rem;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .sitebar .brand img{ height:48px; width:auto; display:block; }
-    .actions{ display:flex; gap:.5rem; }
-    .btn{
-      display:inline-block; padding:.45rem .75rem; border-radius:6px;
-      border:1px solid #2c4a7a; background:#2c4a7a; color:#fff; text-decoration:none;
-      font-weight:600; font-size:.9rem;
-    }
-    .btn:hover{ opacity:.92; }
-    .btn-outline{ background:#fff; color:#2c4a7a; }
-
     h1 {
       text-align: center;
       font-size: 2rem;
-      margin: .5rem 0 2rem;
+      margin-bottom: 2rem;
     }
 
     .dashboard {
@@ -41,8 +26,6 @@
       gap: 1rem;
       justify-content: space-between;
       overflow-x: auto;
-      max-width:1100px;
-      margin:0 auto;
     }
 
     .panel {
@@ -62,6 +45,7 @@
       padding-bottom: 0.2rem;
     }
 
+    /* ✅ Correct table layout */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -93,6 +77,19 @@
       text-align: right;
     }
 
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #2c4a7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+
     .footer-note {
       text-align: center;
       margin-top: 1rem;
@@ -101,7 +98,10 @@
     }
 
     @media (max-width: 768px) {
-      .dashboard { flex-direction: column; max-width:100%; }
+      .dashboard {
+        flex-direction: column;
+      }
+
       .panel {
         width: 100%;
         flex: 1 0 100%;
@@ -109,25 +109,17 @@
         border-bottom: 2px solid #ccc;
         padding-bottom: 1rem;
       }
-      .panel:last-child { border-bottom: none; }
+
+      .panel:last-child {
+        border-bottom: none;
+      }
     }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
-
-  <!-- Header (relative path: /2025/club-leaderboard/ → /assets/... is ../../) -->
-  <header class="sitebar">
-    <a class="brand" href="/">
-      <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo">
-    </a>
-    <nav class="actions">
-      <a class="btn" href="../dashboard/">← 2025 Dashboard</a>
-      <a class="btn btn-outline" href="/">Current Season →</a>
-    </nav>
-  </header>
-
+  
   <h1>🏘️ Club Leaderboard (2025)</h1>
 
   <div class="dashboard">
@@ -156,6 +148,8 @@
     </div>
   </div>
 
+  <a class="back-link" href="../dashboard/">← Back to 2025 Dashboard</a>
+
   <p class="footer-note">
     💡 Have questions, spot an error, or want to suggest a comp?<br>
     Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
@@ -172,11 +166,11 @@
 
       rows.forEach(cols => {
         if (cols.length >= 4) {
-          const division = (cols[0] || '').trim();
+          const division = cols[0].trim();
           if (division !== filterDivision) return;
-          const rank = (cols[1] || '').trim();
-          const club = (cols[2] || '').trim();
-          const rawTotal = (cols[3] || '').trim();
+          const rank = cols[1].trim();
+          const club = cols[2].trim();
+          const rawTotal = cols[3].trim();
           const total = isNaN(parseFloat(rawTotal)) ? '' : parseFloat(rawTotal).toFixed(3);
 
           const tr = document.createElement('tr');
