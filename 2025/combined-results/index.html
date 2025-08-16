@@ -103,32 +103,29 @@
 /* Lighter results text */
 #searchResult { color:#555; }
 
+    #returnCurrent {
+  border: 1px solid #bbb;
+  background: #e0e0e0;
+  color: #333;
+}
+#returnCurrent:hover { background: #d5d5d5; }
+
   </style>
 </head>
 <body>
 
 <h1>🏆 Combined Circuit Results (2025)</h1>
 
-<div class="year-banner">
-  Viewing the <strong>2025 archive</strong>.
-  <a href="/" class="current-link">← Go to current season</a>
-</div>
-<style>
-.year-banner{
-  background:#fff3cd;border:1px solid #ffe69c;color:#664d03;
-  padding:.6rem .8rem;border-radius:6px;margin:0 auto 1rem;max-width:1100px;
-  font-size:.95rem;display:flex;gap:.75rem;justify-content:space-between;align-items:center
-}
-.year-banner .current-link{color:#2c4a7a;text-decoration:none;font-weight:600}
-.year-banner .current-link:hover{text-decoration:underline}
-</style>
 
   
   <!-- Minimal search UI (styled, top-right) -->
 <div class="searchbar">
   <input id="nameSearch" type="text" placeholder="Find by first or last name…"
          inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
+
+  <button id="returnCurrent" type="button">← Current Season</button>
   <button id="searchBtn" type="button">Find</button>
+
   <small id="searchResult"></small>
 </div>
 
@@ -144,6 +141,7 @@
     💡 Have questions, spot an error, or want to suggest a comp?<br>
  Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
   </p>
+
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1868529251&single=true&output=csv";
@@ -268,7 +266,9 @@ fetch(csvUrl)
     container.innerHTML = "<p>Error loading data.</p>";
     console.error(err);
   });
-
+document.getElementById('returnCurrent').onclick = function () {
+  window.location.href = '/';
+};
   </script>
 <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
