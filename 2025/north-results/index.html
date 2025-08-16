@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>North Division Results – CHBC</title>
+  <title>North Division Results (2025) – CHBC</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -48,93 +48,84 @@
       background-color: #eaeaea;
     }
 
-    a.back-link {
-      display: block;
-      text-align: center;
-      margin-top: 1rem;
-      color: #2c4a7a;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a.back-link:hover {
-      text-decoration: underline;
-    }
-
     .footer-note {
       text-align: center;
       margin-top: 1rem;
       font-size: 0.95rem;
       color: #444;
     }
+
     /* Search bar (top-right, under the title) */
-.searchbar {
-  max-width: 1100px;
-  margin: 0 auto 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: flex-end; /* right align */
-}
+    .searchbar {
+      max-width: 1100px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
 
-.searchbar input[type="text"] {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
+    .searchbar input[type="text"] {
+      padding: 0.4rem 0.6rem;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
 
-.searchbar button {
-  padding: 0.4rem 0.7rem;
-  border: 1px solid #2c4a7a;
-  background: #2c4a7a;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
+    .searchbar button {
+      padding: 0.4rem 0.7rem;
+      border: 1px solid #2c4a7a;
+      background: #2c4a7a;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
 
-.searchbar button:hover { opacity: 0.9; }
+    .searchbar button:hover { opacity: 0.9; }
+    .searchbar small { font-size: 0.9rem; color: #333; }
+    #searchResult { color:#555; }
 
-.searchbar small {
-  font-size: 0.9rem;
-  color: #333;
-}
-
-/* Lighter results text */
-#searchResult { color:#555; }
-#returnCurrent {
-  border: 1px solid #bbb;
-  background: #e0e0e0;
-  color: #333;
-}
-#returnCurrent:hover { background: #d5d5d5; }
-
+    /* Header: logo left, actions right */
+    .sitebar {
+      max-width:1100px; margin:0 auto .75rem; padding:0 .25rem;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .sitebar .brand img{ height:48px; width:auto; display:block; }
+    .actions{ display:flex; gap:.5rem; }
+    .btn{
+      display:inline-block; padding:.45rem .75rem; border-radius:6px;
+      border:1px solid #2c4a7a; background:#2c4a7a; color:#fff; text-decoration:none;
+      font-weight:600; font-size:.9rem;
+    }
+    .btn:hover{ opacity:.92; }
+    .btn-outline{ background:#fff; color:#2c4a7a; }
+    .page-title{ margin-top:.5rem; }
   </style>
 </head>
 <body>
+  <header class="sitebar">
+    <a class="brand" href="/">
+      <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo">
+    </a>
+    <nav class="actions">
+      <a class="btn" href="../dashboard/">← 2025 Dashboard</a>
+      <a class="btn btn-outline" href="/">Current Season →</a>
+    </nav>
+  </header>
 
- <h1>🏅 North Division – Full Results (2025)</h1>
+  <h1 class="page-title">🏅 North Division – Full Results (2025)</h1>
 
+  <div class="searchbar">
+    <input id="nameSearch" type="text" placeholder="Find by first or last name…"
+           inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
+    <button id="searchBtn" type="button">Find</button>
+    <small id="searchResult"></small>
+  </div>
 
-
-  
-<!-- Minimal search UI (styled, top-right) -->
-<div class="searchbar">
-  <input id="nameSearch" type="text" placeholder="Find by first or last name…"
-         inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
-  <button id="searchBtn" type="button">Find</button>
-  <small id="searchResult"></small>
-</div>
-
-  
   <div class="division" id="north-results">
     <p>Loading results...</p>
   </div>
-
-<a class="back-link" href="../dashboard/">← Back to 2025 Dashboard</a>
-
-
 
   <p class="footer-note">
     💡 Have questions, spot an error, or want to suggest a comp?<br>
@@ -189,21 +180,16 @@
       thead.appendChild(headerRow);
 
       rows.forEach(row => {
-       if (parseFloat(row["Total"]) > 0) {
+        if (parseFloat(row["Total"]) > 0) {
           const tr = document.createElement("tr");
           rawColumns.forEach(col => {
             const td = document.createElement("td");
-         
-            
-         let cellValue = row[col] || "";
-if (!isNaN(cellValue) && cellValue.trim() !== "") {
-  const num = parseFloat(cellValue);
-  cellValue = num === 0 ? "" : num.toString();
-}
-td.textContent = cellValue;
-
-
-
+            let cellValue = row[col] || "";
+            if (!isNaN(cellValue) && cellValue.trim() !== "") {
+              const num = parseFloat(cellValue);
+              cellValue = num === 0 ? "" : num.toString();
+            }
+            td.textContent = cellValue;
             tr.appendChild(td);
           });
           tbody.appendChild(tr);
@@ -214,66 +200,62 @@ td.textContent = cellValue;
       table.appendChild(tbody);
       container.appendChild(table);
     }
-// --- Minimal search helpers (rows may change; columns are stable) ---
-function searchBrewerSimple(containerId) {
-  const q = document.getElementById('nameSearch').value.trim().toLowerCase();
-  const resultEl = document.getElementById('searchResult');
-  resultEl.textContent = '';
-  if (!q) return;
 
-  const table = document.getElementById(containerId);
-  const rows = Array.from(table.querySelectorAll('tbody tr'));
-  const ranks = [];
+    // --- Minimal search helpers ---
+    function searchBrewerSimple(containerId) {
+      const q = document.getElementById('nameSearch').value.trim().toLowerCase();
+      const resultEl = document.getElementById('searchResult');
+      resultEl.textContent = '';
+      if (!q) return;
 
-  for (const tr of rows) {
-    const brewerCell = tr.cells[1]; // Brewer column is fixed (2nd visible column)
-    if (brewerCell && brewerCell.textContent.toLowerCase().includes(q)) {
-      const rankStr = tr.cells[0]?.textContent || '';
-      const rankNum = parseInt(rankStr, 10);
-      if (!Number.isNaN(rankNum)) ranks.push(rankNum);
+      const table = document.getElementById(containerId);
+      const rows = Array.from(table.querySelectorAll('tbody tr'));
+      const ranks = [];
+
+      for (const tr of rows) {
+        const brewerCell = tr.cells[1]; // Brewer column is second visible column
+        if (brewerCell && brewerCell.textContent.toLowerCase().includes(q)) {
+          const rankStr = tr.cells[0]?.textContent || '';
+          const rankNum = parseInt(rankStr, 10);
+          if (!Number.isNaN(rankNum)) ranks.push(rankNum);
+        }
+      }
+
+      if (ranks.length === 0) {
+        resultEl.textContent = 'No matches found.';
+        return;
+      }
+
+      ranks.sort((a, b) => a - b);
+      resultEl.textContent = ranks.length === 1
+        ? `Ranked ${ranks[0]}`
+        : `Ranked ${ranks.join(', ')}`;
     }
-  }
 
-  if (ranks.length === 0) {
-    resultEl.textContent = 'No matches found.';
-    return;
-  }
+    function wireSimpleSearch(containerId) {
+      const btn = document.getElementById('searchBtn');
+      const input = document.getElementById('nameSearch');
+      if (!btn || !input) return;
 
-  ranks.sort((a, b) => a - b);
-  resultEl.textContent = ranks.length === 1
-    ? `Ranked ${ranks[0]}`
-    : `Ranked ${ranks.join(', ')}`;
-}
+      btn.onclick = () => searchBrewerSimple(containerId);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') searchBrewerSimple(containerId); });
+    }
 
-function wireSimpleSearch(containerId) {
-  const btn = document.getElementById('searchBtn');
-  const input = document.getElementById('nameSearch');
-  if (!btn || !input) return;
-
-  btn.onclick = () => searchBrewerSimple(containerId);
-  input.addEventListener('keydown', e => { if (e.key === 'Enter') searchBrewerSimple(containerId); });
-}
-// --- end minimal search helpers ---
-
-   fetch(csvUrl)
-  .then(response => response.text())
-  .then(csv => {
-    const data = parseCSV(csv);
-    data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-    renderTable(data, "north-results");
-    wireSimpleSearch("north-results"); // <-- add this line
-  })
-  .catch(err => {
-    const container = document.getElementById("north-results");
-    container.innerHTML = "<p>Error loading data.</p>";
-    console.error(err);
-  });
-document.getElementById('returnCurrent').onclick = function () {
-  window.location.href = '/';
-};
-
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const data = parseCSV(csv);
+        data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+        renderTable(data, "north-results");
+        wireSimpleSearch("north-results");
+      })
+      .catch(err => {
+        const container = document.getElementById("north-results");
+        container.innerHTML = "<p>Error loading data.</p>";
+        console.error(err);
+      });
   </script>
-<script data-goatcounter="https://chbcircuit.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
