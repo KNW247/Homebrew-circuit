@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>South Division Results – CHBC</title>
+  <title>South Division Results (2025) – CHBC</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -110,12 +111,40 @@
   color: #333;
 }
 #returnCurrent:hover { background: #d5d5d5; }
+/* Header: logo left, actions right */
+.sitebar{
+  max-width:1100px; margin:0 auto .75rem; padding:0 .25rem;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.sitebar .brand img{ height:48px; width:auto; display:block; }
+
+.actions{ display:flex; gap:.5rem; }
+.btn{
+  display:inline-block; padding:.45rem .75rem; border-radius:6px;
+  border:1px solid #2c4a7a; background:#2c4a7a; color:#fff; text-decoration:none;
+  font-weight:600; font-size:.9rem;
+}
+.btn:hover{ opacity:.92; }
+.btn-outline{ background:#fff; color:#2c4a7a; }
+
+/* Optional: small space since header sits above title */
+.page-title{ margin-top:.5rem; }
 
   </style>
 </head>
 <body>
+<header class="sitebar">
+  <a class="brand" href="/">
+    <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo">
+  </a>
+  <nav class="actions">
+    <a class="btn" href="../dashboard/">← 2025 Dashboard</a>
+    <a class="btn btn-outline" href="/">Current Season →</a>
+  </nav>
+</header>
 
- <h1>🥇 South Division – Full Results (2025)</h1>
+<h1 class="page-title">🥇 South Division – Full Results (2025)</h1>
+
 
 
   
@@ -123,19 +152,15 @@
 <div class="searchbar">
   <input id="nameSearch" type="text" placeholder="Find by first or last name…"
          inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
-
-  <button id="returnCurrent" type="button">← Current Season</button>
   <button id="searchBtn" type="button">Find</button>
-
   <small id="searchResult"></small>
 </div>
+
 
 
   <div class="division" id="south-results">
     <p>Loading results...</p>
   </div>
-
-<a class="back-link" href="../dashboard/">← Back to 2025 Dashboard</a>
 
 
 
@@ -271,9 +296,7 @@ fetch(csvUrl)
     container.innerHTML = "<p>Error loading data.</p>";
     console.error(err);
   });
-document.getElementById('returnCurrent').onclick = function () {
-  window.location.href = '/';
-};
+
 
   </script>
 <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
