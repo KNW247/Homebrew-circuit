@@ -161,7 +161,7 @@
     container.appendChild(table);
   }
 
-  // --- Minimal search helpers (rows may change; columns are stable) ---
+   // --- Minimal search helpers (rows may change; columns are stable) ---
   function searchBrewerSimple(containerId) {
     const q = document.getElementById('nameSearch').value.trim().toLowerCase();
     const resultEl = document.getElementById('searchResult');
@@ -170,20 +170,26 @@
 
     const table = document.getElementById(containerId);
     const rows = Array.from(table.querySelectorAll('tbody tr'));
-    const matches = [];
+    const ranks = [];
 
     for (const tr of rows) {
       const brewerCell = tr.cells[1]; // Brewer column is fixed (2nd visible column)
       if (brewerCell && brewerCell.textContent.toLowerCase().includes(q)) {
-        matches.push({ tr, rank: tr.cells[0]?.textContent || '' });
+        const rankStr = tr.cells[0]?.textContent || '';
+        const rankNum = parseInt(rankStr, 10);
+        if (!Number.isNaN(rankNum)) ranks.push(rankNum);
       }
     }
 
-    if (matches.length === 0) { resultEl.textContent = 'No matches found.'; return; }
-    matches[0].tr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    resultEl.textContent = matches.length === 1
-      ? `Match: Rank ${matches[0].rank}`
-      : `Matches: ${matches.map(m => `#${m.rank}`).join(', ')}`;
+    if (ranks.length === 0) {
+      resultEl.textContent = 'No matches found.';
+      return;
+    }
+
+    ranks.sort((a, b) => a - b);
+    resultEl.textContent = ranks.length === 1
+      ? `Ranked ${ranks[0]}`
+      : `Ranked ${ranks.join(', ')}`;
   }
 
   function wireSimpleSearch(containerId) {
@@ -195,6 +201,7 @@
     input.addEventListener('keydown', e => { if (e.key === 'Enter') searchBrewerSimple(containerId); });
   }
   // --- end minimal search helpers ---
+
 
   // Fetch + render + wire search
   fetch(csvUrl)
