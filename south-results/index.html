@@ -183,12 +183,14 @@
           const tr = document.createElement("tr");
           rawColumns.forEach(col => {
             const td = document.createElement("td");
-let cellValue = row[col] || "";
+
+            let cellValue = row[col] || "";
 if (!isNaN(cellValue) && cellValue.trim() !== "") {
-  const rounded = parseFloat(cellValue).toFixed(2);
-  cellValue = (rounded === "0.00") ? "" : rounded;
+  const num = parseFloat(cellValue);
+  cellValue = num === 0 ? "" : num.toString();
 }
 td.textContent = cellValue;
+
 
 
             tr.appendChild(td);
