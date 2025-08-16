@@ -7,8 +7,6 @@
 
   <style>
     body { font-family: Arial, sans-serif; background:#f4f4f4; padding:2rem; margin:0; line-height:1.6; }
-    .logo-container { text-align:right; padding:1rem 1rem 0; }
-    .logo-container img { max-width:100px; height:auto; }
 
     h1 { font-size:2rem; margin-bottom:1rem; }
     h2 { font-size:1.25rem; margin:2rem 0 .5rem; border-bottom:2px solid #ccc; padding-bottom:.2rem; }
@@ -31,26 +29,46 @@
     li { margin-bottom:.5rem; }
 
     .links { margin-top:1rem; }
-    .back-home { margin-top:1rem; font-size:.95rem; }
     .footer-note { text-align:center; margin-top:3rem; font-size:.9rem; color:#333; }
+
+    /* Header: logo left, actions right (consistent with results pages) */
+    .sitebar{
+      max-width:1100px; margin:0 auto .75rem; padding:0 .25rem;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .sitebar .brand img{ height:48px; width:auto; display:block; }
+    .actions{ display:flex; gap:.5rem; }
+    .btn{
+      display:inline-block; padding:.45rem .75rem; border-radius:6px;
+      border:1px solid #2c4a7a; background:#2c4a7a; color:#fff; text-decoration:none;
+      font-weight:600; font-size:.9rem;
+    }
+    .btn:hover{ opacity:.92; }
+    .btn-outline{ background:#fff; color:#2c4a7a; }
+    .page-title { margin-top:.5rem; }
 
     @media (max-width:768px){
       .dashboard { flex-direction:column; }
       .division { max-width:100%; flex:1 0 100%; margin-bottom:1.5rem; border-bottom:2px solid #ccc; padding-bottom:1rem; }
       .division:last-child { border-bottom:none; }
-      .logo-container { text-align:center; padding:1rem 0; }
-      .logo-container img { max-width:80px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NOTE: from /2025/dashboard/ to /assets/... is ../../ -->
-  <div class="logo-container">
-    <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo" />
-  </div>
+  <!-- Consistent site header -->
+  <header class="sitebar">
+    <!-- from /2025/dashboard/ → /assets/... is ../../ -->
+    <a class="brand" href="/">
+      <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo">
+    </a>
+    <nav class="actions">
+      <a class="btn" href="../">← 2025 Home</a>
+      <a class="btn btn-outline" href="/">Current Season →</a>
+    </nav>
+  </header>
 
-  <h1>🏆 California Homebrew Circuit — 2025 Dashboard</h1>
+  <h1 class="page-title">🏆 California Homebrew Circuit — 2025 Dashboard</h1>
   <p>This page serves as the hub for the 2025 archive. Browse live Top-25 snapshots below, or jump to the full result pages.</p>
 
   <div class="links">
@@ -72,100 +90,10 @@
     <div id="south" class="division"><h3>South</h3></div>
   </div>
 
-  <p class="back-home">
-    <a href="../">← Back to 2025 Home</a>
-  </p>
-
   <noscript>
     <p>JavaScript is required to view the Top-25 tables. See the full pages above instead.</p>
   </noscript>
 
   <div class="footer-note">
     <p><strong>Notice something off?</strong> We welcome friendly corrections — whether it’s a misspelled name, club error, or placement issue.</p>
-    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our feedback form.</p>
-  </div>
-
-  <script>
-    // 2025 leaderboard feed — same structure as your current homepage mini-dashboard.
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
-
-    function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split(","));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
-        const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
-        return obj;
-      });
-    }
-
-    function renderTable(title, rows, containerId) {
-      const container = document.getElementById(containerId);
-      const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tbody = document.createElement("tbody");
-
-      const columns = ["Rank", "Brewer", "Club", "Total"];
-
-      const headerRow = document.createElement("tr");
-      columns.forEach(col => {
-        const th = document.createElement("th");
-        th.textContent = col;
-        headerRow.appendChild(th);
-      });
-      thead.appendChild(headerRow);
-
-      rows.forEach(row => {
-        const tr = document.createElement("tr");
-        columns.forEach(col => {
-          const td = document.createElement("td");
-          let cellValue = row[col] || "";
-          if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
-            cellValue = parseFloat(cellValue).toFixed(2);
-          }
-          td.textContent = cellValue;
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
-
-      table.appendChild(thead);
-      table.appendChild(tbody);
-
-      // Insert a section title above the table
-      const h2 = document.createElement("h2");
-      h2.textContent = title;
-      container.appendChild(h2);
-      container.appendChild(table);
-    }
-
-    fetch(csvUrl)
-      .then(r => r.text())
-      .then(csv => {
-        const data = parseCSV(csv);
-        const divisions = { "North/South": [], North: [], South: [] };
-
-        data.forEach(entry => {
-          const div = entry["Division"];
-          if (divisions[div]) divisions[div].push(entry);
-        });
-
-        const containerMap = { "North/South": "combined", "North": "north", "South": "south" };
-
-        ["North/South", "North", "South"].forEach(key => {
-          const list = divisions[key];
-          if (list && list.length) {
-            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-            renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
-          }
-        });
-      })
-      .catch(err => {
-        document.body.insertAdjacentHTML("beforeend", "<p>Error loading leaderboard data.</p>");
-        console.error(err);
-      });
-  </script>
-
-  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
-</html>
+    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" tar
