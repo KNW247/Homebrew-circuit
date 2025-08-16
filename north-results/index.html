@@ -67,12 +67,57 @@
       font-size: 0.95rem;
       color: #444;
     }
+    /* Search bar (top-right, under the title) */
+.searchbar {
+  max-width: 1100px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end; /* right align */
+}
+
+.searchbar input[type="text"] {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.searchbar button {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid #2c4a7a;
+  background: #2c4a7a;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.searchbar button:hover { opacity: 0.9; }
+
+.searchbar small {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Lighter results text */
+#searchResult { color:#555; }
+
   </style>
 </head>
 <body>
 
   <h1>🏅 North Division – Full Results</h1>
+<!-- Minimal search UI (styled, top-right) -->
+<div class="searchbar">
+  <input id="nameSearch" type="text" placeholder="Find by first or last name…"
+         inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
+  <button id="searchBtn" type="button">Find</button>
+  <small id="searchResult"></small>
+</div>
 
+  
   <div class="division" id="north-results">
     <p>Loading results...</p>
   </div>
@@ -155,19 +200,61 @@ td.textContent = cellValue;
       table.appendChild(tbody);
       container.appendChild(table);
     }
+// --- Minimal search helpers (rows may change; columns are stable) ---
+function searchBrewerSimple(containerId) {
+  const q = document.getElementById('nameSearch').value.trim().toLowerCase();
+  const resultEl = document.getElementById('searchResult');
+  resultEl.textContent = '';
+  if (!q) return;
 
-    fetch(csvUrl)
-      .then(response => response.text())
-      .then(csv => {
-        const data = parseCSV(csv);
-        data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-        renderTable(data, "north-results");
-      })
-      .catch(err => {
-        const container = document.getElementById("north-results");
-        container.innerHTML = "<p>Error loading data.</p>";
-        console.error(err);
-      });
+  const table = document.getElementById(containerId);
+  const rows = Array.from(table.querySelectorAll('tbody tr'));
+  const ranks = [];
+
+  for (const tr of rows) {
+    const brewerCell = tr.cells[1]; // Brewer column is fixed (2nd visible column)
+    if (brewerCell && brewerCell.textContent.toLowerCase().includes(q)) {
+      const rankStr = tr.cells[0]?.textContent || '';
+      const rankNum = parseInt(rankStr, 10);
+      if (!Number.isNaN(rankNum)) ranks.push(rankNum);
+    }
+  }
+
+  if (ranks.length === 0) {
+    resultEl.textContent = 'No matches found.';
+    return;
+  }
+
+  ranks.sort((a, b) => a - b);
+  resultEl.textContent = ranks.length === 1
+    ? `Ranked ${ranks[0]}`
+    : `Ranked ${ranks.join(', ')}`;
+}
+
+function wireSimpleSearch(containerId) {
+  const btn = document.getElementById('searchBtn');
+  const input = document.getElementById('nameSearch');
+  if (!btn || !input) return;
+
+  btn.onclick = () => searchBrewerSimple(containerId);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') searchBrewerSimple(containerId); });
+}
+// --- end minimal search helpers ---
+
+   fetch(csvUrl)
+  .then(response => response.text())
+  .then(csv => {
+    const data = parseCSV(csv);
+    data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+    renderTable(data, "north-results");
+    wireSimpleSearch("north-results"); // <-- add this line
+  })
+  .catch(err => {
+    const container = document.getElementById("north-results");
+    container.innerHTML = "<p>Error loading data.</p>";
+    console.error(err);
+  });
+
   </script>
 <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
