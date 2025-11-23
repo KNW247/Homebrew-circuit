@@ -51,6 +51,14 @@
       padding-bottom: 0.2rem;
     }
 
+    .current-season {
+      background: #ffffff;
+      border-left: 4px solid #2c4a7a;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0 1.5rem 0;
+      font-size: 0.95rem;
+    }
+
     .dashboard {
       display: flex;
       flex-wrap: nowrap;
@@ -153,65 +161,63 @@
 
   <h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
 
-  <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
-
-  <p><strong>🚧 Beta Year Notice:</strong> This is our beta launch year—an experimental first run. We're refining the system as we go, and your feedback is welcome. Competitions for the next season will be finalized and locked in by September.</p>
-
-  <h2>🍻 How it Works</h2>
-  <p>Compete in any <a href="/competition-list/">competition listed in the Circuit</a>. Your wins earn points on our <a href="/combined-results/">leaderboard</a>, helping highlight standout brewers from across California.</p>
-
-  <h2>🎯 What CHBC Celebrates</h2>
-  <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
-
-  <h2>📊 Live Standings Dashboard</h2>
-
-  <div class="dashboard">
-    <div id="combined" class="division">
-      <h3>Combined Results</h3>
-    </div>
-    <div id="north" class="division">
-      <h3>North Division</h3>
-    </div>
-    <div id="south" class="division">
-      <h3>South Division</h3>
+  <div class="current-season">
+    <strong>Current Season:</strong> 2026 California Homebrew Circuit  
+    <br>
+    Live standings update as competitions throughout the state report results.
+    <div class="archive-link">
+      Looking for last season? Visit the <a href="/2025/">2025 Season Archive →</a>
     </div>
   </div>
 
+  <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
+
+  <h2>🍻 How It Works</h2>
+  <p>Compete in any <a href="/2026/competition-list/">competition listed in the 2026 Circuit</a>. Your medal placements earn points on the <a href="/2026/combined-results/">2026 leaderboard</a>, highlighting standout brewers from across California.</p>
+
+  <h2>📊 Live Standings Dashboard — 2026 Season</h2>
+
+  <div class="dashboard">
+    <div id="combined" class="division"><h3>Combined Results</h3></div>
+    <div id="north" class="division"><h3>North Division</h3></div>
+    <div id="south" class="division"><h3>South Division</h3></div>
+  </div>
+
   <noscript>
-    <p>JavaScript is required to view live standings. See the <a href="/combined-results/">results page</a> instead.</p>
+    <p>JavaScript is required to view live standings. See the <a href="/2026/combined-results/">full results</a> instead.</p>
   </noscript>
 
-  <h2>📊 View the Full Results</h2>
+  <h2>📊 View Full 2026 Results</h2>
   <ul>
-    <li><a href="/north-results/">🏅 North Division Results</a></li>
-    <li><a href="/south-results/">🥇 South Division Results</a></li>
-    <li><a href="/combined-results/">🏆 Combined Circuit Results</a></li>
-    <li><a href="/club-leaderboard/">🏘️ Club Leaderboard</a></li>
+    <li><a href="/2026/north-results/">🏅 North Division Results</a></li>
+    <li><a href="/2026/south-results/">🥇 South Division Results</a></li>
+    <li><a href="/2026/combined-results/">🏆 Combined Circuit Results</a></li>
+    <li><a href="/2026/club-leaderboard/">🏘️ Club Leaderboard</a></li>
   </ul>
 
-  <h2>📚 Learn More About CHBC</h2>
+  <h2>📚 Learn More About the 2026 Circuit</h2>
   <ul>
-    <li><a href="/methodology/">📘 Methodology</a></li>
-    <li><a href="/competition-list/">📋 View Circuit Competition List</a></li>
-    <li><a href="/circuit-structure/">📖 Circuit Transparency & Structure</a></li>
-    <li><a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
-    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">✉️ Send Feedback</a></li>
+    <li><a href="/2026/methodology/">📘 2026 Methodology</a></li>
+    <li><a href="/2026/competition-list/">📋 2026 Competition List</a></li>
+    <li><a href="/2026/circuit-structure/">📖 Circuit Transparency & Structure</a></li>
+    <li><a href="https://discord.gg/pFTj7vb2mU" target="_blank">💬 Join the Conversation</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank">✉️ Send Feedback</a></li>
   </ul>
 
   <div class="footer-note">
     <p><strong>Notice something off?</strong> We welcome friendly corrections—whether it’s a misspelled name, club error, or placement issue.</p>
-    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">feedback form</a>.</p>
   </div>
 
   <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
+    const csvUrl =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=1753849627&single=true&output=csv";
 
     function parseCSV(data) {
       const lines = data.trim().split("\n").map(line => line.split(","));
       const headers = lines[0];
       return lines.slice(1).map(row => {
         const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        headers.forEach((h, i) => (obj[h.trim()] = row[i]?.trim() || ""));
         return obj;
       });
     }
@@ -240,11 +246,11 @@
         const tr = document.createElement("tr");
         columns.forEach(col => {
           const td = document.createElement("td");
-          let cellValue = row[col] || "";
-          if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
-            cellValue = parseFloat(cellValue).toFixed(2);
+          let val = row[col] || "";
+          if (col === "Total" && val !== "" && !isNaN(val)) {
+            val = parseFloat(val).toFixed(2);
           }
-          td.textContent = cellValue;
+          td.textContent = val;
           tr.appendChild(td);
         });
         tbody.appendChild(tr);
@@ -259,36 +265,30 @@
       .then(response => response.text())
       .then(csv => {
         const data = parseCSV(csv);
-        const divisions = {
-          "North/South": [],
-          North: [],
-          South: []
-        };
+        const divisions = { "North/South": [], North: [], South: [] };
 
         data.forEach(entry => {
           const div = entry["Division"];
-          if (divisions[div]) {
-            divisions[div].push(entry);
-          }
+          if (divisions[div]) divisions[div].push(entry);
         });
 
-        const containerMap = {
+        const map = {
           "North/South": "combined",
-          "North": "north",
-          "South": "south"
+          North: "north",
+          South: "south"
         };
 
         ["North/South", "North", "South"].forEach(key => {
-          const list = divisions[key];
-          if (list && list.length) {
-            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-            renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
+          const rows = divisions[key];
+          if (rows.length) {
+            rows.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+            renderTable(`${key} Division – Top 25`, rows.slice(0, 25), map[key]);
           }
         });
       })
       .catch(err => {
-        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
         console.error(err);
+        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
       });
   </script>
 
