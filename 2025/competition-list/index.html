@@ -1,10 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>📋 Competition List (2025) – CHBC Circuit</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <title>📋 Competition List – CHBC Circuit</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -49,11 +48,31 @@
       text-align: left;
     }
 
-    th { background-color: #eaeaea; }
-    tr:nth-child(even) { background-color: #f9f9f9; }
+    th {
+      background-color: #eaeaea;
+    }
 
-    a { color: #2c4a7a; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    a {
+      color: #2c4a7a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #2c4a7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
     .footer-note {
       text-align: center;
@@ -62,45 +81,29 @@
       color: #444;
     }
 
-    td.coming-soon { color: #888; font-style: italic; }
+    td.coming-soon {
+      color: #888;
+      font-style: italic;
+    }
 
     @media screen and (max-width: 768px) {
-      body { padding: 1rem; }
-      table, th, td { font-size: 0.8rem; }
+      body {
+        padding: 1rem;
+      }
+
+      table, th, td {
+        font-size: 0.8rem;
+      }
     }
 
-    /* Consistent header: logo left, actions right */
-    .sitebar{
-      max-width:1100px; margin:0 auto .75rem; padding:0 .25rem;
-      display:flex; align-items:center; justify-content:space-between;
+    table + h2 {
+      margin-top: 3rem;
     }
-    .sitebar .brand img{ height:48px; width:auto; display:block; }
-    .actions{ display:flex; gap:.5rem; }
-    .btn{
-      display:inline-block; padding:.45rem .75rem; border-radius:6px;
-      border:1px solid #2c4a7a; background:#2c4a7a; color:#fff; text-decoration:none;
-      font-weight:600; font-size:.9rem;
-    }
-    .btn:hover{ opacity:.92; }
-    .btn-outline{ background:#fff; color:#2c4a7a; }
-    .page-title{ margin-top:.5rem; }
   </style>
 </head>
 <body>
 
-  <!-- Consistent site header -->
-  <header class="sitebar">
-    <!-- from /2025/competition-list/ → /assets/... is ../../ -->
-    <a class="brand" href="/">
-      <img src="../../assets/images/CHBC Logo.png" alt="CHBC Logo">
-    </a>
-    <nav class="actions">
-      <a class="btn" href="../dashboard/">← 2025 Dashboard</a>
-      <a class="btn btn-outline" href="/">Current Season →</a>
-    </nav>
-  </header>
-
-  <h1 class="page-title">📋 Circuit Competition List (2025)</h1>
+  <h1>📋 CHBC Circuit – Current Competitions</h1>
 
   <div class="panel">
     <p>The following competitions are included in the 2025 California Homebrew Circuit. These are tracked live on our standings dashboard using their listed abbreviations. Events were selected with an eye toward balancing participation opportunities across Northern and Southern California to ensure fair representation for clubs statewide.</p>
@@ -137,31 +140,34 @@
         <tr>
           <td>Cal Homebrew Comp</td>
           <td><a href="https://clubdoze.com/" target="_blank">DOZE</a></td>
-          <td>Nov</td>
+          <td>NOV</td>
           <td>CHC</td>
-          <td class="coming-soon">Coming Soon</td>
-          <td class="coming-soon">Coming Soon</td>
+         <td><a href="/archived-results/CHC25.html" target="_blank">Results</a></td>
+          <td><a href="/archived-results/CHC25BOS.html" target="_blank">BOS Results</a></td>
         </tr>
         <tr>
           <td>Alameda County Fair Homebrew Competition</td>
           <td><a href="https://www.madzymurgists.com/" target="_blank">Mad Zymurgists</a></td>
           <td>May</td>
           <td>ALCF</td>
-          <td><a href="/archived-results/ALCF25.pdf" target="_blank">Results</a></td>
-          <td><a href="/archived-results/ALCF25.pdf" target="_blank">BOS Results</a></td>
-        </tr>
+         <td><a href="/archived-results/ALCF25.pdf" target="_blank">Results</a></td>
+<td><a href="/archived-results/ALCF25.pdf" target="_blank">BOS Results</a></td>
+</tr>
+
+
+    
         <tr>
           <td>Amador County Fair Homebrew Competition</td>
           <td><a href="https://brewangels.com/" target="_blank">Brew Angels</a></td>
-          <td>Jun</td>
+          <td>June</td>
           <td>AMCF</td>
-          <td><a href="/archived-results/AMCF25.pdf" target="_blank">Results</a></td>
+        <td><a href="/archived-results/AMCF25.pdf" target="_blank">Results</a></td>
           <td><a href="/archived-results/AMCF25_bos.html" target="_blank">BOS Results</a></td>
         </tr>
         <tr>
           <td>Cal State Fair</td>
           <td><a href="https://calexpostatefair.com" target="_blank">Cal Expo & State Fair</a></td>
-          <td>May</td>
+          <td>MAY</td>
           <td>CSF</td>
           <td><a href="/archived-results/csf25.html" target="_blank">Results</a></td>
           <td><a href="/archived-results/csf25_bos.html" target="_blank">BOS Results</a></td>
@@ -215,31 +221,33 @@
           <td><a href="/archived-results/mf25_bos.html" target="_blank">BOS Results</a></td>
         </tr>
         <tr>
-          <td>SCRHC</td>
-          <td><a href="https://inlandempirebrewers.com/" target="_blank">Inland Empire Brewers</a></td>
-          <td>Apr</td>
-          <td>SCRHC</td>
-          <td><a href="/archived-results/scrhc25.html" target="_blank">Results</a></td>
-          <td><a href="/archived-results/scrhc25_bos.html" target="_blank">BOS Results</a></td>
-        </tr>
+  <td>SCRHC</td>
+  <td><a href="https://inlandempirebrewers.com/" target="_blank">Inland Empire Brewers</a></td>
+  <td>Apr</td>
+  <td>SCRHC</td>
+  <td><a href="/archived-results/scrhc25.html" target="_blank">Results</a></td>
+  <td><a href="/archived-results/scrhc25_bos.html" target="_blank">BOS Results</a></td>
+</tr>
+
         <tr>
           <td>Pacific Brewers Cup</td>
           <td><a href="https://www.longbeachhomebrewers.com/" target="_blank">Long Beach Homebrewers</a></td>
-          <td>Sep</td>
+          <td>Sept</td>
           <td>PBC</td>
-          <td class="coming-soon">Coming Soon</td>
-          <td class="coming-soon">Coming Soon</td>
+             <td><a href="/archived-results/PBC25.html" target="_blank">Results</a></td>
+          <td><a href="/archived-results/PBC25BOS.html" target="_blank">BOS Results</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 
+ <a class="back-link" href="/">← Back to Dashboard</a>
+
   <p class="footer-note">
     💡 Have questions, spot an error, or want to suggest a comp?<br>
-    Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
+ Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
   </p>
-
-  <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://chbcircuit.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
