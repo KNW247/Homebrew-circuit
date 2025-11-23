@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homebrew Circuit Leaderboard (2025)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    /* Base */
+    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0; line-height:1.6; }
+    h1 { font-size:2rem; margin-bottom:1rem; }
+    h2 { font-size:1.25rem; margin:2rem 0 .5rem; border-bottom:2px solid #ccc; padding-bottom:.2rem; }
+    h3 { margin:.25rem 0 .5rem; }
+    a  { color:#2c4a7a; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+
+    /* Header: logo left, actions right */
+    .sitebar {
+      width: 100%;
+      max-width: none;        /* don't constrain */
+      margin: 0;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f4f4f4;    /* match page background */
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .sitebar .brand { display: flex; align-items: center; }
+    .sitebar .brand img { height: 70px; width: auto; display: block; }
+
+    .actions {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;        /* prevent horizontal scrolling on small screens */
+    }
+    .btn {
+      display: inline-block;
+      padding: .45rem .75rem;
+      border-radius: 6px;
+      border: 1px solid #2c4a7a;
+      background: #2c4a7a;   /* solid blue */
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: .92; }
+    .btn.btn-outline { background:#fff; color:#2c4a7a; }
+
+    /* Page content wrapper so header can be flush to top-left */
+    .page { padding: 2rem; }
+
+    /* Cards / tables */
+    .dashboard { display:flex; flex-wrap:nowrap; gap:1rem; overflow-x:auto; }
+    .division  { flex:0 0 32%; min-width:300px; max-width:33%; background:#fff; padding:1rem; box-shadow:0 0 5px rgba(0,0,0,.1); border-radius:5px; box-sizing:border-box; }
+
+    table { width:100%; table-layout:fixed; border-collapse:collapse; margin-top:.5rem; font-size:.85rem; }
+    th, td { border:1px solid #ccc; padding:.4rem; text-align:left; word-break:break-word; white-space:normal; }
+    th { background:#eaeaea; }
+    th:nth-child(1), td:nth-child(1) { width:10%; text-align:right; }
+    th:nth-child(2), td:nth-child(2) { width:26%; }
+    th:nth-child(4), td:nth-child(4) { width:20%; text-align:right; }
+
+    ul { padding-left:1.2rem; }
+    li { margin-bottom:.5rem; }
+
+    .links { margin-top:1rem; }
+    .footer-note { text-align:center; margin-top:3rem; font-size:.9rem; color:#333; }
+    .page-title { margin-top:.5rem; }
+
+    @media (max-width:768px){
+      .dashboard { flex-direction:column; }
+      .division  { max-width:100%; flex:1 0 100%; margin-bottom:1.5rem; border-bottom:2px solid #ccc; padding-bottom:1rem; }
+      .division:last-child { border-bottom:none; }
+    }
+    /* --- FIX: stop header from forcing page width --- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; }  /* belt-and-suspenders safety */
+
+.sitebar {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: clip;       /* prevent tiny sub-pixel overflow from shadows/borders */
+}
+
+.sitebar > * { min-width: 0; }      /* allow flex children to actually shrink */
+
+.sitebar .brand { flex: 0 1 auto; }
+.sitebar .brand img {
+  height: 56px;           /* was 70px; smaller helps on narrow screens */
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
+.actions {
+  flex: 1 1 auto;         /* allow the actions block to shrink */
+  min-width: 0;           /* critical: prevents overflow from long content */
+  flex-wrap: wrap;        /* you already had this, keeping it */
+  justify-content: flex-end;
+}
+
+.btn { max-width: 100%; } /* buttons won’t exceed the viewport */
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <!-- from /2025/dashboard/ → /assets/... is ../../ -->
+  <header class="sitebar">
+    <a class="brand" href="/">
+      <img src="../../assets/images/CHBC%20Logo.png" alt="CHBC Logo">
+    </a>
+    <nav class="actions">
+      <a class="btn" href="../">← 2025 Home</a>
+      <a class="btn btn-outline" href="/">Current Season →</a>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main class="page">
+    <h1 class="page-title">🏆 California Homebrew Circuit — 2025 Dashboard</h1>
+    <p>This page serves as the hub for the 2025 archive. Browse live Top-25 snapshots below, or jump to the full result pages.</p>
+
+    <div class="links">
+      <strong>Full 2025 Results:</strong>
+      <ul>
+        <li><a href="../combined-results/">🏆 Combined Circuit Results (2025)</a></li>
+        <li><a href="../north-results/">🏅 North Division Results (2025)</a></li>
+        <li><a href="../south-results/">🥇 South Division Results (2025)</a></li>
+        <li><a href="../club-leaderboard/">🏘️ Club Leaderboard (2025)</a></li>
+        <li><a href="../competition-list/">📋 2025 Competition List</a></li>
+      </ul>
+    </div>
+
+    <h2>📊 Top 25 Snapshot</h2>
+    <div class="dashboard">
+      <div id="combined" class="division"><h3>Combined</h3></div>
+      <div id="north" class="division"><h3>North</h3></div>
+      <div id="south" class="division"><h3>South</h3></div>
+    </div>
+
+    <noscript>
+      <p>JavaScript is required to view the Top-25 tables. See the full pages above instead.</p>
+    </noscript>
+
+    <div class="footer-note">
+      <p><strong>Notice something off?</strong> We welcome friendly corrections — whether it’s a misspelled name, club error, or placement issue.</p>
+      <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our feedback form.</p>
+    </div>
+  </main>
+
+  <script>
+    // Same data source as your working examples
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
+
+    // Robust CSV parse for simple published CSV (handles quoted commas)
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], cell = '', inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i], next = text[i+1];
+
+        if (char === '"' && inQuotes && next === '"') { cell += '"'; i++; continue; }
+        if (char === '"') { inQuotes = !inQuotes; continue; }
+        if (char === ',' && !inQuotes) { row.push(cell); cell = ''; continue; }
+        if ((char === '\n' || char === '\r') && !inQuotes) {
+          if (cell !== '' || row.length) { row.push(cell); rows.push(row); row = []; cell = ''; }
+          continue;
+        }
+        cell += char;
+      }
+      if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+
+      const headers = rows[0] || [];
+      return rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = (r[i] || '').trim());
+        return obj;
+      });
+    }
+
+    function renderTable(title, rows, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      const columns = ["Rank", "Brewer", "Club", "Total"];
+
+      const headerRow = document.createElement("tr");
+      columns.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      rows.forEach(row => {
+        const tr = document.createElement("tr");
+        columns.forEach(col => {
+          const td = document.createElement("td");
+          let v = row[col] || "";
+          if (col === "Total" && v !== "" && !isNaN(v)) v = parseFloat(v).toFixed(2);
+          td.textContent = v;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      const h = document.createElement("h3");
+      h.textContent = title;
+      container.innerHTML = "";
+      container.appendChild(h);
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
+
+    fetch(csvUrl)
+      .then(r => {
+        if (!r.ok) throw new Error("CSV fetch failed: " + r.status);
+        return r.text();
+      })
+      .then(csv => {
+        const data = parseCSV(csv);
+        const divisions = { "North/South": [], "North": [], "South": [] };
+
+        data.forEach(entry => {
+          const div = entry["Division"];
+          if (divisions[div]) divisions[div].push(entry);
+        });
+
+        const order = ["North/South", "North", "South"];
+        const idMap = { "North/South": "combined", "North": "north", "South": "south" };
+
+        order.forEach(key => {
+          const list = divisions[key];
+          if (list && list.length) {
+            list.sort((a, b) => (parseInt(a.Rank,10) || 9999) - (parseInt(b.Rank,10) || 9999));
+            renderTable(`${key} Division – Top 25`, list.slice(0, 25), idMap[key]);
+          } else {
+            const c = document.getElementById(idMap[key]);
+            if (c) c.innerHTML += "<p>No data available.</p>";
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.body.insertAdjacentHTML("beforeend", "<p>Error loading leaderboard data.</p>");
+      });
+  </script>
+
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
