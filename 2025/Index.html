@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>California Homebrew Circuit – 2025 Season Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="2025 season results for the California Homebrew Circuit. Track standings, see division leaders, and explore full competition results.">
+  <meta name="keywords" content="California Homebrew Circuit 2025, CHBC 2025, homebrew competition, beer judging, homebrew leaderboard, homebrewing California, brewing results">
+  <meta name="author" content="California Homebrew Circuit">
+  <link rel="canonical" href="https://chbcircuit.com/2025/">
+
+  <!-- Social Sharing Meta Tags -->
+  <meta property="og:title" content="California Homebrew Circuit (CHBC) – 2025 Season Results">
+  <meta property="og:description" content="Explore the 2025 California Homebrew Circuit season results, including division leaderboards and full competition standings.">
+  <meta property="og:url" content="https://chbcircuit.com/2025/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://chbcircuit.com/og-image.jpg">
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .logo-container {
+      text-align: right;
+      padding: 1rem 1rem 0 1rem;
+    }
+
+    .logo-container img {
+      max-width: 100px;
+      height: auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.2rem;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      overflow-x: auto;
+    }
+
+    .division {
+      flex: 0 0 32%;
+      min-width: 300px;
+      max-width: 33%;
+      background-color: #fff;
+      padding: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.4rem;
+      text-align: left;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    th {
+      background-color: #eaeaea;
+    }
+
+    th:nth-child(1), td:nth-child(1) { width: 10%; text-align: right; }
+    th:nth-child(2), td:nth-child(2) { width: 26%; }
+    th:nth-child(4), td:nth-child(4) { width: 20%; text-align: right; }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      color: #2c4a7a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+      }
+
+      .division {
+        max-width: 100%;
+        flex: 1 0 100%;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 1rem;
+      }
+
+      .division:last-child {
+        border-bottom: none;
+      }
+
+      .logo-container {
+        text-align: center;
+        padding: 1rem 0;
+      }
+
+      .logo-container img {
+        max-width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <!-- Root-relative so it works from /2025/ -->
+    <img src="/assets/images/CHBC Logo.png" alt="CHBC Logo" />
+  </div>
+
+  <h1>🏆 California Homebrew Circuit (CHBC) – 2025 Season</h1>
+
+  <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
+
+  <p><strong>🚧 Beta Year Notice:</strong> This is our beta launch year—an experimental first run. We're refining the system as we go, and your feedback is welcome. Competitions for the next season will be finalized and locked in by September.</p>
+
+  <h2>🍻 How It Worked in 2025</h2>
+  <p>Brewers competed in any <a href="/2025/competition-list/">competition listed in the 2025 Circuit</a>. Wins earned points on the <a href="/2025/combined-results/">2025 leaderboard</a>, highlighting standout brewers from across California.</p>
+
+  <h2>🎯 What CHBC Celebrates</h2>
+  <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
+
+  <h2>📊 2025 Standings – Top 25 by Division</h2>
+
+  <div class="dashboard">
+    <div id="combined" class="division">
+      <h3>Combined Results</h3>
+    </div>
+    <div id="north" class="division">
+      <h3>North Division</h3>
+    </div>
+    <div id="south" class="division">
+      <h3>South Division</h3>
+    </div>
+  </div>
+
+  <noscript>
+    <p>JavaScript is required to view live standings. See the <a href="/2025/combined-results/">2025 combined results page</a> instead.</p>
+  </noscript>
+
+  <h2>📊 View the Full 2025 Results</h2>
+  <ul>
+    <li><a href="/2025/north-results/">🏅 2025 North Division Results</a></li>
+    <li><a href="/2025/south-results/">🥇 2025 South Division Results</a></li>
+    <li><a href="/2025/combined-results/">🏆 2025 Combined Circuit Results</a></li>
+    <li><a href="/2025/club-leaderboard/">🏘️ 2025 Club Leaderboard</a></li>
+  </ul>
+
+  <h2>📚 Learn More About the 2025 Circuit</h2>
+  <ul>
+    <li><a href="/2025/methodology/">📘 2025 Scoring Methodology</a></li>
+    <li><a href="/2025/competition-list/">📋 2025 Competition List</a></li>
+    <li><a href="/2025/circuit-structure/">📖 2025 Circuit Transparency & Structure</a></li>
+    <li><a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">✉️ Send Feedback</a></li>
+  </ul>
+
+  <div class="footer-note">
+    <p><strong>Notice something off?</strong> We welcome friendly corrections—whether it’s a misspelled name, club error, or placement issue.</p>
+    <p>Let us know via <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or our <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">feedback form</a>.</p>
+  </div>
+
+  <script>
+    // TODO: when you freeze the 2025 data into its own sheet,
+    // update this URL to point at that archived CSV.
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
+
+    function parseCSV(data) {
+      const lines = data.trim().split("\n").map(line => line.split(","));
+      const headers = lines[0];
+      return lines.slice(1).map(row => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        return obj;
+      });
+    }
+
+    function renderTable(title, rows, containerId) {
+      const container = document.getElementById(containerId);
+      const sectionTitle = document.createElement("h2");
+      sectionTitle.textContent = title;
+      container.appendChild(sectionTitle);
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+
+      const columns = ["Rank", "Brewer", "Club", "Total"];
+
+      const headerRow = document.createElement("tr");
+      columns.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      rows.forEach(row => {
+        const tr = document.createElement("tr");
+        columns.forEach(col => {
+          const td = document.createElement("td");
+          let cellValue = row[col] || "";
+          if (col === "Total" && !isNaN(cellValue) && cellValue.trim() !== "") {
+            cellValue = parseFloat(cellValue).toFixed(2);
+          }
+          td.textContent = cellValue;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const data = parseCSV(csv);
+        const divisions = {
+          "North/South": [],
+          North: [],
+          South: []
+        };
+
+        data.forEach(entry => {
+          const div = entry["Division"];
+          if (divisions[div]) {
+            divisions[div].push(entry);
+          }
+        });
+
+        const containerMap = {
+          "North/South": "combined",
+          "North": "north",
+          "South": "south"
+        };
+
+        ["North/South", "North", "South"].forEach(key => {
+          const list = divisions[key];
+          if (list && list.length) {
+            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+            renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
+          }
+        });
+      })
+      .catch(err => {
+        document.body.innerHTML += "<p>Error loading leaderboard data.</p>";
+        console.error(err);
+      });
+  </script>
+
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
