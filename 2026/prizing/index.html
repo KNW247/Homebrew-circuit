@@ -1,265 +1,387 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🎁 2026 Prize Packages – California Homebrew Circuit</title>
+  <meta charset="UTF-8" />
+  <title>🎁 2026 Prize Packages – California Homebrew Circuit (CHBC)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    :root {
+      --brand: #2c4a7a;
+      --panel-bg: #fff;
+      --page-bg: #f4f4f4;
+      --border: #ccc;
+    }
+
+    /* Base */
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 2rem;
+      background-color: var(--page-bg);
       margin: 0;
+      padding: 0;
       line-height: 1.6;
+    }
+
+    a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header: logo left, subtle archive link right */
+    .sitebar {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--page-bg);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-sizing: border-box;
+    }
+    .sitebar .brand {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+    .sitebar .brand img {
+      height: 56px;
+      width: auto;
+      max-width: 100%;
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--brand);
+      background: #fff;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    /* Page wrapper */
+    .page {
+      padding: 2rem 1.5rem 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
 
     h1 {
       font-size: 2rem;
-      margin-bottom: 1rem;
+      margin: 1rem 0 0.75rem;
       text-align: center;
+    }
+
+    .page-intro {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .sponsor-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem auto 2rem;
+      padding: 0.75rem 1rem;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.06);
+      max-width: 720px;
+    }
+
+    .sponsor-text {
+      font-size: 0.95rem;
+    }
+
+    .sponsor-logo {
+      max-height: 48px;
+      width: auto;
     }
 
     h2 {
       margin-top: 2rem;
       font-size: 1.4rem;
-      color: #333;
       border-bottom: 2px solid #ccc;
       padding-bottom: 0.25rem;
     }
 
     h3 {
       margin-top: 1.25rem;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
     }
 
     .panel {
-      background-color: #fff;
+      background-color: var(--panel-bg);
       padding: 1.5rem;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
       border-radius: 6px;
-      max-width: 1000px;
-      margin: 0 auto;
+      margin-top: 1rem;
     }
 
     ul {
-      margin-top: 0.5rem;
-      padding-left: 1.5rem;
+      margin-top: 0.4rem;
+      padding-left: 1.4rem;
     }
 
-    li {
-      margin-bottom: 0.35rem;
+    .note {
+      font-size: 0.9rem;
+      color: #555;
     }
 
-    p {
-      margin-top: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    a {
-      color: #2c4a7a;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    a.back-link {
-      display: block;
-      text-align: center;
-      margin-top: 2rem;
-      color: #2c4a7a;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a.back-link:hover {
-      text-decoration: underline;
+    .callout {
+      background: #f9fafc;
+      border-left: 4px solid var(--brand);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      font-size: 0.95rem;
     }
 
     .footer-note {
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 2rem;
       font-size: 0.95rem;
       color: #444;
     }
 
-    .highlight {
-      font-weight: bold;
-    }
-
-    @media screen and (max-width: 768px) {
-      body {
-        padding: 1rem;
+    @media (max-width: 768px) {
+      .page {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+      h1 {
+        font-size: 1.7rem;
+      }
+      .sponsor-banner {
+        align-items: flex-start;
       }
     }
+
+    /* Global box sizing / overflow safety */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: hidden; }
   </style>
 </head>
 <body>
 
-  <h1>🎁 2026 Prize Packages – California Homebrew Circuit</h1>
+  <!-- Header: current season with subtle archive link -->
+  <header class="sitebar">
+    <a class="brand" href="/">
+      <img src="/assets/images/CHBC%20Logo.png" alt="CHBC Logo">
+    </a>
+    <nav class="actions">
+      <a class="btn" href="/2025/dashboard/">View 2025 Archive →</a>
+    </nav>
+  </header>
 
-  <div class="panel">
-
-    <p>
-      The 2026 California Homebrew Circuit prize packages are proudly sponsored by 
-      <strong>MoreBeer! (MoreFlavor!)</strong>. Prizes are awarded to the top finishers in the
-      <strong>All-State (overall)</strong> standings as well as the 
-      <strong>North</strong> and <strong>South</strong> Divisions.
+  <!-- Main content -->
+  <main class="page">
+    <h1>🎁 2026 Prize Packages – California Homebrew Circuit</h1>
+    <p class="page-intro">
+      The 2026 California Homebrew Circuit prize pool is proudly sponsored by
+      <strong>MoreBeer!</strong> (part of the <strong>MoreFlavor!</strong> family).
+      Prizes reward performance in the <strong>All-State</strong> standings as well as
+      the <strong>North</strong> and <strong>South</strong> divisions.
     </p>
 
-    <h2>🏆 All-State (Overall) Prize Packages</h2>
-    <p>
-      The All-State prizes are awarded to the top three brewers in the overall circuit standings. 
-      These prizes include <strong>free shipping</strong> and are available to winners regardless of location
-      within the United States.
+    <div class="sponsor-banner">
+      <!-- Update logo path when you have it -->
+      <img src="/assets/images/morebeer-logo-placeholder.png" alt="MoreBeer! Logo" class="sponsor-logo">
+      <div class="sponsor-text">
+        Big thanks to <strong><a href="https://www.morebeer.com/" target="_blank" rel="noopener noreferrer">MoreBeer!</a></strong>
+        for providing all 2026 prize packages. Please support the sponsor that supports the circuit.
+      </div>
+    </div>
+
+    <section>
+      <h2>🏆 All-State (Overall) Prizes</h2>
+      <div class="panel">
+        <p>
+          The <strong>All-State standings</strong> recognize the top brewers across all
+          competitions in the circuit. The top three overall finishers receive the following
+          prize packages, fulfilled and shipped by MoreBeer!:
+        </p>
+
+        <h3>🥇 1st Place – All-State Champion</h3>
+        <ul>
+          <li>
+            <strong>BrewBuilt X3 Jacketed Conical Fermenter</strong> (7 or 14&nbsp;gal, winner’s choice, subject to availability) –
+            <a href="https://www.morebeer.com/products/brewbuilt-x3-jacketed-conical-placeholder.html" target="_blank" rel="noopener noreferrer">View product</a>
+          </li>
+        </ul>
+
+        <h3>🥈 2nd Place – All-State</h3>
+        <ul>
+          <li>
+            <strong>BrewBuilt IceMaster Max 2 Glycol Chiller</strong> –
+            <a href="https://www.morebeer.com/products/brewbuilt-icemaster-max-2-glycol-chiller.html" target="_blank" rel="noopener noreferrer">View product</a>
+          </li>
+        </ul>
+
+        <h3>🥉 3rd Place – All-State</h3>
+        <ul>
+          <li>
+            <strong>MKII High-Temp Magnetic Drive Pump</strong> (or equivalent model at sponsor’s discretion) –
+            <a href="https://www.morebeer.com/products/mkii-high-temp-magnetic-drive-pump.html" target="_blank" rel="noopener noreferrer">View product</a>
+          </li>
+        </ul>
+
+        <p class="note">
+          All-State prizes are <strong>eligible for any brewer</strong> in the standings.
+          Shipping is covered by MoreBeer!, so these packages are not restricted by location.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>📍 North &amp; South Division Prizes</h2>
+      <div class="panel">
+        <p>
+          Separate prize packages are awarded in both the <strong>North</strong> and
+          <strong>South</strong> divisions. The following packages are awarded
+          <em>per division</em> (one set for North, one set for South):
+        </p>
+
+        <h3>🥇 1st Place – Division Champion (North &amp; South)</h3>
+        <ul>
+          <li><strong>5 sacks</strong> of Viking malt</li>
+          <li><strong>3 lbs</strong> of hops</li>
+          <li><strong>15 sachets</strong> of yeast</li>
+        </ul>
+
+        <h3>🥈 2nd Place – Division (North &amp; South)</h3>
+        <ul>
+          <li><strong>3 sacks</strong> of Viking malt</li>
+          <li><strong>2 lbs</strong> of hops</li>
+          <li><strong>10 sachets</strong> of yeast</li>
+        </ul>
+
+        <h3>🥉 3rd Place – Division (North &amp; South)</h3>
+        <ul>
+          <li><strong>1 sack</strong> of Viking malt</li>
+          <li><strong>1 lb</strong> of hops</li>
+          <li><strong>5 sachets</strong> of yeast</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Local pickup only:</strong> Division prize packages are
+          <strong>pickup-only</strong> at participating MoreBeer! retail showrooms.
+          Only brewers who can pick up their prize in person and
+          <strong>opt in</strong> (see below) are eligible for these division prizes.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>✅ Eligibility &amp; Opt-In Requirements</h2>
+      <div class="panel">
+        <h3>All-State Prizes</h3>
+        <ul>
+          <li>All brewers appearing in the final All-State standings are automatically considered.</li>
+          <li>All-State prizes may be shipped anywhere MoreBeer! is able to fulfill the order.</li>
+        </ul>
+
+        <h3>North &amp; South Division Prizes</h3>
+        <ul>
+          <li>
+            Division prize packages are <strong>local pickup only</strong> and are intended
+            for brewers who can claim prizes in person at participating MoreBeer! showrooms.
+          </li>
+          <li>
+            To be eligible for North/South division prizing, brewers must complete the
+            <strong>2026 Prize Eligibility Opt-In Form</strong>.
+          </li>
+          <li>
+            The opt-in form will confirm:
+            <ul>
+              <li>Which division(s) you are competing in (North/South).</li>
+              <li>Your ability to pick up prizes in person.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Update this link when the form is live -->
+        <p class="callout">
+          🔗 <strong>Opt-In Required:</strong> A dedicated eligibility form will be posted here:<br>
+          <a href="/2026/prize-opt-in/">/2026/prize-opt-in/</a><br>
+          Brewers must complete this form by the published deadline to be considered for
+          North/South division prize packages.
+        </p>
+
+        <h3>Prize Cascade / Shift-Down Rule</h3>
+        <p>
+          If a brewer in a prize-winning position is not eligible for a division prize
+          (for example, they did not complete the opt-in form or are unable to pick up
+          locally), that prize will <strong>shift down</strong> to the next eligible brewer
+          in the standings for that division.
+        </p>
+        <p class="note">
+          Example: If the 1st place brewer cannot claim a division prize, the 1st place
+          package moves to the next eligible brewer, and all lower prizes cascade
+          accordingly. Prizes will not be held or re-shipped outside of these terms.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>⚖️ Sponsor &amp; Prize Disclaimer</h2>
+      <div class="panel">
+        <ul>
+          <li>
+            All prize packages for the 2026 California Homebrew Circuit are
+            <strong>provided by MoreBeer!/MoreFlavor!</strong> as the official circuit sponsor.
+          </li>
+          <li>
+            Specific products, SKUs, and quantities are subject to change at the sponsor’s
+            discretion based on availability, inventory, or logistics.
+          </li>
+          <li>
+            The California Homebrew Circuit (CHBC) is responsible for
+            <strong>ranking and scoring</strong> only. If sponsor offerings change,
+            become unavailable, or are modified, CHBC is <strong>not responsible</strong>
+            for replacing, matching, or making up any prize value.
+          </li>
+          <li>
+            Any updates or changes to the prize list will be reflected on this page as
+            information is confirmed.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      💡 Have questions about scoring, standings, or prize eligibility?<br>
+      Join our community on
+      <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">the CHBC Discord</a>
+      or use the feedback form linked from the main dashboard.
     </p>
+  </main>
 
-    <h3>1st Place – All-State Champion</h3>
-    <ul>
-      <li>
-        <strong>BrewBuilt X3 Jacketed Conical Fermenter</strong>  
-        (7 or 14 gallon size, winner’s choice)<br>
-        <a href="https://www.morebeer.com/products/brewbuilt-x3-jacketed-conical-placeholder.html" target="_blank" rel="noopener noreferrer">
-          View product on MoreBeer!
-        </a>
-      </li>
-    </ul>
-
-    <h3>2nd Place – All-State</h3>
-    <ul>
-      <li>
-        <strong>BrewBuilt IceMaster Max 2 Glycol Chiller</strong><br>
-        <a href="https://www.morebeer.com/products/brewbuilt-icemaster-max-2-glycol-chiller.html" target="_blank" rel="noopener noreferrer">
-          View product on MoreBeer!
-        </a>
-      </li>
-    </ul>
-
-    <h3>3rd Place – All-State</h3>
-    <ul>
-      <li>
-        <strong>MKII High Temp Magnetic Drive Pump</strong> (or comparable MoreBeer! brewing pump)<br>
-        <a href="https://www.morebeer.com/products/mkii-high-temp-magnetic-drive-pump.html" target="_blank" rel="noopener noreferrer">
-          View product on MoreBeer!
-        </a>
-      </li>
-    </ul>
-
-    <p class="highlight">
-      All-State prizes ship directly to the winners and do not require local pickup.
-    </p>
-
-    <h2>🌲 North & 🌴 South Division Prizes</h2>
-    <p>
-      In addition to the All-State awards, the top three brewers in each geographic division 
-      (North and South) will receive ingredient-focused prize packages. These prizes are 
-      <strong>local pickup only</strong> at designated MoreBeer! showrooms.
-    </p>
-
-    <h3>Division 1st Place (North & South)</h3>
-    <ul>
-      <li>5 sacks of Viking malt</li>
-      <li>3 lbs of hops</li>
-      <li>15 sachets of yeast</li>
-    </ul>
-
-    <h3>Division 2nd Place (North & South)</h3>
-    <ul>
-      <li>3 sacks of Viking malt</li>
-      <li>2 lbs of hops</li>
-      <li>10 sachets of yeast</li>
-    </ul>
-
-    <h3>Division 3rd Place (North & South)</h3>
-    <ul>
-      <li>1 sack of Viking malt</li>
-      <li>1 lb of hops</li>
-      <li>5 sachets of yeast</li>
-    </ul>
-
-    <p class="highlight">
-      Division prize packages must be picked up in person at the participating MoreBeer! showrooms.
-      Shipping is not included for these packages.
-    </p>
-
-    <h2>✅ Eligibility & Opt-In Requirements</h2>
-    <p>
-      To keep prize distribution fair and manageable, <strong>brewers must actively opt in</strong> 
-      to be eligible for prize packages.
-    </p>
-
-    <ul>
-      <li>
-        <strong>Opt-In Required:</strong> Brewers must complete the official CHBC prize
-        <a href="/2026/prize-opt-in/" target="_blank" rel="noopener noreferrer">opt-in form</a> 
-        to be eligible for any All-State or Division prizes.
-      </li>
-      <li>
-        <strong>Local Pickup Confirmation (Division Prizes):</strong> When opting in, brewers in the 
-        North and South Divisions must confirm that they are able to pick up prizes at the designated
-        MoreBeer! showroom.
-      </li>
-      <li>
-        <strong>Deadline:</strong> Opt-in must be completed by the published deadline (to be announced on
-        the main dashboard and Discord). Brewers who do not opt in by the deadline will not be eligible
-        for prize packages.
-      </li>
-    </ul>
-
-    <h2>🔁 Prize Roll-Down Policy</h2>
-    <p>
-      If a brewer in a prize-eligible position is <strong>not eligible</strong> or unable to receive a prize, 
-      that prize will be awarded to the next eligible brewer:
-    </p>
-    <ul>
-      <li>
-        If a top finisher did not complete the opt-in form, their prize spot is forfeited and 
-        <strong>all lower prizes shift down</strong>.
-      </li>
-      <li>
-        For Division (North/South) prizes, if a brewer cannot reasonably pick up at the MoreBeer! showroom,
-        their prize position is forfeited and all prizes shift down to the next eligible brewer.
-      </li>
-      <li>
-        Prize roll-down continues until all available prize positions are either filled by eligible brewers
-        or exhausted.
-      </li>
-    </ul>
-
-    <p>
-      Example: If the 1st place South Division brewer does not opt in, the 2nd place brewer moves up to 
-      the 1st-place prize package, 3rd place moves up to the 2nd-place package, and the 4th-place brewer 
-      (if eligible) receives the 3rd-place package.
-    </p>
-
-    <h2>📝 Notes & Disclaimers</h2>
-    <ul>
-      <li>
-        Prize details are subject to minor adjustments based on product availability at MoreBeer!/MoreFlavor!.
-        Any changes will be communicated on the main CHBC site and Discord.
-      </li>
-      <li>
-        CHBC and MoreBeer! reserve the right to substitute prizes of comparable value if a listed item becomes
-        unavailable.
-      </li>
-      <li>
-        Taxes, local regulations, and any additional fees are the responsibility of the recipient where applicable.
-      </li>
-    </ul>
-
-  </div>
-
-  <a class="back-link" href="/">← Back to Dashboard</a>
-
-  <p class="footer-note">
-    💡 Have questions about the prize packages or eligibility?<br>
-    Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">the CHBC Discord</a> or use the season feedback form linked from the main dashboard.
-  </p>
-
-  <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
