@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📘 Methodology – CHBC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.25rem;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .panel {
+      background-color: #fff;
+      padding: 1.5rem;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    ul {
+      margin-top: 0.5rem;
+      padding-left: 1.5rem;
+    }
+
+    a {
+      color: #2c4a7a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #2c4a7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📘 CHBC Methodology</h1>
+
+  <div class="panel">
+
+    <p>The California Homebrew Circuit (CHBC) is a free, community-driven initiative connecting homebrewers across the state through friendly competition, shared learning, and cross-club collaboration.</p>
+
+    <h2>How Competitions Are Selected</h2>
+    <p>To be included in the CHBC standings, competitions must meet the following criteria:</p>
+    <ul>
+      <li><strong>BJCP-Sanctioned:</strong> Only competitions sanctioned by the Beer Judge Certification Program (BJCP) are considered.</li>
+      <li><strong>California-Based:</strong> The competition must be held within the state of California.</li>
+      <li><strong>Open and Inclusive:</strong> Events must be accessible to the broader homebrewing community.</li>
+      <li><strong>Standard Format:</strong> Specialty competitions limited to specific styles, ingredients, or themes are not eligible.</li>
+      <li><strong>Results Transparency:</strong> Competitions must publicly share complete results using a standardized format.</li>
+    </ul>
+    <p>Each season, we aim to include 10–12 well-established and geographically diverse competitions. Selection favors events with a history of strong participation, quality judging, and reliable results reporting.</p>
+
+    <h2>🏅 Scoring System</h2>
+    <p>The CHBC has adopted a <strong>weighted points system</strong> that takes into account the size of each competition table. Points are awarded as follows:</p>
+
+    <h3>Category Placements</h3>
+<p>Points are calculated using this formula:</p>
+<p><code>Points = Base Score × ((Entries - Place) / Entries)³</code></p>
+<p>Base Scores:</p>
+<ul>
+  <li>1st place = 3 points</li>
+  <li>2nd place = 2 points</li>
+  <li>3rd place = 1 point</li>
+</ul>
+<p>This formula rewards higher placements in larger, more competitive tables. For example, earning 1st in a 25-entry table is worth more than 1st in a 6-entry table.</p>
+
+<p><strong>Note:</strong> If the total number of entries in a category, table, or flight is not reported or verifiable, a default value of <strong>6 entries</strong> will be used for point weighting calculations.</p>
+
+    
+<p>If <strong>top three weighted category placements</strong> per brewer, per competition, will count toward their CHBC total. </p>
+
+    <h3>Best of Show (BOS)</h3>
+<ul>
+  <li>1st BOS – 3 bonus points</li>
+  <li>2nd BOS – 2 bonus points</li>
+  <li>3rd BOS – 1 bonus point</li>
+</ul>
+<p>BOS points are awarded separately from category placements. A brewer may earn BOS points even if the winning entry isn’t among their top three scoring entries.</p>
+
+    <h2>Data Collection</h2>
+    <p>Results are gathered from:</p>
+    <ul>
+      <li>Publicly posted competition result sheets (PDF, Google Sheets, HTML, etc.)</li>
+      <li>Direct communication with competition coordinators</li>
+      <li>Club announcements and newsletters</li>
+    </ul>
+    <p>Efforts are made to verify accuracy and to attribute points to the correct individuals and clubs. If you spot an error or omission, please reach out on our Discord:  
+      👉 <a href="https://discord.gg/GuXdp8XK" target="_blank">Join the CHBC Discord</a>.
+    </p>
+
+    <h2>Result Standardization</h2>
+    <p>To ensure fairness and consistency across the circuit, all competitions must publish results that:</p>
+    <ul>
+      <li>Clearly identify brewers, beer names, BJCP categories/subcategories, and award placements</li>
+      <li>Be available via public link, official website, or verifiable documentation</li>
+      <li>Be posted in a timely manner following the event</li>
+    </ul>
+    <p>CHBC reserves the right to delay or exclude competitions from the current season if results are incomplete, unverifiable, or posted in nonstandard formats.</p>
+
+    <h2>👤 What Counts as a Unique Entrant?</h2>
+<p>An <strong>entrant</strong> is any brewer who medals in a competition listed on the published CHBC competition list. Residency in California is not required; brewers from any location are eligible.</p>
+
+<p>Entrants are tracked exactly as they appear in the official published competition results. In instances where two brewers are listed as separate individuals—such as <em>“John Doe, Jane Doe”</em>—only the <strong>first brewer listed</strong> will be allocated any points.</p>
+
+<p>If a team is listed as a shared name—such as <em>“John & Jane Doe”</em>—it will be treated as a single team entrant and tracked accordingly.</p>
+
+<p>We make every effort to manually consolidate entries for the same brewer listed with slight name variations (e.g., <em>“John A. Doe”</em> and <em>“John Doe”</em>). However, this process is manual and not guaranteed to catch every discrepancy. If you believe your results are not being correctly credited, please contact us to request a correction.</p>
+
+
+  
+    <h2>🏘️ Club Affiliation Policy</h2>
+    <p>Points are awarded to the club affiliation listed in the official results of each competition. Club points <strong>cannot be transferred</strong> to a different club after results are published. If a brewer competes under multiple clubs during the season, each club’s points will reflect only the competitions where it was officially listed.</p>
+
+
+    <h2>👯 Co-Brewers</h2>
+
+    <p>If a beer lists multiple brewers, CHBC assigns points to the <strong>first name listed</strong> unless otherwise requested. If you'd prefer a team name or another co-brewer to receive credit, please contact us on Discord or through the feedback form—we’re happy to update it.</p>
+  
+    <h2>📨 Errors and Omissions</h2>
+<p>If you notice anything that seems off in the results—whether it’s a misspelled name, incorrect club, or score placement—please let us know. We welcome corrections and are happy to review any concerns.</p>
+<p>You can reach out anytime via our <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">Discord</a> or submit a request through the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">feedback form</a>.</p>
+
+    <h2>Timeline</h2>
+    <p>The current season runs from <strong>January 1 to December 31, 2025</strong>. Results are updated monthly (or as competitions report).</p>
+
+  </div>
+
+<a class="back-link" href="/">← Back to Dashboard</a>
+
+
+  <p class="footer-note">
+    💡 Have questions, spot an error, or want to suggest a comp?<br>
+  Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
+  </p>
+<script data-goatcounter="https://chbcircuit.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
