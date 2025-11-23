@@ -13,6 +13,10 @@
       --border: #ccc;
     }
 
+    /* Global box sizing / overflow safety */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: hidden; }
+
     /* Base */
     body {
       font-family: Arial, sans-serif;
@@ -20,6 +24,7 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      color: #222;
     }
 
     a {
@@ -41,7 +46,6 @@
       justify-content: space-between;
       background: var(--page-bg);
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      box-sizing: border-box;
     }
     .sitebar .brand {
       display: flex;
@@ -87,7 +91,6 @@
       padding: 2rem 1.5rem 3rem;
       max-width: 1000px;
       margin: 0 auto;
-      box-sizing: border-box;
     }
 
     h1 {
@@ -98,7 +101,8 @@
 
     .page-intro {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.98rem;
     }
 
     .sponsor-banner {
@@ -107,7 +111,7 @@
       align-items: center;
       justify-content: center;
       gap: 1rem;
-      margin: 1rem auto 2rem;
+      margin: 1.25rem auto 2.25rem;
       padding: 0.75rem 1rem;
       background: #ffffff;
       border-radius: 8px;
@@ -125,10 +129,13 @@
     }
 
     h2 {
-      margin-top: 2rem;
-      font-size: 1.4rem;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.25rem;
+      margin-top: 2.25rem;
+      font-size: 1.35rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     h3 {
@@ -165,9 +172,34 @@
 
     .footer-note {
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       font-size: 0.95rem;
       color: #444;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Bottom layout: two-column grid for rules / disclaimer on larger screens */
+    .bottom-wrapper {
+      margin-top: 2.25rem;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 1.75rem;
+      align-items: flex-start;
+    }
+
+    .bottom-grid section h2 {
+      margin-top: 0;
+    }
+
+    @media (max-width: 900px) {
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 768px) {
@@ -181,10 +213,6 @@
         align-items: flex-start;
       }
     }
-
-    /* Global box sizing / overflow safety */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { overflow-x: hidden; }
   </style>
 </head>
 <body>
@@ -220,7 +248,6 @@
     </p>
 
     <div class="sponsor-banner">
-      <!-- Update logo path when you have it -->
       <img src="/assets/images/morebeer-logo-vector.png" alt="MoreBeer! Logo" class="sponsor-logo">
       <div class="sponsor-text">
         Big thanks to <strong><a href="https://www.morebeer.com/" target="_blank" rel="noopener noreferrer">MoreBeer!</a></strong>
@@ -310,91 +337,97 @@
       </div>
     </section>
 
-    <section>
-      <h2>✅ Eligibility &amp; Opt-In Requirements</h2>
-      <div class="panel">
-        <h3>All-State Prizes</h3>
-        <ul>
-          <li>
-            Any brewer who appears in the final All-State standings (based on
-            competitions included in the CHBC schedule) is eligible for All-State
-            prizing.
-          </li>
-          <li>
-            All-State prizes may be shipped anywhere in the United States that
-            MoreBeer! is able to fulfill orders to.
-          </li>
-        </ul>
+    <!-- Bottom rules / disclaimer area -->
+    <div class="bottom-wrapper">
+      <div class="bottom-grid">
 
-        <h3>North &amp; South Division Prizes</h3>
-        <ul>
-          <li>
-            Division prizes are <strong>local pickup only</strong> and are intended
-            to support <strong>local California brewers</strong> who can claim prizes
-            in person at participating MoreBeer! showrooms.
-          </li>
-          <li>
-            To be eligible for North/South division prizing, brewers must complete the
-            <strong>2026 Prize Eligibility Opt-In Form</strong>.
-          </li>
-          <li>
-            The opt-in form will confirm:
+        <section>
+          <h2>✅ Eligibility &amp; Opt-In Requirements</h2>
+          <div class="panel">
+            <h3>All-State Prizes</h3>
             <ul>
-              <li>Which division(s) you are competing in (North and/or South).</li>
-              <li>Your ability to pick up prizes in person at a qualifying showroom.</li>
+              <li>
+                Any brewer who appears in the final All-State standings (based on
+                competitions included in the CHBC schedule) is eligible for All-State
+                prizing.
+              </li>
+              <li>
+                All-State prizes may be shipped anywhere in the United States that
+                MoreBeer! is able to fulfill orders to.
+              </li>
             </ul>
-          </li>
-        </ul>
 
-        <!-- Update this link when the form is live -->
-        <p class="callout">
-          🔗 <strong>Opt-In Required:</strong> A dedicated eligibility form will be posted here:<br>
-          <a href="/2026/prize-opt-in/">/2026/prize-opt-in/</a><br>
-          Brewers must complete this form by the published deadline to be considered for
-          North/South division prize packages.
-        </p>
+            <h3>North &amp; South Division Prizes</h3>
+            <ul>
+              <li>
+                Division prizes are <strong>local pickup only</strong> and are intended
+                to support <strong>local California brewers</strong> who can claim prizes
+                in person at participating MoreBeer! showrooms.
+              </li>
+              <li>
+                To be eligible for North/South division prizing, brewers must complete the
+                <strong>2026 Prize Eligibility Opt-In Form</strong>.
+              </li>
+              <li>
+                The opt-in form will confirm:
+                <ul>
+                  <li>Which division(s) you are competing in (North and/or South).</li>
+                  <li>Your ability to pick up prizes in person at a qualifying showroom.</li>
+                </ul>
+              </li>
+            </ul>
 
-        <h3>Prize Cascade / Shift-Down Rule</h3>
-        <p>
-          If a brewer in a prize-winning position is not eligible for a division prize
-          (for example, they did not complete the opt-in form or are unable to pick up
-          locally), that prize will <strong>shift down</strong> to the next eligible brewer
-          in the standings for that division.
-        </p>
-        <p class="note">
-          Example: If the 1st place brewer cannot claim a division prize, the 1st place
-          package moves to the next eligible brewer, and all lower prizes cascade
-          accordingly. Prizes will not be held, re-shipped, or re-assigned outside of
-          these terms.
-        </p>
+            <p class="callout">
+              🔗 <strong>Opt-In Required:</strong> A dedicated eligibility form will be posted here:<br>
+              <a href="/2026/prize-opt-in/">/2026/prize-opt-in/</a><br>
+              Brewers must complete this form by the published deadline to be considered for
+              North/South division prize packages.
+            </p>
+
+            <h3>Prize Cascade / Shift-Down Rule</h3>
+            <p>
+              If a brewer in a prize-winning position is not eligible for a division prize
+              (for example, they did not complete the opt-in form or are unable to pick up
+              locally), that prize will <strong>shift down</strong> to the next eligible brewer
+              in the standings for that division.
+            </p>
+            <p class="note">
+              Example: If the 1st place brewer cannot claim a division prize, the 1st place
+              package moves to the next eligible brewer, and all lower prizes cascade
+              accordingly. Prizes will not be held, re-shipped, or re-assigned outside of
+              these terms.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>⚖️ Sponsor &amp; Prize Disclaimer</h2>
+          <div class="panel">
+            <ul>
+              <li>
+                All prize packages for the 2026 California Homebrew Circuit are
+                <strong>provided by MoreBeer!/MoreFlavor!</strong> as the official circuit sponsor.
+              </li>
+              <li>
+                Specific products, SKUs, and quantities are subject to change at the sponsor’s
+                discretion based on availability, inventory, or logistics.
+              </li>
+              <li>
+                The California Homebrew Circuit (CHBC) is responsible for
+                <strong>scoring and rankings only</strong>. If sponsor offerings change,
+                become unavailable, or are modified, CHBC is <strong>not responsible</strong>
+                for replacing, matching, or making up any prize value.
+              </li>
+              <li>
+                Any updates or changes to the prize list will be reflected on this page as
+                information is confirmed.
+              </li>
+            </ul>
+          </div>
+        </section>
+
       </div>
-    </section>
-
-    <section>
-      <h2>⚖️ Sponsor &amp; Prize Disclaimer</h2>
-      <div class="panel">
-        <ul>
-          <li>
-            All prize packages for the 2026 California Homebrew Circuit are
-            <strong>provided by MoreBeer!/MoreFlavor!</strong> as the official circuit sponsor.
-          </li>
-          <li>
-            Specific products, SKUs, and quantities are subject to change at the sponsor’s
-            discretion based on availability, inventory, or logistics.
-          </li>
-          <li>
-            The California Homebrew Circuit (CHBC) is responsible for
-            <strong>scoring and rankings only</strong>. If sponsor offerings change,
-            become unavailable, or are modified, CHBC is <strong>not responsible</strong>
-            for replacing, matching, or making up any prize value.
-          </li>
-          <li>
-            Any updates or changes to the prize list will be reflected on this page as
-            information is confirmed.
-          </li>
-        </ul>
-      </div>
-    </section>
+    </div>
 
     <p class="footer-note">
       💡 Have questions about scoring, standings, or prize eligibility?<br>
