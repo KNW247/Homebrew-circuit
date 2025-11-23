@@ -31,28 +31,11 @@
     .logo-container {
       text-align: right;
       padding: 1rem 1rem 0 1rem;
-      position: relative;
     }
 
     .logo-container img {
       max-width: 100px;
       height: auto;
-    }
-
-    .archive-link {
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
-    }
-
-    .archive-link a {
-      color: #2c4a7a;
-      text-decoration: none;
-      opacity: 0.85;
-    }
-
-    .archive-link a:hover {
-      text-decoration: underline;
-      opacity: 1;
     }
 
     h1 {
@@ -127,6 +110,12 @@
       text-decoration: underline;
     }
 
+    .archive-note {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
     .footer-note {
       text-align: center;
       margin-top: 3rem;
@@ -135,10 +124,6 @@
     }
 
     @media (max-width: 768px) {
-      body {
-        padding: 1rem;
-      }
-
       .dashboard {
         flex-direction: column;
       }
@@ -163,31 +148,36 @@
       .logo-container img {
         max-width: 80px;
       }
-
-      .archive-link {
-        text-align: center;
-      }
     }
   </style>
 </head>
 <body>
 
   <div class="logo-container">
+    <!-- Root-relative so it works from / -->
     <img src="/assets/images/CHBC Logo.png" alt="CHBC Logo" />
-    <div class="archive-link">
-      <a href="/2025/">2025 Season Archive →</a>
-    </div>
   </div>
 
   <h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
 
   <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
 
-  <h2>🎯 How It Works</h2>
-  <p>Compete in any <a href="/competition-list/">competition listed in the Circuit</a>. Your wins earn points on our <a href="/combined-results/">leaderboard</a>, helping highlight standout brewers from across California. Competitions for each season are finalized and locked in by September.</p>
+  <h2>🍻 How it Works</h2>
+  <p>
+    Compete in any
+    <a href="/2026/competition-list/">competition listed in the Circuit</a>.
+    Your wins earn points on our
+    <a href="/2026/combined-results/">leaderboard</a>,
+    helping highlight standout brewers from across California.
+  </p>
 
-  <h2>🎉 What CHBC Celebrates</h2>
+  <h2>🎯 What CHBC Celebrates</h2>
   <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
+
+  <p class="archive-note">
+    Looking for last season’s standings?
+    Visit the <a href="/2025/">2025 results archive →</a>
+  </p>
 
   <h2>📊 Live Standings Dashboard</h2>
 
@@ -204,15 +194,23 @@
   </div>
 
   <noscript>
-    <p>JavaScript is required to view live standings. See the <a href="/combined-results/">results page</a> instead.</p>
+    <p>JavaScript is required to view live standings. See the <a href="/2026/combined-results/">combined results page</a> instead.</p>
   </noscript>
 
-  <h2>📚 Learn More About CHBC</h2>
+  <h2>📊 View Full 2026 Results</h2>
   <ul>
-    <li><a href="/2026/prizing/">🎁 2026 Circuit Prizing & Sponsor</a></li>
-    <li><a href="/methodology/">📘 Methodology</a></li>
-    <li><a href="/competition-list/">📋 View Circuit Competition List</a></li>
-    <li><a href="/circuit-structure/">📖 Circuit Transparency & Structure</a></li>
+    <li><a href="/2026/north-results/">🏅 North Division Results (2026)</a></li>
+    <li><a href="/2026/south-results/">🥇 South Division Results (2026)</a></li>
+    <li><a href="/2026/combined-results/">🏆 Combined Circuit Results (2026)</a></li>
+    <li><a href="/2026/club-leaderboard/">🏘️ Club Leaderboard (2026)</a></li>
+  </ul>
+
+  <h2>📚 Learn More About the 2026 Circuit</h2>
+  <ul>
+    <li><a href="/2026/methodology/">📘 2026 Scoring Methodology</a></li>
+    <li><a href="/2026/competition-list/">📋 2026 Competition List</a></li>
+    <li><a href="/2026/prizing/">🎁 2026 Season Prizing & Sponsors</a></li>
+    <li><a href="/2026/circuit-structure/">📖 2026 Circuit Transparency & Structure</a></li>
     <li><a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">✉️ Send Feedback</a></li>
   </ul>
@@ -223,7 +221,7 @@
   </div>
 
   <script>
-    // 2026 season CSV
+    // 2026 standings CSV
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=1753849627&single=true&output=csv";
 
     function parseCSV(data) {
@@ -281,8 +279,8 @@
         const data = parseCSV(csv);
         const divisions = {
           "North/South": [],
-          North: [],
-          South: []
+          "North": [],
+          "South": []
         };
 
         data.forEach(entry => {
