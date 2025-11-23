@@ -13,11 +13,9 @@
       --border: #ccc;
     }
 
-    /* Global box sizing / overflow safety */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { overflow-x: hidden; }
 
-    /* Base */
     body {
       font-family: Arial, sans-serif;
       background-color: var(--page-bg);
@@ -35,73 +33,40 @@
       text-decoration: underline;
     }
 
-    /* Header: logo left, subtle archive link right */
-    .sitebar {
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      padding: 0.5rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--page-bg);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    /* Logo in corner, like other CHBC pages */
+    .logo-header {
+      padding: 1rem 1.5rem 0.25rem;
     }
-    .sitebar .brand {
-      display: flex;
-      align-items: center;
-      min-width: 0;
-    }
-    .sitebar .brand img {
+    .logo-header img {
       height: 56px;
       width: auto;
-      max-width: 100%;
       display: block;
     }
 
-    .actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      border: 1px solid var(--brand);
+    /* Main “sheet” card */
+    .sheet {
+      max-width: 1100px;
+      margin: 0 auto 3rem;
       background: #fff;
-      color: var(--brand);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.85rem;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .btn:hover {
-      background: var(--brand);
-      color: #fff;
-    }
-
-    /* Page wrapper */
-    .page {
-      padding: 2rem 1.5rem 3rem;
-      max-width: 1000px;
-      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      padding: 2.25rem 2.5rem 3rem;
     }
 
     h1 {
       font-size: 2rem;
-      margin: 1rem 0 0.75rem;
+      margin: 0 0 1rem;
       text-align: center;
     }
 
+    .page-intro-wrap {
+      max-width: 900px;
+      margin: 0 auto 1.75rem;
+    }
+
     .page-intro {
-      text-align: center;
-      margin-bottom: 0.75rem;
+      text-align: left;
+      margin: 0 0 0.75rem;
       font-size: 0.98rem;
     }
 
@@ -109,14 +74,13 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 1rem;
-      margin: 1.25rem auto 2.25rem;
-      padding: 0.75rem 1rem;
-      background: #ffffff;
+      margin: 1.5rem 0 2.25rem;
+      padding: 0.9rem 1rem;
+      background: #f9fafc;
       border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.06);
-      max-width: 720px;
+      border: 1px solid #e0e4ec;
     }
 
     .sponsor-text {
@@ -146,9 +110,10 @@
     .panel {
       background-color: var(--panel-bg);
       padding: 1.5rem;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
       border-radius: 6px;
       margin-top: 1rem;
+      border: 1px solid #e4e4e4;
     }
 
     ul {
@@ -180,9 +145,9 @@
       margin-right: auto;
     }
 
-    /* Bottom layout: two-column grid for rules / disclaimer on larger screens */
+    /* Bottom layout: two-column grid on larger screens */
     .bottom-wrapper {
-      margin-top: 2.25rem;
+      margin-top: 2.5rem;
     }
 
     .bottom-grid {
@@ -197,55 +162,51 @@
     }
 
     @media (max-width: 900px) {
+      .sheet {
+        padding: 1.75rem 1.5rem 2.5rem;
+      }
       .bottom-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 768px) {
-      .page {
-        padding: 1.5rem 1rem 2.5rem;
-      }
+    @media (max-width: 600px) {
       h1 {
         font-size: 1.7rem;
-      }
-      .sponsor-banner {
-        align-items: flex-start;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header: current season with subtle archive link -->
-  <header class="sitebar">
-    <a class="brand" href="/">
+  <!-- Logo header (matches other CHBC pages) -->
+  <header class="logo-header">
+    <a href="/">
       <img src="/assets/images/CHBC%20Logo.png" alt="CHBC Logo">
     </a>
-    <nav class="actions">
-      <a class="btn" href="/2025/dashboard/">View 2025 Archive →</a>
-    </nav>
   </header>
 
-  <!-- Main content -->
-  <main class="page">
+  <!-- Main sheet -->
+  <main class="sheet">
     <h1>🎁 2026 Prize Packages – California Homebrew Circuit</h1>
 
-    <p class="page-intro">
-      The 2026 California Homebrew Circuit prize pool is proudly sponsored by
-      <strong>MoreBeer!</strong> (part of the <strong>MoreFlavor!</strong> family).
-      Prizes reward performance in the <strong>All-State</strong> standings as well as
-      the <strong>North</strong> and <strong>South</strong> divisions.
-    </p>
+    <div class="page-intro-wrap">
+      <p class="page-intro">
+        The 2026 California Homebrew Circuit prize pool is proudly sponsored by
+        <strong>MoreBeer!</strong> (part of the <strong>MoreFlavor!</strong> family).
+        Prizes reward performance in the <strong>All-State</strong> standings as well as
+        the <strong>North</strong> and <strong>South</strong> divisions.
+      </p>
 
-    <p class="page-intro">
-      The circuit is open to <strong>all brewers</strong> who compete in the California
-      competitions included in the CHBC schedule. All-State prizes can ship anywhere
-      in the United States, and we welcome competitors from across the country to
-      support our California competitions. Division prizes are designed to support
-      <strong>local California brewers</strong> and are <strong>pickup-only</strong>
-      at MoreBeer! showrooms.
-    </p>
+      <p class="page-intro">
+        The circuit is open to <strong>all brewers</strong> who compete in the California
+        competitions included in the CHBC schedule. All-State prizes can ship anywhere
+        in the United States, and we welcome competitors from across the country to
+        support our California competitions. Division prizes are designed to support
+        <strong>local California brewers</strong> and are <strong>pickup-only</strong>
+        at MoreBeer! showrooms.
+      </p>
+    </div>
 
     <div class="sponsor-banner">
       <img src="/assets/images/morebeer-logo-vector.png" alt="MoreBeer! Logo" class="sponsor-logo">
@@ -415,28 +376,4 @@
               <li>
                 The California Homebrew Circuit (CHBC) is responsible for
                 <strong>scoring and rankings only</strong>. If sponsor offerings change,
-                become unavailable, or are modified, CHBC is <strong>not responsible</strong>
-                for replacing, matching, or making up any prize value.
-              </li>
-              <li>
-                Any updates or changes to the prize list will be reflected on this page as
-                information is confirmed.
-              </li>
-            </ul>
-          </div>
-        </section>
-
-      </div>
-    </div>
-
-    <p class="footer-note">
-      💡 Have questions about scoring, standings, or prize eligibility?<br>
-      Join our community on
-      <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">the CHBC Discord</a>
-      or use the feedback form linked from the main dashboard.
-    </p>
-  </main>
-
-  <script data-goatcounter="https://chbcircuit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
-</html>
+                become unavailable, or are modified, CHBC is <strong>not responsible</s
