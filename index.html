@@ -110,6 +110,18 @@
       text-decoration: underline;
     }
 
+    .archive-note {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+    
+.season-note {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+  color: #555;
+  font-style: italic;
+}
     .footer-note {
       text-align: center;
       margin-top: 3rem;
@@ -148,22 +160,36 @@
 <body>
 
   <div class="logo-container">
-    <img src="assets/images/CHBC Logo.png" alt="CHBC Logo" />
+    <!-- Root-relative so it works from / -->
+    <img src="/assets/images/CHBC Logo.png" alt="CHBC Logo" />
   </div>
 
   <h1>🏆 Welcome to the California Homebrew Circuit (CHBC)</h1>
-
-  <p>The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft.</p>
-
-  <p><strong>🚧 Beta Year Notice:</strong> This is our beta launch year—an experimental first run. We're refining the system as we go, and your feedback is welcome. Competitions for the next season will be finalized and locked in by September.</p>
-
+<p>
+The California Homebrew Circuit is a grassroots initiative built by and for homebrewers across the Golden State. Our mission is to connect clubs and brewers through a network of local competitions, promote friendly rivalries, and a shared passion for the craft. Special thanks to our 2026 season sponsor,
+<a href="https://www.morebeer.com/" target="_blank" rel="noopener noreferrer">MoreBeer!</a>,
+for providing an incredible prize package supporting the North, South, and All-State divisions.
+</p>
+  
   <h2>🍻 How it Works</h2>
-  <p>Compete in any <a href="/competition-list/">competition listed in the Circuit</a>. Your wins earn points on our <a href="/combined-results/">leaderboard</a>, helping highlight standout brewers from across California.</p>
+  <p>
+    Compete in any
+    <a href="/2026/competition-list/">competition listed in the Circuit</a>.
+    Your wins earn points on our
+    <a href="/2026/combined-results/">leaderboard</a>,
+    helping highlight standout brewers from across California.
+  </p>
 
   <h2>🎯 What CHBC Celebrates</h2>
   <p>CHBC exists to make homebrewing more connected, more fun, and more rewarding. By tracking competition results and highlighting standout performances, the circuit brings together the best of California’s homebrew scene—fostering community, friendly rivalry, and a little well-earned bragging rights along the way.</p>
 
+  <p class="archive-note">
+    Looking for last season’s standings?
+    Visit the <a href="/2025/">2025 results archive →</a>
+  </p>
+
   <h2>📊 Live Standings Dashboard</h2>
+  <p> The 2026 season is live, but no competitions have been finalized yet. Standings will appear once the first results are posted.</p>
 
   <div class="dashboard">
     <div id="combined" class="division">
@@ -178,22 +204,23 @@
   </div>
 
   <noscript>
-    <p>JavaScript is required to view live standings. See the <a href="/combined-results/">results page</a> instead.</p>
+    <p>JavaScript is required to view live standings. See the <a href="/2026/combined-results/">combined results page</a> instead.</p>
   </noscript>
 
-  <h2>📊 View the Full Results</h2>
+  <h2>📊 View Full 2026 Results</h2>
   <ul>
-    <li><a href="/north-results/">🏅 North Division Results</a></li>
-    <li><a href="/south-results/">🥇 South Division Results</a></li>
-    <li><a href="/combined-results/">🏆 Combined Circuit Results</a></li>
-    <li><a href="/club-leaderboard/">🏘️ Club Leaderboard</a></li>
+    <li><a href="/2026/north-results/">🏅 North Division Results (2026)</a></li>
+    <li><a href="/2026/south-results/">🥇 South Division Results (2026)</a></li>
+    <li><a href="/2026/combined-results/">🏆 Combined Circuit Results (2026)</a></li>
+    <li><a href="/2026/club-leaderboard/">🏘️ Club Leaderboard (2026)</a></li>
   </ul>
 
-  <h2>📚 Learn More About CHBC</h2>
+  <h2>📚 Learn More About the 2026 Circuit</h2>
   <ul>
-    <li><a href="/methodology/">📘 Methodology</a></li>
-    <li><a href="/competition-list/">📋 View Circuit Competition List</a></li>
-    <li><a href="/circuit-structure/">📖 Circuit Transparency & Structure</a></li>
+    <li><a href="/2026/methodology/">📘 2026 Scoring Methodology</a></li>
+    <li><a href="/2026/competition-list/">📋 2026 Competition List</a></li>
+    <li><a href="/2026/prizing/">🎁 2026 Season Prizing & Sponsors</a></li>
+    <li><a href="/2026/circuit-structure/">📖 2026 Circuit Transparency & Structure</a></li>
     <li><a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener noreferrer">💬 Join the Conversation</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfUqkWF5Q93gJ2q428CxqMAYJa6qbBOeV3D97UREZNVtK4sFQ/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">✉️ Send Feedback</a></li>
   </ul>
@@ -204,7 +231,8 @@
   </div>
 
   <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1753849627&single=true&output=csv";
+    // 2026 standings CSV
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=1753849627&single=true&output=csv";
 
     function parseCSV(data) {
       const lines = data.trim().split("\n").map(line => line.split(","));
@@ -261,8 +289,8 @@
         const data = parseCSV(csv);
         const divisions = {
           "North/South": [],
-          North: [],
-          South: []
+          "North": [],
+          "South": []
         };
 
         data.forEach(entry => {
@@ -281,7 +309,7 @@
         ["North/South", "North", "South"].forEach(key => {
           const list = divisions[key];
           if (list && list.length) {
-            list.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
+            list.sort((a, b) => parseInt(a.Rank, 10) - parseInt(b.Rank, 10));
             renderTable(`${key} Division – Top 25`, list.slice(0, 25), containerMap[key]);
           }
         });
