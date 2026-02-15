@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📌 Scoring Examples – CHBC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.25rem;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .panel {
+      background-color: #fff;
+      padding: 1.5rem;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    ul {
+      margin-top: 0.5rem;
+      padding-left: 1.5rem;
+    }
+
+    a {
+      color: #2c4a7a;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #2c4a7a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.6rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f7f7f7;
+    }
+
+    .callout {
+      background: #f7fbff;
+      border: 1px solid #d7e6ff;
+      padding: 0.9rem 1rem;
+      border-radius: 6px;
+      margin-top: 0.75rem;
+    }
+
+    code {
+      background: #f2f2f2;
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+    }
+
+    .small {
+      font-size: 0.95rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📌 CHBC Scoring Examples</h1>
+
+  <div class="panel">
+
+    <p>This page shows concrete scoring examples using the CHBC weighted formula. The goal is to make it clear how <strong>placement</strong> and <strong>table size</strong> both affect points.</p>
+
+    <h2>Formula (for reference)</h2>
+    <p><code>Points = Base Score × ((Entries - Place) / Entries)³</code></p>
+
+    <p>Base Scores:</p>
+    <ul>
+      <li><strong>1st</strong> = 3 points</li>
+      <li><strong>2nd</strong> = 2 points</li>
+      <li><strong>3rd</strong> = 1 point</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Key idea:</strong> Higher placements earn more, and placements in larger tables are worth more than the same placement in smaller tables.
+    </div>
+
+    <h2>Example A: 1st is worth much more than 3rd (same table size)</h2>
+    <p>In a <strong>25-entry</strong> table:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Placement</th>
+          <th>Calculation</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1st (25 entries)</strong></td>
+          <td>3 × (24/25)³</td>
+          <td><strong>2.65</strong></td>
+        </tr>
+        <tr>
+          <td><strong>2nd (25 entries)</strong></td>
+          <td>2 × (23/25)³</td>
+          <td><strong>1.56</strong></td>
+        </tr>
+        <tr>
+          <td><strong>3rd (25 entries)</strong></td>
+          <td>1 × (22/25)³</td>
+          <td><strong>0.68</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="small"><strong>Takeaway:</strong> In the same 25-entry table, <strong>1st (2.65)</strong> is about <strong>3.9×</strong> a <strong>3rd (0.68)</strong>.</p>
+
+    <h2>Example B: 2nd on a big table can beat 1st on a very small table</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Result</th>
+          <th>Calculation</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>2nd (25 entries)</strong></td>
+          <td>2 × (23/25)³</td>
+          <td><strong>1.56</strong></td>
+        </tr>
+        <tr>
+          <td><strong>1st (4 entries)</strong></td>
+          <td>3 × (3/4)³</td>
+          <td><strong>1.27</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="small"><strong>Takeaway:</strong> A strong finish in a large, competitive table can outscore a win in a very small table.</p>
+
+    <h2>Example C: Same placement, bigger table = more points</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Result</th>
+          <th>Calculation</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1st (25 entries)</strong></td>
+          <td>3 × (24/25)³</td>
+          <td><strong>2.65</strong></td>
+        </tr>
+        <tr>
+          <td><strong>1st (6 entries)</strong></td>
+          <td>3 × (5/6)³</td>
+          <td><strong>1.74</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="small"><strong>Takeaway:</strong> Winning a larger table carries significantly more weight than winning a small table.</p>
+
+  </div>
+
+  <!-- Update this href to the real path of your methodology page -->
+  <a class="back-link" href="/methodology.html">← Back to Methodology</a>
+
+  <p class="footer-note">
+    💡 Have questions or think something looks off?<br>
+    Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
+  </p>
+
+  <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
