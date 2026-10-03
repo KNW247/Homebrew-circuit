@@ -72,9 +72,11 @@
   font-size: 0.95rem;
   text-align: center;
   color: #555;
+  
   font-style: italic;
 }
-
+td a { color: #2c4a7a; text-decoration: none; }
+td a:hover, td a:focus-visible { text-decoration: underline; }
     .footer-note {
       text-align: center;
       margin-top: 1rem;
@@ -214,7 +216,15 @@ if (!isNaN(rawValue) && rawValue.trim() !== "") {
   td.textContent = rawValue;
 }
 
-
+            if (col === "Brewer" && rawValue) {
+              td.textContent = "";
+              const a = document.createElement("a");
+              a.href = "../brewer-lookup/?brewer=" + encodeURIComponent(rawValue);
+              a.textContent = rawValue;
+              a.title = "See " + rawValue + "'s placements";
+              td.appendChild(a);
+            }
+            
             if (col === "Club") td.className = "club";
             tr.appendChild(td);
           });
