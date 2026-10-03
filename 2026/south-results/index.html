@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +74,7 @@
       font-size: 0.95rem;
       color: #444;
     }
-/* Search bar (top-right, under the title) */
+    /* Search bar (top-right, under the title) */
 .searchbar {
   max-width: 1100px;
   margin: 0 auto 1rem;
@@ -109,28 +108,31 @@
   color: #333;
 }
 
-    #searchResult { color:#555; }
+/* Lighter results text */
+#searchResult { color:#555; }
+
+/* Brewer names link to Brewer Lookup */
+td a { color: #2c4a7a; text-decoration: none; }
+td a:hover, td a:focus-visible { text-decoration: underline; }
 
   </style>
 </head>
 <body>
 
   <h1>🥇 South Division – Full Result (2026 Season)</h1>
-<p class="season-note">
+  <p class="season-note">
   2026 season in progress — standings will appear after the first competition finalizes.
 </p>
-
-
   
 <!-- Minimal search UI (styled, top-right) -->
 <div class="searchbar">
- <input id="nameSearch" type="text" placeholder="Find by first or last name…"
-       inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
-
+  <input id="nameSearch" type="text" placeholder="Find by first or last name…"
+         inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
   <button id="searchBtn" type="button">Find</button>
   <small id="searchResult"></small>
 </div>
 
+  
   <div class="division" id="south-results">
     <p>Loading results...</p>
   </div>
@@ -144,8 +146,7 @@
   </p>
 
   <script>
-  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=978452653&single=true&output=csv";
-
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=978452653&single=true&output=csv";
 
     const displayColumns = [
       "Rank", "Brewer", "Total",
@@ -165,12 +166,28 @@
       "W-RTB26", "W-RTB26-BOS"
     ];
 
+    // Handles commas inside quoted names and clubs
     function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split(","));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
+      const rows = [];
+      let row = [], field = "", inQuotes = false;
+      for (let i = 0; i < data.length; i++) {
+        const c = data[i];
+        if (inQuotes) {
+          if (c === '"' && data[i + 1] === '"') { field += '"'; i++; }
+          else if (c === '"') inQuotes = false;
+          else field += c;
+        } else if (c === '"') inQuotes = true;
+        else if (c === ',') { row.push(field); field = ""; }
+        else if (c === '\n' || c === '\r') {
+          if (c === '\r' && data[i + 1] === '\n') i++;
+          row.push(field); rows.push(row); row = []; field = "";
+        } else field += c;
+      }
+      if (field || row.length) { row.push(field); rows.push(row); }
+      const headers = rows[0].map(h => h.trim());
+      return rows.slice(1).map(r => {
         const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
         return obj;
       });
     }
@@ -192,19 +209,28 @@
       thead.appendChild(headerRow);
 
       rows.forEach(row => {
-      if (parseFloat(row["Total"]) > 0) {
+       if (parseFloat(row["Total"]) > 0) {
           const tr = document.createElement("tr");
           rawColumns.forEach(col => {
             const td = document.createElement("td");
-
-            let cellValue = row[col] || "";
+         
+            
+         let cellValue = row[col] || "";
 if (!isNaN(cellValue) && cellValue.trim() !== "") {
   const num = parseFloat(cellValue);
   cellValue = num === 0 ? "" : num.toString();
 }
 td.textContent = cellValue;
 
-
+            // Brewer name links to their Brewer Lookup page
+            if (col === "Brewer" && cellValue) {
+              td.textContent = "";
+              const a = document.createElement("a");
+              a.href = "../brewer-lookup/?brewer=" + encodeURIComponent(cellValue);
+              a.textContent = cellValue;
+              a.title = "See " + cellValue + "'s placements";
+              td.appendChild(a);
+            }
 
             tr.appendChild(td);
           });
@@ -257,7 +283,7 @@ function wireSimpleSearch(containerId) {
 }
 // --- end minimal search helpers ---
 
-fetch(csvUrl)
+   fetch(csvUrl)
   .then(response => response.text())
   .then(csv => {
     const data = parseCSV(csv);
