@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Combined Circuit Results – CHBC</title>
+  <title>Combined Circuit Results – CHBC (2026 Season)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -67,6 +67,13 @@
     a.back-link:hover {
       text-decoration: underline;
     }
+.season-note {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
 
     .footer-note {
       text-align: center;
@@ -103,11 +110,21 @@
 /* Lighter results text */
 #searchResult { color:#555; }
 
+/* Brewer names link to Brewer Lookup */
+td a { color: #2c4a7a; text-decoration: none; }
+td a:hover, td a:focus-visible { text-decoration: underline; }
+
   </style>
 </head>
 <body>
 
-  <h1>🏆 Combined Circuit – Full Results</h1>
+  <h1>🏆 Combined Circuit – Full Results (2026 Season)</h1>
+
+<p class="season-note">
+  Click any brewer's name to see their placements.
+</p>
+
+  
   <!-- Minimal search UI (styled, top-right) -->
 <div class="searchbar">
   <input id="nameSearch" type="text" placeholder="Find by first or last name…"
@@ -129,14 +146,35 @@
   </p>
 
   <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1868529251&single=true&output=csv";
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=1868529251&single=true&output=csv";
+
+    // Column headers shown on the page (data columns keep their sheet names)
+    const headerLabels = {
+      "IEB26": "SCRHC26", "IEB26-BOS": "SCRHC26-BOS",
+      "ALCF26": "BABO26", "ALCF26-BOS": "BABO26-BOS"
+    };
 
     function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split(","));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
+      const rows = [];
+      let row = [], field = "", inQuotes = false;
+      for (let i = 0; i < data.length; i++) {
+        const c = data[i];
+        if (inQuotes) {
+          if (c === '"' && data[i + 1] === '"') { field += '"'; i++; }
+          else if (c === '"') inQuotes = false;
+          else field += c;
+        } else if (c === '"') inQuotes = true;
+        else if (c === ',') { row.push(field); field = ""; }
+        else if (c === '\n' || c === '\r') {
+          if (c === '\r' && data[i + 1] === '\n') i++;
+          row.push(field); rows.push(row); row = []; field = "";
+        } else field += c;
+      }
+      if (field || row.length) { row.push(field); rows.push(row); }
+      const headers = rows[0].map(h => h.trim());
+      return rows.slice(1).map(r => {
         const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
         return obj;
       });
     }
@@ -151,22 +189,22 @@
 
       const columns = [
         "Rank", "Brewer", "Club", "Total",
-        "MF25", "MF25-BOS",
-        "IEB25", "IEB25-BOS",
-        "PBC25", "PBC25-BOS",
-        "AFC25", "AFC25-BOS",
-        "RTB25", "RTB25-BOS",
-        "CSF25", "CSF25-BOS",
-        "WCOB25", "WCOB25-BOS",
-        "ALCF25", "ALCF25-BOS",
-        "CHC25", "CHC25-BOS",
-        "AMCF25", "AMCF25-BOS"
+        "MF26", "MF26-BOS",
+        "IEB26", "IEB26-BOS",
+        "PBC26", "PBC26-BOS",
+        "AFC26", "AFC26-BOS",
+        "RTB26", "RTB26-BOS",
+        "CSF26", "CSF26-BOS",
+        "WCOB26", "WCOB26-BOS",
+        "ALCF26", "ALCF26-BOS",
+        "CHC26", "CHC26-BOS",
+        
       ];
 
       const headerRow = document.createElement("tr");
       columns.forEach(col => {
         const th = document.createElement("th");
-        th.textContent = col;
+        th.textContent = headerLabels[col] || col;
         headerRow.appendChild(th);
       });
       thead.appendChild(headerRow);
@@ -186,6 +224,14 @@ if (!isNaN(rawValue) && rawValue.trim() !== "") {
   td.textContent = rawValue;
 }
 
+            if (col === "Brewer" && rawValue) {
+              td.textContent = "";
+              const a = document.createElement("a");
+              a.href = "../brewer-lookup/?brewer=" + encodeURIComponent(rawValue);
+              a.textContent = rawValue;
+              a.title = "See " + rawValue + "'s placements";
+              td.appendChild(a);
+            }
 
             if (col === "Club") td.className = "club";
             tr.appendChild(td);
