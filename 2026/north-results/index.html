@@ -111,6 +111,10 @@
 /* Lighter results text */
 #searchResult { color:#555; }
 
+/* Brewer names link to Brewer Lookup */
+td a { color: #2c4a7a; text-decoration: none; }
+td a:hover, td a:focus-visible { text-decoration: underline; }
+
   </style>
 </head>
 <body>
@@ -161,12 +165,28 @@
       "W-CHC26", "W-CHC26-BOS",
      ];
 
+    // Handles commas inside quoted names and clubs
     function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split(","));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
+      const rows = [];
+      let row = [], field = "", inQuotes = false;
+      for (let i = 0; i < data.length; i++) {
+        const c = data[i];
+        if (inQuotes) {
+          if (c === '"' && data[i + 1] === '"') { field += '"'; i++; }
+          else if (c === '"') inQuotes = false;
+          else field += c;
+        } else if (c === '"') inQuotes = true;
+        else if (c === ',') { row.push(field); field = ""; }
+        else if (c === '\n' || c === '\r') {
+          if (c === '\r' && data[i + 1] === '\n') i++;
+          row.push(field); rows.push(row); row = []; field = "";
+        } else field += c;
+      }
+      if (field || row.length) { row.push(field); rows.push(row); }
+      const headers = rows[0].map(h => h.trim());
+      return rows.slice(1).map(r => {
         const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
         return obj;
       });
     }
@@ -201,7 +221,15 @@ if (!isNaN(cellValue) && cellValue.trim() !== "") {
 }
 td.textContent = cellValue;
 
-
+            // Brewer name links to their Brewer Lookup page
+            if (col === "Brewer" && cellValue) {
+              td.textContent = "";
+              const a = document.createElement("a");
+              a.href = "../brewer-lookup/?brewer=" + encodeURIComponent(cellValue);
+              a.textContent = cellValue;
+              a.title = "See " + cellValue + "'s placements";
+              td.appendChild(a);
+            }
 
             tr.appendChild(td);
           });
