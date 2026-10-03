@@ -60,6 +60,13 @@
     a.back-link:hover {
       text-decoration: underline;
     }
+.season-note {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+    text-align: center;
+  color: #555;
+  font-style: italic;
+}
 
     .footer-note {
       text-align: center;
@@ -104,11 +111,19 @@
 /* Lighter results text */
 #searchResult { color:#555; }
 
+/* Brewer names link to Brewer Lookup */
+td a { color: #2c4a7a; text-decoration: none; }
+td a:hover, td a:focus-visible { text-decoration: underline; }
+
   </style>
 </head>
 <body>
 
-  <h1>🏅 North Division – Full Results</h1>
+  <h1>🏅 North Division – Full Results (2026 Season)</h1>
+  <p class="season-note">
+  Click any brewer's name to see their placements.
+</p>
+  
 <!-- Minimal search UI (styled, top-right) -->
 <div class="searchbar">
   <input id="nameSearch" type="text" placeholder="Find by first or last name…"
@@ -131,32 +146,47 @@
   </p>
 
   <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTf6KoUxtsykioYL1QjIk_ismGjdexrEnyvGxqhIzllBS6gds3Kn2rtrf6h76zN-by4Y8wB6FpLEuyH/pub?gid=1983049685&single=true&output=csv";
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=1983049685&single=true&output=csv";
 
     const displayColumns = [
       "Rank", "Brewer", "Total",
-      "CSF25", "CSF25-BOS",
-      "WCOB25", "WCOB25-BOS",
-      "ALCF25", "ALCF25-BOS",
-      "CHC25", "CHC25-BOS",
-      "AMCF25", "AMCF25-BOS"
+      "CSF26", "CSF26-BOS",
+      "WCOB26", "WCOB26-BOS",
+      "BABO26", "BABO26-BOS",
+      "CHC26", "CHC26-BOS",
+     
     ];
 
     const rawColumns = [
       "Rank", "Brewer", "Total",
-      "W-CSF25", "W-CSF25-BOS",
-      "W-WCOB25", "W-WCOB25-BOS",
-      "W-ALCF25", "W-ALCF25-BOS",
-      "W-CHC25", "W-CHC25-BOS",
-      "W-AMCF25", "W-AMCF25-BOS"
-    ];
+      "W-CSF26", "W-CSF26-BOS",
+      "W-WCOB26", "W-WCOB26-BOS",
+      "W-ALCF26", "W-ALCF26-BOS",
+      "W-CHC26", "W-CHC26-BOS",
+     ];
 
+    // Handles commas inside quoted names and clubs
     function parseCSV(data) {
-      const lines = data.trim().split("\n").map(line => line.split(","));
-      const headers = lines[0];
-      return lines.slice(1).map(row => {
+      const rows = [];
+      let row = [], field = "", inQuotes = false;
+      for (let i = 0; i < data.length; i++) {
+        const c = data[i];
+        if (inQuotes) {
+          if (c === '"' && data[i + 1] === '"') { field += '"'; i++; }
+          else if (c === '"') inQuotes = false;
+          else field += c;
+        } else if (c === '"') inQuotes = true;
+        else if (c === ',') { row.push(field); field = ""; }
+        else if (c === '\n' || c === '\r') {
+          if (c === '\r' && data[i + 1] === '\n') i++;
+          row.push(field); rows.push(row); row = []; field = "";
+        } else field += c;
+      }
+      if (field || row.length) { row.push(field); rows.push(row); }
+      const headers = rows[0].map(h => h.trim());
+      return rows.slice(1).map(r => {
         const obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim() || "");
+        headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
         return obj;
       });
     }
@@ -191,7 +221,15 @@ if (!isNaN(cellValue) && cellValue.trim() !== "") {
 }
 td.textContent = cellValue;
 
-
+            // Brewer name links to their Brewer Lookup page
+            if (col === "Brewer" && cellValue) {
+              td.textContent = "";
+              const a = document.createElement("a");
+              a.href = "../brewer-lookup/?brewer=" + encodeURIComponent(cellValue);
+              a.textContent = cellValue;
+              a.title = "See " + cellValue + "'s placements";
+              td.appendChild(a);
+            }
 
             tr.appendChild(td);
           });
