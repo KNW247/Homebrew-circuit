@@ -233,6 +233,15 @@ if (!isNaN(rawValue) && rawValue.trim() !== "") {
               td.appendChild(a);
             }
 
+            if (col === "Club" && rawValue) {
+              td.textContent = "";
+              const c = document.createElement("a");
+              c.href = "../club-lookup/?club=" + encodeURIComponent(rawValue);
+              c.textContent = rawValue;
+              c.title = "See " + rawValue + "'s results";
+              td.appendChild(c);
+            }
+
             if (col === "Club") td.className = "club";
             tr.appendChild(td);
           });
