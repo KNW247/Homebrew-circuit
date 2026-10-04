@@ -72,11 +72,9 @@
   font-size: 0.95rem;
   text-align: center;
   color: #555;
-  
   font-style: italic;
 }
-td a { color: #2c4a7a; text-decoration: none; }
-td a:hover, td a:focus-visible { text-decoration: underline; }
+
     .footer-note {
       text-align: center;
       margin-top: 1rem;
@@ -112,6 +110,10 @@ td a:hover, td a:focus-visible { text-decoration: underline; }
 /* Lighter results text */
 #searchResult { color:#555; }
 
+/* Brewer names link to Brewer Lookup */
+td a { color: #2c4a7a; text-decoration: none; }
+td a:hover, td a:focus-visible { text-decoration: underline; }
+
   </style>
 </head>
 <body>
@@ -119,7 +121,7 @@ td a:hover, td a:focus-visible { text-decoration: underline; }
   <h1>🏆 Combined Circuit – Full Results (2026 Season)</h1>
 
 <p class="season-note">
-  2026 season in progress — standings will appear after the first competition finalizes.
+  Click any brewer's name to see their placements.
 </p>
 
   
@@ -145,6 +147,12 @@ td a:hover, td a:focus-visible { text-decoration: underline; }
 
   <script>
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=1868529251&single=true&output=csv";
+
+    // Column headers shown on the page (data columns keep their sheet names)
+    const headerLabels = {
+      "IEB26": "SCRHC26", "IEB26-BOS": "SCRHC26-BOS",
+      "ALCF26": "BABO26", "ALCF26-BOS": "BABO26-BOS"
+    };
 
     function parseCSV(data) {
       const rows = [];
@@ -196,7 +204,7 @@ td a:hover, td a:focus-visible { text-decoration: underline; }
       const headerRow = document.createElement("tr");
       columns.forEach(col => {
         const th = document.createElement("th");
-        th.textContent = col;
+        th.textContent = headerLabels[col] || col;
         headerRow.appendChild(th);
       });
       thead.appendChild(headerRow);
@@ -224,7 +232,16 @@ if (!isNaN(rawValue) && rawValue.trim() !== "") {
               a.title = "See " + rawValue + "'s placements";
               td.appendChild(a);
             }
-            
+
+            if (col === "Club" && rawValue) {
+              td.textContent = "";
+              const c = document.createElement("a");
+              c.href = "../club-lookup/?club=" + encodeURIComponent(rawValue);
+              c.textContent = rawValue;
+              c.title = "See " + rawValue + "'s results";
+              td.appendChild(c);
+            }
+
             if (col === "Club") td.className = "club";
             tr.appendChild(td);
           });
