@@ -104,6 +104,10 @@
       color: #444;
     }
 
+    /* Club names link to Club Lookup */
+    td a { color: #2c4a7a; text-decoration: none; }
+    td a:hover, td a:focus-visible { text-decoration: underline; }
+
     @media (max-width: 768px) {
       .dashboard {
         flex-direction: column;
@@ -129,7 +133,7 @@
   <h1>🥇 Club Leaderboard – California Homebrew Circuit (2026 Season)</h1>
 
   <p class="season-note">
-  2026 season in progress — standings will appear after the first competition finalizes.
+  Click any club's name to see its members and points by competition.
 </p>
 
 
@@ -185,7 +189,24 @@
           const total = isNaN(parseFloat(rawTotal)) ? '' : parseFloat(rawTotal).toFixed(3);
 
           const tr = document.createElement('tr');
-          tr.innerHTML = `<td>${rank}</td><td>${club}</td><td>${total}</td>`;
+
+          const rankTd = document.createElement('td');
+          rankTd.textContent = rank;
+
+          // Club name links to its Club Lookup page
+          const clubTd = document.createElement('td');
+          if (club) {
+            const a = document.createElement('a');
+            a.href = '../club-lookup/?club=' + encodeURIComponent(club);
+            a.textContent = club;
+            a.title = 'See ' + club + "'s members and results";
+            clubTd.appendChild(a);
+          }
+
+          const totalTd = document.createElement('td');
+          totalTd.textContent = total;
+
+          tr.append(rankTd, clubTd, totalTd);
           tbody.appendChild(tr);
         }
       });
