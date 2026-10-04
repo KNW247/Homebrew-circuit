@@ -2,169 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>South Division Results (2026 Season) – CHBC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brewer Lookup – CHBC (2026 Season)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
-      padding: 2rem;
+      padding: 1rem;
       margin: 0;
-      line-height: 1.6;
+      line-height: 1.4;
+      color: #222;
     }
+    h1 { font-size: 1.5rem; margin-bottom: 0.25rem; text-align: center; }
+    .intro { text-align: center; color: #555; font-size: 0.95rem; margin: 0 auto 1rem; max-width: 60ch; }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      text-align: center;
+    .controls {
+      max-width: 1100px;
+      margin: 0 auto 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: center;
     }
+    .controls input[type="text"] {
+      padding: 0.45rem 0.6rem;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-size: 1rem;
+      min-width: 16rem;
+    }
+    .controls button {
+      padding: 0.45rem 0.8rem;
+      border: 1px solid #2c4a7a;
+      background: #fff;
+      color: #2c4a7a;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .controls button.primary,
+    .controls button[aria-pressed="true"] { background: #2c4a7a; color: #fff; }
+    .controls button:focus-visible,
+    .controls input:focus-visible { outline: 2px solid #2c4a7a; outline-offset: 2px; }
+    .divfilter { display: flex; gap: 0.25rem; }
 
     .division {
       background-color: #fff;
-      padding: 1.5rem;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+      border-radius: 6px;
       max-width: 1100px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1rem;
       overflow-x: auto;
     }
+    .brewer-name { font-size: 1.3rem; font-weight: bold; margin: 0; }
+    .brewer-club { color: #555; margin: 0.1rem 0 0.75rem; }
+    .brewer-club a { color: #2c4a7a; text-decoration: none; }
+    .brewer-club a:hover, .brewer-club a:focus-visible { text-decoration: underline; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-      font-size: 0.75rem;
-    }
+    table { border-collapse: collapse; font-size: 0.8rem; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 0.3rem 0.45rem; text-align: left; white-space: nowrap; }
+    th { background-color: #eaeaea; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.ctr, th.ctr { text-align: center; }
 
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.3rem 0.5rem;
-      text-align: left;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
+    .score tr.north td { background: #fce5cd; }
+    .score tr.south td { background: #d9ead3; }
+    .score tr.all td { background: #e3e3e3; font-weight: bold; border-top: 2px solid #555; }
 
-    th {
-      background-color: #eaeaea;
-    }
+    .detail tr.comp-head td { background: #f0f0f0; font-weight: bold; }
+    .detail tr.not-counted td { color: #888; }
+    .detail tr.bos-1 td { background: #fff2cc; }
+    .detail tr.bos-2 td { background: #eeeeee; }
+    .detail tr.bos-3 td { background: #fbe1cf; }
+
+    .legend { font-size: 0.8rem; color: #555; margin-top: 0.6rem; }
+    .message { text-align: center; color: #555; padding: 1rem; }
 
     a.back-link {
-      display: block;
-      text-align: center;
-      margin-top: 1rem;
-      color: #2c4a7a;
-      text-decoration: none;
-      font-weight: bold;
+      display: block; text-align: center; margin-top: 1rem;
+      color: #2c4a7a; text-decoration: none; font-weight: bold;
     }
-
-    a.back-link:hover {
-      text-decoration: underline;
+    a.back-link:hover { text-decoration: underline; }
+    .footer-note { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: #444; }
+    /* Phones: tighter layout, fewer columns */
+    @media (max-width: 600px) {
+      body { padding: 0.5rem; }
+      h1 { font-size: 1.25rem; }
+      .intro { font-size: 0.85rem; margin-bottom: 0.75rem; }
+      .controls { gap: 0.5rem; }
+      .controls input[type="text"] { min-width: 0; width: 100%; box-sizing: border-box; }
+      .controls #showBtn { flex: 1; }
+      .divfilter { flex: 1; justify-content: flex-end; }
+      .division { padding: 0.6rem; }
+      .brewer-name { font-size: 1.15rem; }
+      table { font-size: 0.72rem; }
+      th, td { padding: 0.25rem 0.3rem; }
+      .score th { white-space: normal; }
+      .score th:nth-child(3), .score td:nth-child(3) { display: none; }
     }
-.season-note {
-  margin-top: 0.25rem;
-  font-size: 0.95rem;
-    text-align: center;
-  color: #555;
-  font-style: italic;
-}
-
-    .footer-note {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      color: #444;
-    }
-    /* Search bar (top-right, under the title) */
-.searchbar {
-  max-width: 1100px;
-  margin: 0 auto 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: flex-end; /* right align */
-}
-
-.searchbar input[type="text"] {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-
-.searchbar button {
-  padding: 0.4rem 0.7rem;
-  border: 1px solid #2c4a7a;
-  background: #2c4a7a;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.searchbar button:hover { opacity: 0.9; }
-
-.searchbar small {
-  font-size: 0.9rem;
-  color: #333;
-}
-
-/* Lighter results text */
-#searchResult { color:#555; }
-
-/* Brewer names link to Brewer Lookup */
-td a { color: #2c4a7a; text-decoration: none; }
-td a:hover, td a:focus-visible { text-decoration: underline; }
-
   </style>
 </head>
 <body>
 
-  <h1>🥇 South Division – Full Result (2026 Season)</h1>
-  <p class="season-note">
-  Click any brewer's name to see their placements.
-</p>
-  
-<!-- Minimal search UI (styled, top-right) -->
-<div class="searchbar">
-  <input id="nameSearch" type="text" placeholder="Find by first or last name…"
-         inputmode="text" autocapitalize="none" autocomplete="off" spellcheck="false">
-  <button id="searchBtn" type="button">Find</button>
-  <small id="searchResult"></small>
-</div>
+  <h1>🔎 Brewer Lookup (2026 Season)</h1>
+  <p class="intro">See every placement for a brewer: the points from each competition, BOS bonuses, and which entries count toward the circuit.</p>
 
-  
-  <div class="division" id="south-results">
-    <p>Loading results...</p>
+  <div class="controls">
+    <input id="brewerInput" type="text" list="brewerList" placeholder="Start typing a brewer's name…"
+           autocomplete="off" spellcheck="false" aria-label="Brewer name">
+    <datalist id="brewerList"></datalist>
+    <button id="showBtn" class="primary" type="button">Show results</button>
+    <div class="divfilter" role="group" aria-label="Division">
+      <button type="button" data-div="All" aria-pressed="true">All-State</button>
+      <button type="button" data-div="North" aria-pressed="false">North</button>
+      <button type="button" data-div="South" aria-pressed="false">South</button>
+    </div>
   </div>
 
-<a class="back-link" href="/">← Back to Dashboard</a>
+  <div id="results"><p class="message">Loading results…</p></div>
 
-
+  <a class="back-link" href="/">← Back to Dashboard</a>
   <p class="footer-note">
-    💡 Have questions, spot an error, or want to suggest a comp?<br>
-    Join our community on <a href="https://discord.gg/pFTj7vb2mU" target="_blank">the CHBC Discord</a> and let us know!
+    💡 Think something looks off?<br>
+    Let us know on <a href="https://discord.gg/pFTj7vb2mU" target="_blank" rel="noopener">the CHBC Discord</a>.
   </p>
 
   <script>
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=978452653&single=true&output=csv";
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWYM73RUcLh6Wd7jv4dq3ZYPph7MuCHQfeR66_zTN1BIUfYJyU_ya9kKxPxyGbwdcMLdKXtOuZ3W-1/pub?gid=1094709211&single=true&output=csv";
 
-    const displayColumns = [
-      "Rank", "Brewer", "Total",
-      "MF26", "MF26-BOS",
-      "SCRHC26", "SCRHC26-BOS",
-      "PBC26", "PBC26-BOS",
-      "AFC26", "AFC26-BOS",
-      "RTB26", "RTB26-BOS"
-    ];
-
-    const rawColumns = [
-      "Rank", "Brewer", "Total",
-      "W-MF26", "W-MF26-BOS",
-      "W-IEB26", "W-IEB26-BOS",
-      "W-PBC26", "W-PBC26-BOS",
-      "W-AFC26", "W-AFC26-BOS",
-      "W-RTB26", "W-RTB26-BOS"
-    ];
+    let allRows = [];
+    let brewers = [];
+    let currentDiv = "All";
 
     // Handles commas inside quoted names and clubs
     function parseCSV(data) {
@@ -185,118 +155,154 @@ td a:hover, td a:focus-visible { text-decoration: underline; }
       }
       if (field || row.length) { row.push(field); rows.push(row); }
       const headers = rows[0].map(h => h.trim());
-      return rows.slice(1).map(r => {
-        const obj = {};
-        headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
-        return obj;
-      });
+      return rows.slice(1)
+        .filter(r => r.some(v => v.trim() !== ""))
+        .map(r => {
+          const obj = {};
+          headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
+          return obj;
+        });
     }
 
-    function renderTable(rows, containerId) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = "";
+    const num = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+    const fmt = n => n.toFixed(3);
+    const esc = s => String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    const placeKey = p => p.toLowerCase().replace(/^bos\s+/, "");
 
-      const table = document.createElement("table");
-      const thead = document.createElement("thead");
-      const tbody = document.createElement("tbody");
-
-      const headerRow = document.createElement("tr");
-      displayColumns.forEach(col => {
-        const th = document.createElement("th");
-        th.textContent = col;
-        headerRow.appendChild(th);
-      });
-      thead.appendChild(headerRow);
-
-      rows.forEach(row => {
-       if (parseFloat(row["Total"]) > 0) {
-          const tr = document.createElement("tr");
-          rawColumns.forEach(col => {
-            const td = document.createElement("td");
-         
-            
-         let cellValue = row[col] || "";
-if (!isNaN(cellValue) && cellValue.trim() !== "") {
-  const num = parseFloat(cellValue);
-  cellValue = num === 0 ? "" : num.toString();
-}
-td.textContent = cellValue;
-
-            // Brewer name links to their Brewer Lookup page
-            if (col === "Brewer" && cellValue) {
-              td.textContent = "";
-              const a = document.createElement("a");
-              a.href = "../brewer-lookup/?brewer=" + encodeURIComponent(cellValue);
-              a.textContent = cellValue;
-              a.title = "See " + cellValue + "'s placements";
-              td.appendChild(a);
-            }
-
-            tr.appendChild(td);
-          });
-          tbody.appendChild(tr);
+    function summarize(rows) {
+      const s = { total: 0, gold: 0, silver: 0, bronze: 0, hm: 0, bos1: 0, bos2: 0, bos3: 0 };
+      rows.forEach(r => {
+        s.total += num(r.Total);
+        const p = placeKey(r.Place);
+        if (!r.Place.toLowerCase().startsWith("bos")) {
+          if (p === "1st") s.gold++;
+          else if (p === "2nd") s.silver++;
+          else if (p === "3rd") s.bronze++;
+          else if (p === "hm") s.hm++;
         }
+        const bos = num(r.BOS);
+        if (bos === 3) s.bos1++;
+        else if (bos === 2) s.bos2++;
+        else if (bos === 1) s.bos3++;
       });
-
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      container.appendChild(table);
+      s.medals = s.gold + s.silver + s.bronze;
+      return s;
     }
-// --- Minimal search helpers (rows may change; columns are stable) ---
-function searchBrewerSimple(containerId) {
-  const q = document.getElementById('nameSearch').value.trim().toLowerCase();
-  const resultEl = document.getElementById('searchResult');
-  resultEl.textContent = '';
-  if (!q) return;
 
-  const table = document.getElementById(containerId);
-  const rows = Array.from(table.querySelectorAll('tbody tr'));
-  const ranks = [];
-
-  for (const tr of rows) {
-    const brewerCell = tr.cells[1]; // Brewer column is fixed (2nd visible column)
-    if (brewerCell && brewerCell.textContent.toLowerCase().includes(q)) {
-      const rankStr = tr.cells[0]?.textContent || '';
-      const rankNum = parseInt(rankStr, 10);
-      if (!Number.isNaN(rankNum)) ranks.push(rankNum);
+    function scoreRow(label, cls, s) {
+      return `<tr class="${cls}"><td>${label}</td><td class="num">${fmt(s.total)}</td>` +
+        `<td class="ctr">${s.medals}</td><td class="ctr">${s.gold}</td><td class="ctr">${s.silver}</td>` +
+        `<td class="ctr">${s.bronze}</td><td class="ctr">${s.hm}</td>` +
+        `<td class="ctr">${s.bos1}</td><td class="ctr">${s.bos2}</td><td class="ctr">${s.bos3}</td></tr>`;
     }
-  }
 
-  if (ranks.length === 0) {
-    resultEl.textContent = 'No matches found.';
-    return;
-  }
+    function render(name) {
+      const out = document.getElementById("results");
+      const rows = allRows.filter(r => r.Brewer.toLowerCase() === name.toLowerCase());
+      if (!rows.length) {
+        out.innerHTML = `<p class="message">No results found for "${esc(name)}". Pick a name from the list as you type.</p>`;
+        return;
+      }
+      const brewer = rows[0].Brewer;
+      const clubs = [...new Set(rows.map(r => r.Club).filter(Boolean))];
+      const north = rows.filter(r => r.Division === "North");
+      const south = rows.filter(r => r.Division === "South");
 
-  ranks.sort((a, b) => a - b);
-  resultEl.textContent = ranks.length === 1
-    ? `Ranked ${ranks[0]}`
-    : `Ranked ${ranks.join(', ')}`;
-}
+      let html = `<div class="division">
+        <p class="brewer-name">${esc(brewer)}</p>
+        <p class="brewer-club">${clubs.length ? clubs.map(c => `<a href="../club-lookup/?club=${encodeURIComponent(c)}">${esc(c)}</a>`).join(" / ") : "No club listed"}</p>
+        <table class="score">
+          <thead><tr><th>Division</th><th class="num">Points</th><th class="ctr">Medals</th>
+            <th class="ctr">🥇</th><th class="ctr">🥈</th><th class="ctr">🥉</th><th class="ctr">HM</th>
+            <th class="ctr">BOS 🥇</th><th class="ctr">BOS 🥈</th><th class="ctr">BOS 🥉</th></tr></thead>
+          <tbody>
+            ${scoreRow("North", "north", summarize(north))}
+            ${scoreRow("South", "south", summarize(south))}
+            ${scoreRow("All-State", "all", summarize(rows))}
+          </tbody>
+        </table>
+      </div>`;
 
-function wireSimpleSearch(containerId) {
-  const btn = document.getElementById('searchBtn');
-  const input = document.getElementById('nameSearch');
-  if (!btn || !input) return;
+      const shown = rows.filter(r => currentDiv === "All" || r.Division === currentDiv)
+        .sort((a, b) => (a.Division === b.Division ? 0 : a.Division === "North" ? -1 : 1));
 
-  btn.onclick = () => searchBrewerSimple(containerId);
-  input.addEventListener('keydown', e => { if (e.key === 'Enter') searchBrewerSimple(containerId); });
-}
-// --- end minimal search helpers ---
+      const compact = window.matchMedia("(max-width: 600px)").matches;
+      html += `<div class="division">`;
+      if (!shown.length) {
+        html += `<p class="message">No ${esc(currentDiv)} Division placements yet.</p>`;
+      } else {
+        html += `<table class="detail"><thead><tr>
+          <th>Competition</th>${compact ? "" : "<th>Style</th>"}<th>Entry</th><th class="ctr">Place</th>
+          ${compact ? "" : '<th class="num">Entries</th>'}
+          <th class="num">Score</th><th class="num">BOS</th><th class="num">Total</th><th class="ctr">Counts</th>
+          </tr></thead><tbody>`;
+        let lastComp = null;
+        shown.forEach(r => {
+          if (r.Competition !== lastComp) {
+            const compTotal = shown.filter(x => x.Competition === r.Competition).reduce((t, x) => t + num(x.Total), 0);
+            html += `<tr class="comp-head"><td colspan="${compact ? 5 : 7}">${esc(r.Competition)} (${esc(r.Division)})</td>` +
+                    `<td class="num">${fmt(compTotal)}</td><td></td></tr>`;
+            lastComp = r.Competition;
+          }
+          const bos = num(r.BOS);
+          const cls = [r.Counts === "No" ? "not-counted" : "", bos === 3 ? "bos-1" : bos === 2 ? "bos-2" : bos === 1 ? "bos-3" : ""].join(" ").trim();
+          const counts = r.Counts === "Yes" ? "✅" : r.Counts === "No" ? "❌" : "";
+          html += `<tr class="${cls}"><td></td>${compact ? "" : `<td>${esc(r.Style)}</td>`}<td>${esc(r["Entry Name"])}</td>` +
+            `<td class="ctr">${esc(r.Place)}</td>${compact ? "" : `<td class="num">${esc(r.Entries)}</td>`}` +
+            `<td class="num">${r.Score === "" ? "" : fmt(num(r.Score))}</td><td class="num">${bos ? fmt(bos) : ""}</td>` +
+            `<td class="num">${fmt(num(r.Total))}</td><td class="ctr">${counts}</td></tr>`;
+        });
+        html += `</tbody></table>
+          <p class="legend">Only a brewer's top 3 weighted placements per competition count (✅). ❌ placements score 0.
+          BOS points are added on top. Highlighted rows won Best of Show (gold, silver, bronze).
+          Team entries are credited to the first brewer listed.</p>`;
+      }
+      html += `</div>`;
+      out.innerHTML = html;
 
-   fetch(csvUrl)
-  .then(response => response.text())
-  .then(csv => {
-    const data = parseCSV(csv);
-    data.sort((a, b) => parseInt(a.Rank) - parseInt(b.Rank));
-    renderTable(data, "south-results");
-    wireSimpleSearch("south-results"); // <-- add this line
-  })
-  .catch(err => {
-    const container = document.getElementById("south-results");
-    container.innerHTML = "<p>Error loading data.</p>";
-    console.error(err);
-  });
+      const url = new URL(window.location);
+      url.searchParams.set("brewer", brewer);
+      history.replaceState(null, "", url);
+    }
 
+    function showFromInput() {
+      const name = document.getElementById("brewerInput").value.trim();
+      if (name) render(name);
+    }
+
+    fetch(csvUrl, { cache: "no-store" })
+      .then(r => r.text())
+      .then(csv => {
+        allRows = parseCSV(csv);
+        brewers = [...new Set(allRows.map(r => r.Brewer).filter(Boolean))]
+          .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+        document.getElementById("brewerList").innerHTML = brewers.map(b => `<option value="${esc(b)}">`).join("");
+
+        const input = document.getElementById("brewerInput");
+        document.getElementById("showBtn").onclick = showFromInput;
+        input.addEventListener("keydown", e => { if (e.key === "Enter") showFromInput(); });
+        input.addEventListener("change", showFromInput);
+
+        document.querySelectorAll(".divfilter button").forEach(btn => {
+          btn.onclick = () => {
+            currentDiv = btn.dataset.div;
+            document.querySelectorAll(".divfilter button").forEach(b => b.setAttribute("aria-pressed", b === btn ? "true" : "false"));
+            showFromInput();
+          };
+        });
+
+        window.matchMedia("(max-width: 600px)").addEventListener("change", showFromInput);
+
+        const fromUrl = new URLSearchParams(window.location.search).get("brewer");
+        if (fromUrl) { input.value = fromUrl; render(fromUrl); }
+        else document.getElementById("results").innerHTML =
+          `<p class="message">Type a brewer's name above to see their results.</p>`;
+      })
+      .catch(err => {
+        document.getElementById("results").innerHTML =
+          `<p class="message">Results couldn't be loaded. Refresh the page to try again.</p>`;
+        console.error(err);
+      });
   </script>
 <script data-goatcounter="https://chbcircuit.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
