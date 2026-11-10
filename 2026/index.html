@@ -142,6 +142,26 @@
 
     .champions h2 {
       margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .deck-btn {
+      font-size: 0.9rem;
+      font-weight: bold;
+      background-color: #e8b04b;
+      color: #222;
+      padding: 0.35rem 0.8rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .deck-btn:hover {
+      background-color: #d89c33;
+      text-decoration: none;
     }
 
     .prize-grid {
@@ -257,7 +277,12 @@ for providing an incredible prize package supporting the North, South, and All-S
   </p>
 
   <section class="champions" id="champions">
-    <h2>🏆 2026 California Homebrew Circuit Champions</h2>
+    <h2>
+      <span>🏆 2026 California Homebrew Circuit Champions</span>
+      <!-- Results deck button: replace DECK-LINK-HERE with the Publish-to-web link, then delete these comment markers
+      <a class="deck-btn" href="DECK-LINK-HERE" target="_blank" rel="noopener noreferrer">🎬 View the 2026 Year in Review →</a>
+      -->
+    </h2>
     <p>Congratulations to every brewer who entered, medaled and traveled the Circuit this season. And a huge thank you to
     <a href="https://www.morebeer.com/" target="_blank" rel="noopener noreferrer">MoreBeer!</a>,
     whose sponsorship made every 2026 prize package possible, North, South and All-State.</p>
@@ -297,10 +322,6 @@ for providing an incredible prize package supporting the North, South, and All-S
         </ol>
       </div>
     </div>
-
-    <!-- Results deck link: add when ready, e.g.
-    <p><a href="DECK-LINK-HERE" target="_blank" rel="noopener noreferrer">🎬 View the 2026 Year in Review →</a></p>
-    -->
 
     <div class="eligibility-note">
       <strong>Why prize winners can differ from the standings:</strong>
